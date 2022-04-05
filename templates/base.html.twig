@@ -54,11 +54,11 @@
 
         <!-- <h1 class="logo me-auto me-lg-0"><a href="index.html"><link href="assets/img/logo.png"></a></h1>-->
         <!-- Uncomment below if you prefer to use an image logo -->
-        <a href="index.html" class="logo"><img src="{{asset('front/assets/img/logo.png')}}" alt="" class="img-fluid"></a>
+        <a href="{{ path('app_test') }}" class="logo"><img src="{{asset('front/assets/img/logo.png')}}" alt="" class="img-fluid"></a>
 
         <nav id="navbar" class="navbar order-last order-lg-0">
             <ul>
-                <li><a class="active" href="index.html">Home</a></li>
+                <li><a class="active" href="{{ path('app_matching') }}">Home</a></li>
                 <li><a href="profile.html">Profile</a></li>
                 <li><a href="messages.html">Messages</a></li>
                 <li><a href="restaurants.html">Restaurants</a></li>
@@ -84,51 +84,14 @@
 <section id="hero" class="d-flex align-items-center">
     {% block body %}
 
-    <div class="tinder">
-        <div class="tinder--status">
-            <i class="fa fa-remove"></i>
-            <i class="fa fa-heart"></i>
-        </div>
 
-        <div class="tinder--cards">
-            <div class="tinder--card">
-                <img src="https://placeimg.com/600/300/people">
-                <h3>Demo card 1</h3>
-                <p>This is a demo for Tinder like swipe cards</p>
-            </div>
-            <div class="tinder--card">
-                <img src="https://placeimg.com/600/300/animals">
-                <h3>Demo card 2</h3>
-                <p>This is a demo for Tinder like swipe cards</p>
-            </div>
-            <div class="tinder--card">
-                <img src="https://placeimg.com/600/300/nature">
-                <h3>Demo card 3</h3>
-                <p>This is a demo for Tinder like swipe cards</p>
-            </div>
-            <div class="tinder--card">
-                <img src="https://placeimg.com/600/300/tech">
-                <h3>Demo card 4</h3>
-                <p>This is a demo for Tinder like swipe cards</p>
-            </div>
-            <div class="tinder--card">
-                <img src="https://placeimg.com/600/300/arch">
-                <h3>Demo card 5</h3>
-                <p>This is a demo for Tinder like swipe cards</p>
-            </div>
-        </div>
 
-        <div class="tinder--buttons">
-            <button id="nope"><i class="fa fa-remove"></i></button>
-            <button id="love"><i class="fa fa-heart"></i></button>
-        </div>
-    </div>
     {% endblock %}
 
 </section><!-- End Hero -->
 
 
-<!-- ======= Footer =======
+{% block footer %}
 <footer id="footer">
   <div class="container">
     <div class="copyright">
@@ -139,7 +102,9 @@
       Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
     </div>
   </div>
-</footer>End  Footer-->
+</footer>
+{% endblock %}
+
 
 <div id="preloader"></div>
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -157,109 +122,7 @@
 
 <!-- Template Main JS File -->
 <script src="front/assets/js/main.js"></script>
-<script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script>
 
-<script src='https://hammerjs.github.io/dist/hammer.min.js'></script>
-<script id="rendered-js" >
-    'use strict';
-
-    var tinderContainer = document.querySelector('.tinder');
-    var allCards = document.querySelectorAll('.tinder--card');
-    var nope = document.getElementById('nope');
-    var love = document.getElementById('love');
-
-    function initCards(card, index) {
-        var newCards = document.querySelectorAll('.tinder--card:not(.removed)');
-
-        newCards.forEach(function (card, index) {
-            card.style.zIndex = allCards.length - index;
-            card.style.transform = 'scale(' + (20 - index) / 20 + ') translateY(-' + 30 * index + 'px)';
-            card.style.opacity = (10 - index) / 10;
-        });
-
-        tinderContainer.classList.add('loaded');
-    }
-
-    initCards();
-
-    allCards.forEach(function (el) {
-        var hammertime = new Hammer(el);
-
-        hammertime.on('pan', function (event) {
-            el.classList.add('moving');
-        });
-
-        hammertime.on('pan', function (event) {
-            if (event.deltaX === 0) return;
-            if (event.center.x === 0 && event.center.y === 0) return;
-
-            tinderContainer.classList.toggle('tinder_love', event.deltaX > 0);
-            tinderContainer.classList.toggle('tinder_nope', event.deltaX < 0);
-
-            var xMulti = event.deltaX * 0.03;
-            var yMulti = event.deltaY / 80;
-            var rotate = xMulti * yMulti;
-
-            event.target.style.transform = 'translate(' + event.deltaX + 'px, ' + event.deltaY + 'px) rotate(' + rotate + 'deg)';
-        });
-
-        hammertime.on('panend', function (event) {
-            el.classList.remove('moving');
-            tinderContainer.classList.remove('tinder_love');
-            tinderContainer.classList.remove('tinder_nope');
-
-            var moveOutWidth = document.body.clientWidth;
-            var keep = Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5;
-
-            event.target.classList.toggle('removed', !keep);
-
-            if (keep) {
-                event.target.style.transform = '';
-            } else {
-                var endX = Math.max(Math.abs(event.velocityX) * moveOutWidth, moveOutWidth);
-                var toX = event.deltaX > 0 ? endX : -endX;
-                var endY = Math.abs(event.velocityY) * moveOutWidth;
-                var toY = event.deltaY > 0 ? endY : -endY;
-                var xMulti = event.deltaX * 0.03;
-                var yMulti = event.deltaY / 80;
-                var rotate = xMulti * yMulti;
-
-                event.target.style.transform = 'translate(' + toX + 'px, ' + (toY + event.deltaY) + 'px) rotate(' + rotate + 'deg)';
-                initCards();
-            }
-        });
-    });
-
-    function createButtonListener(love) {
-        return function (event) {
-            var cards = document.querySelectorAll('.tinder--card:not(.removed)');
-            var moveOutWidth = document.body.clientWidth * 1.5;
-
-            if (!cards.length) return false;
-
-            var card = cards[0];
-
-            card.classList.add('removed');
-
-            if (love) {
-                card.style.transform = 'translate(' + moveOutWidth + 'px, -100px) rotate(-30deg)';
-            } else {
-                card.style.transform = 'translate(-' + moveOutWidth + 'px, -100px) rotate(30deg)';
-            }
-
-            initCards();
-
-            event.preventDefault();
-        };
-    }
-
-    var nopeListener = createButtonListener(false);
-    var loveListener = createButtonListener(true);
-
-    nope.addEventListener('click', nopeListener);
-    love.addEventListener('click', loveListener);
-    //# sourceURL=pen.js
-</script>
 {% endblock %}
 </body>
 
