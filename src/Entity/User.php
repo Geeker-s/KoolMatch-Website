@@ -140,5 +140,214 @@ class User
      */
     private $archive = '0';
 
+    public function getIdUser(): ?int
+    {
+        return $this->idUser;
+    }
+
+    public function getEmailUser(): ?string
+    {
+        return $this->emailUser;
+    }
+
+    public function setEmailUser(string $emailUser): self
+    {
+        $this->emailUser = $emailUser;
+
+        return $this;
+    }
+
+    public function getPasswordUser(): ?string
+    {
+        return $this->passwordUser;
+    }
+
+    public function setPasswordUser(string $passwordUser): self
+    {
+        $this->passwordUser = $passwordUser;
+
+        return $this;
+    }
+
+    public function getNomUser(): ?string
+    {
+        return $this->nomUser;
+    }
+
+    public function setNomUser(string $nomUser): self
+    {
+        $this->nomUser = $nomUser;
+
+        return $this;
+    }
+
+    public function getPrenomUser(): ?string
+    {
+        return $this->prenomUser;
+    }
+
+    public function setPrenomUser(string $prenomUser): self
+    {
+        $this->prenomUser = $prenomUser;
+
+        return $this;
+    }
+
+    public function getDatenaissanceUser(): ?\DateTimeInterface
+    {
+        return $this->datenaissanceUser;
+    }
+
+    public function setDatenaissanceUser(\DateTimeInterface $datenaissanceUser): self
+    {
+        $this->datenaissanceUser = $datenaissanceUser;
+
+        return $this;
+    }
+
+    public function getSexeUser(): ?string
+    {
+        return $this->sexeUser;
+    }
+
+    public function setSexeUser(string $sexeUser): self
+    {
+        $this->sexeUser = $sexeUser;
+
+        return $this;
+    }
+
+    public function getTelephoneUser(): ?int
+    {
+        return $this->telephoneUser;
+    }
+
+    public function setTelephoneUser(int $telephoneUser): self
+    {
+        $this->telephoneUser = $telephoneUser;
+
+        return $this;
+    }
+
+    public function getPhotoUser(): ?string
+    {
+        return $this->photoUser;
+    }
+
+    public function setPhotoUser(string $photoUser): self
+    {
+        $this->photoUser = $photoUser;
+
+        return $this;
+    }
+
+    public function getDescriptionUser(): ?string
+    {
+        return $this->descriptionUser;
+    }
+
+    public function setDescriptionUser(string $descriptionUser): self
+    {
+        $this->descriptionUser = $descriptionUser;
+
+        return $this;
+    }
+
+    public function getMaxdistanceUser(): ?int
+    {
+        return $this->maxdistanceUser;
+    }
+
+    public function setMaxdistanceUser(int $maxdistanceUser): self
+    {
+        $this->maxdistanceUser = $maxdistanceUser;
+
+        return $this;
+    }
+
+    public function getPreferredminageUser(): ?int
+    {
+        return $this->preferredminageUser;
+    }
+
+    public function setPreferredminageUser(int $preferredminageUser): self
+    {
+        $this->preferredminageUser = $preferredminageUser;
+
+        return $this;
+    }
+
+    public function getPreferredmaxageUser(): ?int
+    {
+        return $this->preferredmaxageUser;
+    }
+
+    public function setPreferredmaxageUser(int $preferredmaxageUser): self
+    {
+        $this->preferredmaxageUser = $preferredmaxageUser;
+
+        return $this;
+    }
+
+    public function getAdresseUser(): ?string
+    {
+        return $this->adresseUser;
+    }
+
+    public function setAdresseUser(string $adresseUser): self
+    {
+        $this->adresseUser = $adresseUser;
+
+        return $this;
+    }
+
+    public function getLatitude(): ?float
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(float $latitude): self
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(float $longitude): self
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getInteretUser(): ?int
+    {
+        return $this->interetUser;
+    }
+
+    public function setInteretUser(int $interetUser): self
+    {
+        $this->interetUser = $interetUser;
+
+        return $this;
+    }
+
+    public function getArchive(): ?int
+    {
+        return $this->archive;
+    }
+
+    public function setArchive(int $archive): self
+    {
+        $this->archive = $archive;
+
+        return $this;
+    }
+
 
 }

@@ -70,5 +70,94 @@ class Evenement
      */
     private $archive = '0';
 
+    public function getIdEvent(): ?int
+    {
+        return $this->idEvent;
+    }
+
+    public function getNomEvent(): ?string
+    {
+        return $this->nomEvent;
+    }
+
+    public function setNomEvent(string $nomEvent): self
+    {
+        $this->nomEvent = $nomEvent;
+
+        return $this;
+    }
+
+    public function getDdEvent(): ?\DateTimeInterface
+    {
+        return $this->ddEvent;
+    }
+
+    public function setDdEvent(\DateTimeInterface $ddEvent): self
+    {
+        $this->ddEvent = $ddEvent;
+
+        return $this;
+    }
+
+    public function getDfEvent(): ?\DateTimeInterface
+    {
+        return $this->dfEvent;
+    }
+
+    public function setDfEvent(\DateTimeInterface $dfEvent): self
+    {
+        $this->dfEvent = $dfEvent;
+
+        return $this;
+    }
+
+    public function getThemeEvent(): ?string
+    {
+        return $this->themeEvent;
+    }
+
+    public function setThemeEvent(string $themeEvent): self
+    {
+        $this->themeEvent = $themeEvent;
+
+        return $this;
+    }
+
+    public function getAdresseEvent(): ?string
+    {
+        return $this->adresseEvent;
+    }
+
+    public function setAdresseEvent(string $adresseEvent): self
+    {
+        $this->adresseEvent = $adresseEvent;
+
+        return $this;
+    }
+
+    public function getTelephone(): ?int
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(int $telephone): self
+    {
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getArchive(): ?int
+    {
+        return $this->archive;
+    }
+
+    public function setArchive(int $archive): self
+    {
+        $this->archive = $archive;
+
+        return $this;
+    }
+
 
 }

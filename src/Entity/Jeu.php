@@ -49,5 +49,58 @@ class Jeu
      */
     private $archive = '0';
 
+    public function getIdJeu(): ?int
+    {
+        return $this->idJeu;
+    }
+
+    public function getScoreJeu(): ?int
+    {
+        return $this->scoreJeu;
+    }
+
+    public function setScoreJeu(int $scoreJeu): self
+    {
+        $this->scoreJeu = $scoreJeu;
+
+        return $this;
+    }
+
+    public function getIdQuiz(): ?int
+    {
+        return $this->idQuiz;
+    }
+
+    public function setIdQuiz(int $idQuiz): self
+    {
+        $this->idQuiz = $idQuiz;
+
+        return $this;
+    }
+
+    public function getIdUser(): ?int
+    {
+        return $this->idUser;
+    }
+
+    public function setIdUser(int $idUser): self
+    {
+        $this->idUser = $idUser;
+
+        return $this;
+    }
+
+    public function getArchive(): ?int
+    {
+        return $this->archive;
+    }
+
+    public function setArchive(int $archive): self
+    {
+        $this->archive = $archive;
+
+        return $this;
+    }
+
 
 }

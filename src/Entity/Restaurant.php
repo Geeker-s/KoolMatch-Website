@@ -105,5 +105,154 @@ class Restaurant
      */
     private $lien;
 
+    public function getIdRestaurant(): ?int
+    {
+        return $this->idRestaurant;
+    }
+
+    public function getNomRestaurant(): ?string
+    {
+        return $this->nomRestaurant;
+    }
+
+    public function setNomRestaurant(string $nomRestaurant): self
+    {
+        $this->nomRestaurant = $nomRestaurant;
+
+        return $this;
+    }
+
+    public function getAdresseRestaurant(): ?string
+    {
+        return $this->adresseRestaurant;
+    }
+
+    public function setAdresseRestaurant(string $adresseRestaurant): self
+    {
+        $this->adresseRestaurant = $adresseRestaurant;
+
+        return $this;
+    }
+
+    public function getTelephoneRestaurant(): ?int
+    {
+        return $this->telephoneRestaurant;
+    }
+
+    public function setTelephoneRestaurant(int $telephoneRestaurant): self
+    {
+        $this->telephoneRestaurant = $telephoneRestaurant;
+
+        return $this;
+    }
+
+    public function getSitewebRestaurant(): ?string
+    {
+        return $this->sitewebRestaurant;
+    }
+
+    public function setSitewebRestaurant(string $sitewebRestaurant): self
+    {
+        $this->sitewebRestaurant = $sitewebRestaurant;
+
+        return $this;
+    }
+
+    public function getSpecialiteRestaurant(): ?string
+    {
+        return $this->specialiteRestaurant;
+    }
+
+    public function setSpecialiteRestaurant(string $specialiteRestaurant): self
+    {
+        $this->specialiteRestaurant = $specialiteRestaurant;
+
+        return $this;
+    }
+
+    public function getIdGerant(): ?int
+    {
+        return $this->idGerant;
+    }
+
+    public function setIdGerant(int $idGerant): self
+    {
+        $this->idGerant = $idGerant;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getArchive(): ?int
+    {
+        return $this->archive;
+    }
+
+    public function setArchive(?int $archive): self
+    {
+        $this->archive = $archive;
+
+        return $this;
+    }
+
+    public function getNbPlaceresto(): ?int
+    {
+        return $this->nbPlaceresto;
+    }
+
+    public function setNbPlaceresto(int $nbPlaceresto): self
+    {
+        $this->nbPlaceresto = $nbPlaceresto;
+
+        return $this;
+    }
+
+    public function getImageStructureResturant(): ?string
+    {
+        return $this->imageStructureResturant;
+    }
+
+    public function setImageStructureResturant(string $imageStructureResturant): self
+    {
+        $this->imageStructureResturant = $imageStructureResturant;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getLien(): ?string
+    {
+        return $this->lien;
+    }
+
+    public function setLien(string $lien): self
+    {
+        $this->lien = $lien;
+
+        return $this;
+    }
+
 
 }

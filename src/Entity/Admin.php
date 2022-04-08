@@ -42,5 +42,46 @@ class Admin
      */
     private $archive = '0';
 
+    public function getIdAdmin(): ?int
+    {
+        return $this->idAdmin;
+    }
+
+    public function getLoginAdmin(): ?string
+    {
+        return $this->loginAdmin;
+    }
+
+    public function setLoginAdmin(string $loginAdmin): self
+    {
+        $this->loginAdmin = $loginAdmin;
+
+        return $this;
+    }
+
+    public function getPasswordAdmin(): ?string
+    {
+        return $this->passwordAdmin;
+    }
+
+    public function setPasswordAdmin(string $passwordAdmin): self
+    {
+        $this->passwordAdmin = $passwordAdmin;
+
+        return $this;
+    }
+
+    public function getArchive(): ?int
+    {
+        return $this->archive;
+    }
+
+    public function setArchive(int $archive): self
+    {
+        $this->archive = $archive;
+
+        return $this;
+    }
+
 
 }

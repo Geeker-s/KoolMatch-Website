@@ -63,5 +63,82 @@ class Recette
      */
     private $archive = '0';
 
+    public function getIdRecette(): ?int
+    {
+        return $this->idRecette;
+    }
+
+    public function getNomRecette(): ?string
+    {
+        return $this->nomRecette;
+    }
+
+    public function setNomRecette(string $nomRecette): self
+    {
+        $this->nomRecette = $nomRecette;
+
+        return $this;
+    }
+
+    public function getPhotoRecette(): ?string
+    {
+        return $this->photoRecette;
+    }
+
+    public function setPhotoRecette(string $photoRecette): self
+    {
+        $this->photoRecette = $photoRecette;
+
+        return $this;
+    }
+
+    public function getDescriptionRecette(): ?string
+    {
+        return $this->descriptionRecette;
+    }
+
+    public function setDescriptionRecette(string $descriptionRecette): self
+    {
+        $this->descriptionRecette = $descriptionRecette;
+
+        return $this;
+    }
+
+    public function getCategorieRecette(): ?string
+    {
+        return $this->categorieRecette;
+    }
+
+    public function setCategorieRecette(string $categorieRecette): self
+    {
+        $this->categorieRecette = $categorieRecette;
+
+        return $this;
+    }
+
+    public function getDureeRecette(): ?int
+    {
+        return $this->dureeRecette;
+    }
+
+    public function setDureeRecette(int $dureeRecette): self
+    {
+        $this->dureeRecette = $dureeRecette;
+
+        return $this;
+    }
+
+    public function getArchive(): ?int
+    {
+        return $this->archive;
+    }
+
+    public function setArchive(int $archive): self
+    {
+        $this->archive = $archive;
+
+        return $this;
+    }
+
 
 }

@@ -77,5 +77,106 @@ class Reservation
      */
     private $adresse;
 
+    public function getIdReservation(): ?int
+    {
+        return $this->idReservation;
+    }
+
+    public function getDateReservation(): ?\DateTimeInterface
+    {
+        return $this->dateReservation;
+    }
+
+    public function setDateReservation(\DateTimeInterface $dateReservation): self
+    {
+        $this->dateReservation = $dateReservation;
+
+        return $this;
+    }
+
+    public function getNbplaceReservation(): ?int
+    {
+        return $this->nbplaceReservation;
+    }
+
+    public function setNbplaceReservation(int $nbplaceReservation): self
+    {
+        $this->nbplaceReservation = $nbplaceReservation;
+
+        return $this;
+    }
+
+    public function getIdRestaurant(): ?int
+    {
+        return $this->idRestaurant;
+    }
+
+    public function setIdRestaurant(int $idRestaurant): self
+    {
+        $this->idRestaurant = $idRestaurant;
+
+        return $this;
+    }
+
+    public function getIdUser(): ?int
+    {
+        return $this->idUser;
+    }
+
+    public function setIdUser(int $idUser): self
+    {
+        $this->idUser = $idUser;
+
+        return $this;
+    }
+
+    public function getArchive(): ?int
+    {
+        return $this->archive;
+    }
+
+    public function setArchive(int $archive): self
+    {
+        $this->archive = $archive;
+
+        return $this;
+    }
+
+    public function getNomResto(): ?string
+    {
+        return $this->nomResto;
+    }
+
+    public function setNomResto(string $nomResto): self
+    {
+        $this->nomResto = $nomResto;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
 
 }

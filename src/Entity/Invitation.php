@@ -42,5 +42,46 @@ class Invitation
      */
     private $archive = '0';
 
+    public function getIdInvitation(): ?int
+    {
+        return $this->idInvitation;
+    }
+
+    public function getNomEvent(): ?string
+    {
+        return $this->nomEvent;
+    }
+
+    public function setNomEvent(string $nomEvent): self
+    {
+        $this->nomEvent = $nomEvent;
+
+        return $this;
+    }
+
+    public function getIdUser(): ?int
+    {
+        return $this->idUser;
+    }
+
+    public function setIdUser(int $idUser): self
+    {
+        $this->idUser = $idUser;
+
+        return $this;
+    }
+
+    public function getArchive(): ?int
+    {
+        return $this->archive;
+    }
+
+    public function setArchive(int $archive): self
+    {
+        $this->archive = $archive;
+
+        return $this;
+    }
+
 
 }

@@ -21,24 +21,20 @@
     <!-- Vendor CSS Files -->
     {% block css%}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
-    <link href="front/assets/vendor/aos/aos.css" rel="stylesheet">
-    <link href="front/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="front/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="front/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="front/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="front/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{{asset('front/assets/vendor/aos/aos.css')}}" rel="stylesheet">
+    <link href="{{asset('front/assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('front/assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+    <link href="{{asset('front/assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
+    <link href="{{asset('front/assets/vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
+    <link href="{{asset('front/assets/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="front/assets/css/style.css" rel="stylesheet">
+    <link href="{{asset('front/assets/css/style.css')}}" rel="stylesheet">
     {% endblock %}
-
     <script>
         window.console = window.console || function(t) {};
     </script>
-
-
-
     <script>
         if (document.location.search.match(/type=embed/gi)) {
             window.parent.postMessage("resize", "*");
@@ -99,7 +95,7 @@
     </div>
     <div class="credits">
 
-      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      Designed by <a>BootstrapMade</a>
     </div>
   </div>
 </footer>
@@ -111,17 +107,17 @@
 
 <!-- Vendor JS Files -->
 {% block js %}
-<script src="front/assets/vendor/purecounter/purecounter.js"></script>
-<script src="front/assets/vendor/aos/aos.js"></script>
-<script src="front/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="front/assets/vendor/glightbox/js/glightbox.min.js"></script>
-<script src="front/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-<script src="front/assets/vendor/swiper/swiper-bundle.min.js"></script>
-<script src="front/assets/vendor/waypoints/noframework.waypoints.js"></script>
-<script src="front/assets/vendor/php-email-form/validate.js"></script>
+<script src="{{asset('front/assets/vendor/purecounter/purecounter.js')}}"></script>
+<script src="{{asset('front/assets/vendor/aos/aos.js')}}"></script>
+<script src="{{asset('front/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('front/assets/vendor/glightbox/js/glightbox.min.js')}}"></script>
+<script src="{{asset('front/assets/vendor/isotope-layout/isotope.pkgd.min.js')}}"></script>
+<script src="{{asset('front/assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
+<script src="{{asset('front/assets/vendor/waypoints/noframework.waypoints.js')}}"></script>
+<script src="{{asset('front/assets/vendor/php-email-form/validate.js')}}"></script>
 
 <!-- Template Main JS File -->
-<script src="front/assets/js/main.js"></script>
+<script src="{{asset('front/assets/js/main.js')}}"></script>
 
 {% endblock %}
 </body>

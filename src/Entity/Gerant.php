@@ -77,5 +77,106 @@ class Gerant
      */
     private $archive = '0';
 
+    public function getIdGerant(): ?int
+    {
+        return $this->idGerant;
+    }
+
+    public function getNomGerant(): ?string
+    {
+        return $this->nomGerant;
+    }
+
+    public function setNomGerant(string $nomGerant): self
+    {
+        $this->nomGerant = $nomGerant;
+
+        return $this;
+    }
+
+    public function getPrenomGerant(): ?string
+    {
+        return $this->prenomGerant;
+    }
+
+    public function setPrenomGerant(string $prenomGerant): self
+    {
+        $this->prenomGerant = $prenomGerant;
+
+        return $this;
+    }
+
+    public function getEmailGerant(): ?string
+    {
+        return $this->emailGerant;
+    }
+
+    public function setEmailGerant(string $emailGerant): self
+    {
+        $this->emailGerant = $emailGerant;
+
+        return $this;
+    }
+
+    public function getPasswordGerant(): ?string
+    {
+        return $this->passwordGerant;
+    }
+
+    public function setPasswordGerant(string $passwordGerant): self
+    {
+        $this->passwordGerant = $passwordGerant;
+
+        return $this;
+    }
+
+    public function getTelephoneGerant(): ?int
+    {
+        return $this->telephoneGerant;
+    }
+
+    public function setTelephoneGerant(int $telephoneGerant): self
+    {
+        $this->telephoneGerant = $telephoneGerant;
+
+        return $this;
+    }
+
+    public function getDdAbonnement(): ?\DateTimeInterface
+    {
+        return $this->ddAbonnement;
+    }
+
+    public function setDdAbonnement(\DateTimeInterface $ddAbonnement): self
+    {
+        $this->ddAbonnement = $ddAbonnement;
+
+        return $this;
+    }
+
+    public function getDfAbonnement(): ?\DateTimeInterface
+    {
+        return $this->dfAbonnement;
+    }
+
+    public function setDfAbonnement(\DateTimeInterface $dfAbonnement): self
+    {
+        $this->dfAbonnement = $dfAbonnement;
+
+        return $this;
+    }
+
+    public function getArchive(): ?int
+    {
+        return $this->archive;
+    }
+
+    public function setArchive(int $archive): self
+    {
+        $this->archive = $archive;
+
+        return $this;
+    }
+
 
 }

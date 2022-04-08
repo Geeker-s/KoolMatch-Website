@@ -17,4 +17,17 @@ class MatchingController extends AbstractController
             'controller_name' => 'MatchingController',
         ]);
     }
+
+
+    /**
+     * @Route ("/afficherMatching", name="afficher_matching")
+     */
+    public function afficher(){
+
+
+
+    }
+
+
+
 }
