@@ -379,8 +379,8 @@ h6 {
 #hero {
   width: 100%;
   height: 100vh;
-  background: url("../img/hero-bg.jpg") top right;
-  /*background-color: #ffa69e;*/
+  /*background: url("../img/hero-bg.png") top right;*/
+  background-color: #ffa69e;
   background-size: cover;
 }
 #hero .container {
@@ -487,7 +487,7 @@ section {
 # Cta
 --------------------------------------------------------------*/
 .cta {
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url("../img/hero-bg.jpg") fixed center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url("../img/hero-bg.png") fixed center center;
   background-size: cover;
   padding: 80px 0;
 }
@@ -1231,8 +1231,10 @@ section {
 }
 
 .tinder--card img {
+  width: 400px;
+  height: 50%;
   max-width: 100%;
-  max-height: 200px;
+  max-height: 400px;
   pointer-events: none;
 }
 
