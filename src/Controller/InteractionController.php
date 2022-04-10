@@ -20,4 +20,16 @@ class InteractionController extends AbstractController
             array('interactions' =>$interactions)
         );
     }
+
+    /**
+     * @Route("/interactionBack", name="app_interaction_back")
+     */
+    public  function InteractionBack(){
+        $interactions = $this->getDoctrine()->getRepository(User::class)->findAll();
+        return $this->render('interaction/interactionBack.html.twig' ,
+            array('interactions' =>$interactions)
+        );
+    }
+
+
 }
