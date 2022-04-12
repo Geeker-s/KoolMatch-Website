@@ -1,0 +1,110 @@
+{% extends 'back/index.html.twig' %}
+
+{% block title %}Backend KOOLMATCH{% endblock %}
+
+{% block body %}
+
+    <div class="pagetitle">
+        <h1>Interactions</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_back') }}">Home</a></li>
+                <li class="breadcrumb-item">Gestion Matching</li>
+                <li class="breadcrumb-item active">Interaction</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+    <!--  <div class="col-lg-6"> -->
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">List d'interactions</h5>
+            <!-- Default Table -->
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Type d'interaction</th>
+                    <th scope="col">User 1</th>
+                    <th scope="col">User 2</th>
+                    <th scope="col">Date d'interaction</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in interactions %}
+                <tr>
+                    <th scope="row">{{ i.idInteraction }}</th>
+                    <td>
+                        {% if i.typeInteraction == 'o' %}
+                           Love 😍
+                        {% else %}
+                            Reject 🫤
+                        {% endif %}
+                    </td>
+                    <td>{{  i.idUser1}}</td>
+                    <td>{{  i.idUser2}}</td>
+                    <td>{{  i.dateInteraction | date("m/d/Y")  }} </td>
+                    <td><a href="#" >Auto Matching </a></td>
+                    <td>
+                        <a href="{{ path('deleteInteraction',{'id':i.idInteraction}) }}">
+                            Supprimer
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('updateInteraction',{'id':i.idInteraction}) }}">Modifier</a>
+                    </td>
+                </tr>
+                {%  endfor %}
+                </tbody>
+            </table>
+            <!-- End Default Table Example -->
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">List des Matches</h5>
+
+            <!-- Dark Table -->
+            <table class="table table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">User 1</th>
+                    <th scope="col">User 2</th>
+                    <th scope="col">Date Matching</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Brandon Jacob</td>
+                    <td>Designer</td>
+                    <td>28</td>
+                    <td>
+                        <a>Supprimer</a>
+                    </td>
+                    <td>
+                        <a>Modifier</a>
+                    </td>
+                </tr>
+
+
+                </tbody>
+            </table>
+            <!-- End Dark Table -->
+
+        </div>
+    </div>
+
+
+{% endblock %}

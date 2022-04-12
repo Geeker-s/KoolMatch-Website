@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,15 +20,11 @@ class MatchingController extends AbstractController
 
 
     /**
-     * @Route ("/afficherMatching", name="afficher_matching")
+     * @Route ("/back/matching",name="back_matching")
      */
-    public function afficher(){
-
-    $matches = $this->getDoctrine()->getRepository(User::class)->findAll();
-    return $this->render("matching/matches.html.twig",array('matches' =>$matches));
-
+    public function listMatching(){
+        return $this->render('back/matching.html.twig', [
+            'controller_name' => 'MatchingController',
+        ]);
     }
-
-
-
 }

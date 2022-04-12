@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,6 +32,7 @@ class Interaction
      * @var \DateTime
      *
      * @ORM\Column(name="date_interaction", type="date", nullable=false)
+     * @Assert\LessThanOrEqual("today",message="la date doit être inférieure a {{ compared_value }}.")
      */
     private $dateInteraction;
 

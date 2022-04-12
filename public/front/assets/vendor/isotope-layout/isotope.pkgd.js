@@ -3182,7 +3182,7 @@ var trim = String.prototype.trim ?
 
     var test = this._getFilterTest( filter );
 
-    // test each item
+    // home each item
     for ( var i=0; i < items.length; i++ ) {
       var item = items[i];
       if ( item.isIgnored ) {
@@ -3211,7 +3211,7 @@ var trim = String.prototype.trim ?
     };
   };
 
-  // get a jQuery, function, or a matchesSelector test given the filter
+  // get a jQuery, function, or a matchesSelector home given the filter
   proto._getFilterTest = function( filter ) {
     if ( jQuery && this.options.isJQueryFiltering ) {
       // use jQuery
