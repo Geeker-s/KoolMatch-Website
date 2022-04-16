@@ -1,0 +1,57 @@
+{% extends 'back/index.html.twig' %}
+
+
+
+{% block body %}
+
+
+<div class= "row" style="display: flex;align-items: center;justify-content: center;margin-top: 120px">
+
+
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Evenements</h5>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Nom </th>
+                        <th>Date debut</th>
+                        <th>Date fin</th>
+                        <th>Theme </th>
+                        <th>Adresse </th>
+                        <th>Telephone</th>
+                        <th>Modification</th>
+                        <th>Suppression</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for evenement in ev  %}
+                        <tr>
+                            <td>{{ evenement.nomEvent }}</td>
+                            <td>{{ evenement.ddEvent |date('d-m-Y') }}</td>
+                            <td>{{ evenement.dfEvent |date('d-m-Y') }}</td>
+                            <td>{{ evenement.themeEvent }}</td>
+                            <td>{{ evenement.adresseEvent }}</td>
+                            <td>{{ evenement.telephone }}</td>
+                            <td>
+                                <a class="btn btn-success" href="{{ path('modifevent',{'idEvent':evenement.idEvent}) }}">Modifier</a>
+                            </td>
+                            <td>
+                                <a class=" btn btn-danger" href="{{ path('supp_event',{'idEvent':evenement.idEvent}) }}">Supprimer</a>
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+                   </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+{% endblock %}

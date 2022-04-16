@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+
+    </style>
+
+
+{% for evenement in e  %}
+
+
+    <div   >
+
+        <!-- venue item-->
+
+    <section  >
+
+        <div style="margin-right: 10px;margin-left: 10px" >
+            <div class="card h-100 border-0 shadow ">
+                    <div class="card-img-overlay-bottom z-index-20">
+                        <h4 >{{ evenement.nomEvent }}</h4>
+                        <p class="mb-2 text-xs"><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-gray-300">                    </i>
+                        </p>
+                    </div>
+                    <div class="card-img-overlay-top d-flex justify-content-between align-items-center">
+
+                        <div class="badge badge-transparent badge-pill px-3 py-2"></div><a class="card-fav-icon position-relative z-index-40" href="javascript: void();">
+                            <svg class="svg-icon text-white">
+
+                                <use xlink:href="#heart-1"> </use>
+                            </svg></a>
+                    </div>
+
+                <div class="card-body">
+                    <p class="text-sm text-muted mb-3"> {{ evenement.ddEvent |date('d-m-Y') }}</p>
+
+                    <p class="text-sm text-muted text-uppercase mb-1"> <a href="#" class="text-dark">{{ evenement.themeEvent }}</a></p>
+                    <p class="text-sm mb-0"><a class="mr-1" href="#">{{ evenement.adresseEvent }},</a><a class="mr-1" href="#"></a>
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    </div>
+
+
+{% endfor %}
+
+    <div>
+
+{{ knp_pagination_render( e ) }}
+
+    </div>
+
+
+{% endblock %}

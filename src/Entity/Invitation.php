@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Invitation
@@ -23,15 +24,18 @@ class Invitation
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Nom evenement doit etre non vide")
      * @ORM\Column(name="nom_event", type="string", length=255, nullable=false)
+     *
+     *
      */
     private $nomEvent;
 
     /**
      * @var int
-     *
+     *@Assert\NotBlank(message="Id User doit etre non vide")
      * @ORM\Column(name="id_user", type="integer", nullable=false)
+     *
      */
     private $idUser;
 
@@ -82,6 +86,7 @@ class Invitation
 
         return $this;
     }
+
 
 
 }
