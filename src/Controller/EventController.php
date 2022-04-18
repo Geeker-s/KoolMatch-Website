@@ -6,6 +6,7 @@ use App\Entity\Evenement;
 use App\Form\EventType;
 
 use Knp\Component\Pager\PaginatorInterface;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,12 +48,15 @@ class EventController extends AbstractController
         ]);
     }
 
-
+    public function __construct(FlashyNotifier $flashy)
+    {
+        $this->flashy = $flashy;
+    }
 
     /**
      * @Route("/addevent", name="addevent")
      */
-    public function Addevent(Request $request): Response
+    public function Addevent(Request $request , FlashyNotifier $flashy): Response
     {
         $event = new Evenement();
         $form = $this->createForm(EventType::class,$event);
@@ -61,8 +65,9 @@ class EventController extends AbstractController
             $em=$this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
+            $this->flashy->success('info','added successfully!');
 
-            return $this->redirectToRoute('afficher_event');
+            //return $this->redirectToRoute('afficher_event');
         }
         return $this->render('event/createevent.html.twig',['f'=>$form->createView()]);
 
@@ -77,6 +82,7 @@ class EventController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->remove($evenement);
         $em->flush();
+        $this->flashy->success('info2','deleted successfully!');
 
         return $this->redirectToRoute('afficher_event');
 

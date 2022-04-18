@@ -13,7 +13,7 @@
 {% for evenement in e  %}
 
 
-    <div   >
+
 
         <!-- venue item-->
 
@@ -45,20 +45,25 @@
 
             </div>
 
+
         </div>
+
+
+
+
     </section>
-
-
-    </div>
-
 
 {% endfor %}
 
-    <div>
+    <div class="navigation "style="margin-top: -720px; justify-items: center;justify-content: center; " >
 
-{{ knp_pagination_render( e ) }}
+
+        {{ knp_pagination_render(e) }}
 
     </div>
 
 
 {% endblock %}
+
+
+
