@@ -48,10 +48,7 @@ class EventController extends AbstractController
         ]);
     }
 
-    public function __construct(FlashyNotifier $flashy)
-    {
-        $this->flashy = $flashy;
-    }
+
 
     /**
      * @Route("/addevent", name="addevent")
@@ -65,7 +62,7 @@ class EventController extends AbstractController
             $em=$this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
-            $this->flashy->success('info','added successfully!');
+            $this->addFlash('info','added successfully!');
 
             //return $this->redirectToRoute('afficher_event');
         }
@@ -82,9 +79,9 @@ class EventController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->remove($evenement);
         $em->flush();
-        $this->flashy->success('info2','deleted successfully!');
+        $this->addFlash('info2','deleted successfully!');
 
-        return $this->redirectToRoute('afficher_event');
+        return $this->redirectToRoute('afficher_eventBack');
 
     }
 
@@ -100,8 +97,9 @@ class EventController extends AbstractController
             $em=$this->getDoctrine()->getManager();
 
             $em->flush();
+            $this->addFlash('info3','updated successfully!');
 
-            return $this->redirectToRoute('afficher_event');
+            //return $this->redirectToRoute('afficher_event');
         }
         return $this->render('event/updateevent.html.twig',['f'=>$form->createView()]);
 

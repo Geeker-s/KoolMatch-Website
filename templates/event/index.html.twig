@@ -4,6 +4,12 @@
 
 {% block body %}
 
+    {% for message in app.flashes('info2') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+
 
 <div class= "row" style="display: flex;align-items: center;justify-content: center;margin-top: 120px">
 
