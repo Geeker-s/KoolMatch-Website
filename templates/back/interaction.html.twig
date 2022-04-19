@@ -14,97 +14,134 @@
             </ol>
         </nav>
     </div><!-- End Page Title -->
-
     <section class="section">
         <div class="row">
-    <!--  <div class="col-lg-6"> -->
 
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">List d'interactions</h5>
-            <!-- Default Table -->
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Type d'interaction</th>
-                    <th scope="col">User 1</th>
-                    <th scope="col">User 2</th>
-                    <th scope="col">Date d'interaction</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for i in interactions %}
-                <tr>
-                    <th scope="row">{{ i.idInteraction }}</th>
-                    <td>
-                        {% if i.typeInteraction == 'o' %}
-                           Love 😍
-                        {% else %}
-                            Reject 🫤
-                        {% endif %}
-                    </td>
-                    <td>{{  i.idUser1}}</td>
-                    <td>{{  i.idUser2}}</td>
-                    <td>{{  i.dateInteraction | date("m/d/Y")  }} </td>
-                    <td><a href="#" >Auto Matching </a></td>
-                    <td>
-                        <a href="{{ path('deleteInteraction',{'id':i.idInteraction}) }}">
-                            Supprimer
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{{ path('updateInteraction',{'id':i.idInteraction}) }}">Modifier</a>
-                    </td>
-                </tr>
-                {%  endfor %}
-                </tbody>
-            </table>
-            <!-- End Default Table Example -->
+
+            <!-- Interactions -->
+            <div class="col-12">
+                <div class="card recent-sales overflow-auto">
+                    {#    <div class="filter">
+                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                    </li>
+
+                    <li><a class="dropdown-item" href="#">Today</a></li>
+                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                </ul>
+            </div> #}
+                    <div class="card-body">
+                        <h5 class="card-title">Liste des Interactions</h5>
+                        <table class="table table-borderless datatable">
+                            <thead style="background-color: #f6f6fe">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Utilisateur X</th>
+                                <th scope="col">Utilisateur Y</th>
+                                <th scope="col">Date d'interaction</th>
+                                <th scope="col" width="10%"></th>
+                                <th scope="col" width="10%"><a href="#" class="align-center"><img
+                                                src="{{ asset('back/assets/img/Interaction/settings.png') }}"
+                                                width="20%"
+                                                alt="Auto Matching"></a></th>
+                                <th scope="col">Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for i in interactions %}
+                                <tr>
+                                    <th scope="row">#{{ i.idInteraction }}</th>
+                                    <td>{{ i.idUser1.nomUser }}</td>
+                                    <td>{{ i.idUser2.nomUser }}</td>
+                                    <td>{{ i.dateInteraction | date("m/d/Y") }}</td>
+                                    <td>
+                                        <a href="{{ path('updateInteraction',{'id':i.idInteraction}) }}">
+                                            <img src="{{ asset('back/assets/img/Interaction/edit.png') }}" width="20%"
+                                                 alt="Modifier"></a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('deleteInteraction',{'id':i.idInteraction}) }}">
+                                            <img src="{{ asset('back/assets/img/Interaction/delete.png') }}" width="20%"
+                                                 alt="Supprimer">
+                                        </a>
+                                    </td>
+                                    <td>
+                                        {% if i.typeInteraction == 'o' %}
+                                            <span class="badge bg-success-light">Love 😍</span>
+                                        {% else %}
+                                            <span class="badge bg-danger-light">Reject 🫤</span>
+                                        {% endif %}
+
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- End Interactions -->
+
+
+            <!-- Matching -->
+            <div class="col-12">
+                <div class="card recent-sales overflow-auto">
+                    {#    <div class="filter">
+                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                    </li>
+
+                    <li><a class="dropdown-item" href="#">Today</a></li>
+                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                </ul>
+            </div> #}
+                    <div class="card-body">
+                        <h5 class="card-title">Liste des Matches</h5>
+                        <table class="table table-borderless datatable">
+                            <thead style="background-color: #f6f6fe">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Utilisateur X</th>
+                                <th scope="col">Utilisateur Y</th>
+                                <th scope="col">Date de Matching</th>
+                                <th scope="col" width="10%"></th>
+                                <th scope="col" width="10%"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for i in matches %}
+                                <tr>
+                                    <th scope="row">#{{ i.idMatch }}</th>
+                                    <td>{{ i.idUser1.nomUser }}</td>
+                                    <td>{{ i.idUser2.nomUser }}</td>
+                                    <td>{{ i.dateMatching | date("m/d/Y") }}</td>
+                                    <td>
+                                        <a href="{{ path('updateMatching',{'id':i.idMatch}) }}">
+                                            <img src="{{ asset('back/assets/img/Interaction/edit.png') }}" width="20%"
+                                                 alt="Modifier"></a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('deleteMatching',{'id':i.idMatch}) }}">
+                                            <img src="{{ asset('back/assets/img/Interaction/delete.png') }}" width="20%"
+                                                 alt="Supprimer">
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Matching -->
+
+
         </div>
-    </div>
-
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">List des Matches</h5>
-
-            <!-- Dark Table -->
-            <table class="table table-dark">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">User 1</th>
-                    <th scope="col">User 2</th>
-                    <th scope="col">Date Matching</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Brandon Jacob</td>
-                    <td>Designer</td>
-                    <td>28</td>
-                    <td>
-                        <a>Supprimer</a>
-                    </td>
-                    <td>
-                        <a>Modifier</a>
-                    </td>
-                </tr>
-
-
-                </tbody>
-            </table>
-            <!-- End Dark Table -->
-
-        </div>
-    </div>
-
-
+    </section>
 {% endblock %}

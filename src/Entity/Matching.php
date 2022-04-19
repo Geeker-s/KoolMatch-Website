@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Entity;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Matching
  *
- * @ORM\Table(name="matching")
+ * @ORM\Table(name="matching", indexes={@ORM\Index(name="fk_user2_matching", columns={"id_user2"}), @ORM\Index(name="fk_user1_matching", columns={"id_user1"})})
  * @ORM\Entity
  */
 class Matching
@@ -22,23 +22,10 @@ class Matching
     private $idMatch;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id_user1", type="integer", nullable=false)
-     */
-    private $idUser1;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_user2", type="integer", nullable=false)
-     */
-    private $idUser2;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="date_matching", type="date", nullable=false)
+     * @Assert\LessThanOrEqual("today",message="la date doit être inférieure a {{ compared_value }}.")
      */
     private $dateMatching;
 
@@ -49,33 +36,29 @@ class Matching
      */
     private $archive = '0';
 
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_user1", referencedColumnName="id_user")
+     * })
+     */
+    private $idUser1;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_user2", referencedColumnName="id_user")
+     * })
+     */
+    private $idUser2;
+
     public function getIdMatch(): ?int
     {
         return $this->idMatch;
-    }
-
-    public function getIdUser1(): ?int
-    {
-        return $this->idUser1;
-    }
-
-    public function setIdUser1(int $idUser1): self
-    {
-        $this->idUser1 = $idUser1;
-
-        return $this;
-    }
-
-    public function getIdUser2(): ?int
-    {
-        return $this->idUser2;
-    }
-
-    public function setIdUser2(int $idUser2): self
-    {
-        $this->idUser2 = $idUser2;
-
-        return $this;
     }
 
     public function getDateMatching(): ?\DateTimeInterface
@@ -98,6 +81,30 @@ class Matching
     public function setArchive(int $archive): self
     {
         $this->archive = $archive;
+
+        return $this;
+    }
+
+    public function getIdUser1(): ?User
+    {
+        return $this->idUser1;
+    }
+
+    public function setIdUser1(?User $idUser1): self
+    {
+        $this->idUser1 = $idUser1;
+
+        return $this;
+    }
+
+    public function getIdUser2(): ?User
+    {
+        return $this->idUser2;
+    }
+
+    public function setIdUser2(?User $idUser2): self
+    {
+        $this->idUser2 = $idUser2;
 
         return $this;
     }

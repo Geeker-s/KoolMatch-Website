@@ -3,7 +3,18 @@ body {
   overflow: hidden;
   color: #535353;
 }
-
+button{
+  border: none;
+  outline: none;
+  font-size: 50px;
+  color: #535353;
+  padding: 23px 44px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0);
+  box-shadow: 0 0 20px 0 rgba(0,0,0,0.1);
+}
 a {
   color: #84dcc6;
   text-decoration: none;
@@ -1234,6 +1245,14 @@ section {
   width: 400px;
   height: 50%;
   max-width: 100%;
+  max-height: 400px;
+  pointer-events: none;
+}
+
+.tinder--card img-icons{
+  width: 400px;
+  height: 50%;
+  max-width: 4%;
   max-height: 400px;
   pointer-events: none;
 }

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Interaction
  *
- * @ORM\Table(name="interaction")
+ * @ORM\Table(name="interaction", indexes={@ORM\Index(name="fk_user2_interaction", columns={"id_user2"}), @ORM\Index(name="fk_user1_interaction", columns={"id_user1"})})
  * @ORM\Entity
  */
 class Interaction
@@ -39,23 +39,29 @@ class Interaction
     /**
      * @var int
      *
-     * @ORM\Column(name="id_user1", type="integer", nullable=false)
+     * @ORM\Column(name="archive", type="integer", nullable=false)
+     */
+    private $archive = '0';
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_user1", referencedColumnName="id_user")
+     * })
      */
     private $idUser1;
 
     /**
-     * @var int
+     * @var \User
      *
-     * @ORM\Column(name="id_user2", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_user2", referencedColumnName="id_user")
+     * })
      */
     private $idUser2;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="archive", type="integer", nullable=false)
-     */
-    private $archive = '0';
 
     public function getIdInteraction(): ?int
     {
@@ -86,30 +92,6 @@ class Interaction
         return $this;
     }
 
-    public function getIdUser1(): ?int
-    {
-        return $this->idUser1;
-    }
-
-    public function setIdUser1(int $idUser1): self
-    {
-        $this->idUser1 = $idUser1;
-
-        return $this;
-    }
-
-    public function getIdUser2(): ?int
-    {
-        return $this->idUser2;
-    }
-
-    public function setIdUser2(int $idUser2): self
-    {
-        $this->idUser2 = $idUser2;
-
-        return $this;
-    }
-
     public function getArchive(): ?int
     {
         return $this->archive;
@@ -118,6 +100,29 @@ class Interaction
     public function setArchive(int $archive): self
     {
         $this->archive = $archive;
+
+        return $this;
+    }
+
+    public function getIdUser1(): ?User
+    {
+        return $this->idUser1;
+    }
+
+    public function setIdUser1(?User $idUser1): self
+    {
+        $this->idUser1 = $idUser1;
+        return $this;
+    }
+
+    public function getIdUser2(): ?User
+    {
+        return $this->idUser2;
+    }
+
+    public function setIdUser2(?User $idUser2): self
+    {
+        $this->idUser2 = $idUser2;
 
         return $this;
     }

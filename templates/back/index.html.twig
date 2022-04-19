@@ -10,24 +10,25 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="{{asset('front/assets/img/logo.png')}}" rel="icon">
-    <link href="{{asset('front/assets/img/logo.png')}}" rel="apple-touch-icon">
+    <link href="{{ asset('front/assets/img/logo.png') }}" rel="icon">
+    <link href="{{ asset('front/assets/img/logo.png') }}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-    {% block css%}
-    <!-- Vendor CSS Files -->
-    <link href="{{asset('back/assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{asset('back/assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
-    <link href="{{asset('back/assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
-    <link href="{{asset('back/assets/vendor/quill/quill.snow.css')}}" rel="stylesheet">
-    <link href="{{asset('back/assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
-    <link href="{{asset('back/assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
-    <link href="{{asset('back/assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+    {% block css %}
+        <!-- Vendor CSS Files -->
+        <link href="{{ asset('back/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('back/assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+        <link href="{{ asset('back/assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('back/assets/vendor/quill/quill.snow.css') }}" rel="stylesheet">
+        <link href="{{ asset('back/assets/vendor/quill/quill.bubble.css') }}" rel="stylesheet">
+        <link href="{{ asset('back/assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
+        <link href="{{ asset('back/assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
 
-    <!-- Template Main CSS File -->
-    <link href="{{asset('back/assets/css/style.css')}}" rel="stylesheet">
+        <!-- Template Main CSS File -->
+        <link href="{{ asset('back/assets/css/style.css') }}" rel="stylesheet">
     {% endblock %}
 </head>
 
@@ -38,7 +39,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center">
-            <img src="{{asset('front/assets/img/logo.png')}}" alt="">
+            <img src="{{ asset('front/assets/img/logo.png') }}" alt="">
             <span class="d-none d-lg-block">Koolmatch Admin</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -153,7 +154,7 @@
 
                     <li class="message-item">
                         <a href="#">
-                            <img src="back/assets/img/messages-1.jpg" alt="" class="rounded-circle">
+                            <img src="{{ asset('back/assets/img/messages-1.jpg') }}" alt="" class="rounded-circle">
                             <div>
                                 <h4>Maria Hudson</h4>
                                 <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -167,7 +168,7 @@
 
                     <li class="message-item">
                         <a href="#">
-                            <img src="back/assets/img/messages-2.jpg" alt="" class="rounded-circle">
+                            <img src="{{ asset('back/assets/img/messages-2.jpg') }}" alt="" class="rounded-circle">
                             <div>
                                 <h4>Anna Nelson</h4>
                                 <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -181,7 +182,7 @@
 
                     <li class="message-item">
                         <a href="#">
-                            <img src="back/assets/img/messages-3.jpg" alt="" class="rounded-circle">
+                            <img src="{{ asset('back/assets/img/messages-3.jpg') }}" alt="" class="rounded-circle">
                             <div>
                                 <h4>David Muldon</h4>
                                 <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -204,7 +205,7 @@
             <li class="nav-item dropdown pe-3">
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <img src="back/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                    <img src="{{ asset('back/assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
                     <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
                 </a><!-- End Profile Iamge Icon -->
 
@@ -381,8 +382,10 @@
         </li><!-- End Forms Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-layout-text-window-reverse"></i><span>Gestion Matching</span><i class="bi bi-chevron-down ms-auto"></i>
+            <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse"
+               href="{{ path('back_interaction') }}">
+                <i class="bi bi-layout-text-window-reverse"></i><span>Gestion Matching</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
@@ -500,22 +503,20 @@
 </aside><!-- End Sidebar-->
 
 
-
-
 <main id="main" class="main">
     {% block body %}
-    <div class="pagetitle">
-        <h1>Dashboard</h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
-        </nav>
-    </div><!-- End Page Title -->
+        <div class="pagetitle">
+            <h1>Dashboard</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
 
-    <section class="section dashboard">
-        <div class="row">
+        <section class="section dashboard">
+            <div class="row">
 
                 <div class="row">
 
@@ -545,7 +546,8 @@
                                     </div>
                                     <div class="ps-3">
                                         <h6>145</h6>
-                                        <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                                        <span class="text-success small pt-1 fw-bold">12%</span> <span
+                                                class="text-muted small pt-2 ps-1">increase</span>
 
                                     </div>
                                 </div>
@@ -580,7 +582,8 @@
                                     </div>
                                     <div class="ps-3">
                                         <h6>$3,264</h6>
-                                        <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                                        <span class="text-success small pt-1 fw-bold">8%</span> <span
+                                                class="text-muted small pt-2 ps-1">increase</span>
 
                                     </div>
                                 </div>
@@ -616,7 +619,8 @@
                                     </div>
                                     <div class="ps-3">
                                         <h6>1244</h6>
-                                        <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+                                        <span class="text-danger small pt-1 fw-bold">12%</span> <span
+                                                class="text-muted small pt-2 ps-1">decrease</span>
 
                                     </div>
                                 </div>
@@ -814,36 +818,46 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <th scope="row"><a href="#"><img src="back/assets/img/product-1.jpg" alt=""></a></th>
-                                        <td><a href="#" class="text-primary fw-bold">Ut inventore ipsa voluptas nulla</a></td>
+                                        <th scope="row"><a href="#"><img src="back/assets/img/product-1.jpg" alt=""></a>
+                                        </th>
+                                        <td><a href="#" class="text-primary fw-bold">Ut inventore ipsa voluptas
+                                                nulla</a></td>
                                         <td>$64</td>
                                         <td class="fw-bold">124</td>
                                         <td>$5,828</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row"><a href="#"><img src="back/assets/img/product-2.jpg" alt=""></a></th>
-                                        <td><a href="#" class="text-primary fw-bold">Exercitationem similique doloremque</a></td>
+                                        <th scope="row"><a href="#"><img src="back/assets/img/product-2.jpg" alt=""></a>
+                                        </th>
+                                        <td><a href="#" class="text-primary fw-bold">Exercitationem similique
+                                                doloremque</a></td>
                                         <td>$46</td>
                                         <td class="fw-bold">98</td>
                                         <td>$4,508</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row"><a href="#"><img src="back/assets/img/product-3.jpg" alt=""></a></th>
-                                        <td><a href="#" class="text-primary fw-bold">Doloribus nisi exercitationem</a></td>
+                                        <th scope="row"><a href="#"><img src="back/assets/img/product-3.jpg" alt=""></a>
+                                        </th>
+                                        <td><a href="#" class="text-primary fw-bold">Doloribus nisi exercitationem</a>
+                                        </td>
                                         <td>$59</td>
                                         <td class="fw-bold">74</td>
                                         <td>$4,366</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row"><a href="#"><img src="back/assets/img/product-4.jpg" alt=""></a></th>
-                                        <td><a href="#" class="text-primary fw-bold">Officiis quaerat sint rerum error</a></td>
+                                        <th scope="row"><a href="#"><img src="back/assets/img/product-4.jpg" alt=""></a>
+                                        </th>
+                                        <td><a href="#" class="text-primary fw-bold">Officiis quaerat sint rerum
+                                                error</a></td>
                                         <td>$32</td>
                                         <td class="fw-bold">63</td>
                                         <td>$2,016</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row"><a href="#"><img src="back/assets/img/product-5.jpg" alt=""></a></th>
-                                        <td><a href="#" class="text-primary fw-bold">Sit unde debitis delectus repellendus</a></td>
+                                        <th scope="row"><a href="#"><img src="back/assets/img/product-5.jpg" alt=""></a>
+                                        </th>
+                                        <td><a href="#" class="text-primary fw-bold">Sit unde debitis delectus
+                                                repellendus</a></td>
                                         <td>$79</td>
                                         <td class="fw-bold">41</td>
                                         <td>$3,239</td>
@@ -854,34 +868,35 @@
                         </div>
                     </div><!-- End Top Selling -->
                 </div>
-        </div>
-    </section>
+            </div>
+        </section>
     {% endblock %}
 </main><!-- End #main -->
 
 <!-- ======= Footer ======= -->
 {% block footer %}
-<footer id="footer" class="footer">
-    <div class="copyright">
-        &copy; Copyright <strong><span>KOOLMATCH</span></strong>. All Rights Reserved
-    </div>
-</footer><!-- End Footer -->
+    <footer id="footer" class="footer">
+        <div class="copyright">
+            &copy; Copyright <strong><span>KOOLMATCH</span></strong>. All Rights Reserved
+        </div>
+    </footer><!-- End Footer -->
 {% endblock %}
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
 
 <!-- Vendor JS Files -->
 {% block js %}
-<script src="{{asset('back/assets/vendor/apexcharts/apexcharts.min.js')}}"></script>
-<script src="{{asset('back/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<script src="{{asset('back/assets/vendor/chart.js/chart.min.js')}}"></script>
-<script src="{{asset('back/assets/vendor/echarts/echarts.min.js')}}"></script>
-<script src="{{asset('back/assets/vendor/quill/quill.min.js')}}"></script>
-<script src="{{asset('back/assets/vendor/simple-datatables/simple-datatables.js')}}"></script>
-<script src="{{asset('back/assets/vendor/tinymce/tinymce.min.js')}}"></script>
-<script src="{{asset('back/assets/vendor/php-email-form/validate.js')}}"></script>
+    <script src="{{ asset('back/assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('back/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('back/assets/vendor/chart.js/chart.min.js') }}"></script>
+    <script src="{{ asset('back/assets/vendor/echarts/echarts.min.js') }}"></script>
+    <script src="{{ asset('back/assets/vendor/quill/quill.min.js') }}"></script>
+    <script src="{{ asset('back/assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
+    <script src="{{ asset('back/assets/vendor/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('back/assets/vendor/php-email-form/validate.js') }}"></script>
 
-<!-- Template Main JS File -->
-<script src="{{asset('back/assets/js/main.js')}}"></script>
+    <!-- Template Main JS File -->
+    <script src="{{ asset('back/assets/js/main.js') }}"></script>
 {% endblock %}
 </body>
 
