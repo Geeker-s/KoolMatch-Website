@@ -33,8 +33,18 @@ class RecetteController extends AbstractController
     public function Afficher()
     {
         $repo = $this->getDoctrine()->getRepository(Recette::class);
-        $recette = $repo->findAll();
+        $recette = $repo->findBy(["archive" =>0]);
         return $this->render('recette/Afficher.html.twig', array("recette" => $recette));
+    }
+    /**
+     * @return Response
+     * @Route("/FAfficherR", name="FafficherR")
+     */
+    public function AfficherFR()
+    {
+        $repo = $this->getDoctrine()->getRepository(Recette::class);
+        $recette = $repo->findBy(["archive" =>0]);
+        return $this->render('front/AfficherRecette.html.twig', array("recette" => $recette));
     }
 
     /**

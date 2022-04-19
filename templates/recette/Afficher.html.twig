@@ -11,8 +11,8 @@
     <main>
 
         <div class="container mt-5 mb-5">
-            <div class="d-flex justify-content-between mb-3"> <span>Recette</span> <button class="tox-button--icon"><a href="{{ path('ajouter') }}">ajouter une Recette</a></button> </div>
-            <div class="d-flex justify-content-between mb-3"> <span>Recette</span> <button class="tox-button--icon"><a href="{{ path('ir') }}">imprimer une Recette</a></button> </div>
+            <div class="d-flex justify-content-between mb-3">  <button class="tox-button--icon"><a href="{{ path('ajouter') }}">ajouter une Recette</a></button> </div>
+            <div class="d-flex justify-content-between mb-3">  <button class="tox-button--icon"><a href="{{ path('ir') }}">imprimer une Recette</a></button> </div>
             <div class="row g-2">
                 {%  for r in recette %}
                     <div class="col-md-3">
@@ -22,11 +22,10 @@
 
                             </div>
                             <h5 class="mb-0">{{r.getNomRecette()}}</h5> <small>{{ r.getDescriptionRecette()}}</small><h5 class="mb-0">{{r.getCategorieRecette()}}</h5> <small>{{ r.getDureeRecette()}}</small>
-                            <div class="ratings mt-2"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
                             <div class="mt-4 apointment">
                                 <button class="btn btn-success text-uppercase" > <a href="{{ path('supp',{'id':r.getIdRecette()})}}">Delete </a></button>
                                 <button class="btn btn-success text-uppercase" ><a href="{{ path('update', {'id': r.getIdRecette()}) }}">edit</a></button>
-                                <button class="btn btn-success text-uppercase" ><a href="{{ path('b', {'id': r.getIdRecette()}) }}">play</a></button>
+
                             </div>
                         </div>
 

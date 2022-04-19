@@ -36,7 +36,7 @@ class JeuController extends AbstractController
      */
      public function Afficher(JeuRepository $jeuRepository){
          {$repository = $this->getDoctrine()->getRepository(Jeu::class);
-             $jeux = $repository->findAll();
+             $jeux = $repository->findBy(["archive" =>0]);
              $r1=0;
              $r2=0;
              $r3=0;
@@ -125,7 +125,7 @@ class JeuController extends AbstractController
              $em = $this->getDoctrine()->getManager();
              $em->persist($jeu1);
              $em->flush();
-             return $this->redirectToRoute("afficherR");
+             return $this->redirectToRoute("FafficherR");
          }
          else {
                $score= $jeu->getScoreJeu()+ $id;
@@ -133,7 +133,7 @@ class JeuController extends AbstractController
              $em = $this->getDoctrine()->getManager();
              $em->flush();
          }
-        return $this->redirectToRoute("afficherR");
+        return $this->redirectToRoute("FafficherR");
 
 
     }

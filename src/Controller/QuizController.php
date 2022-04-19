@@ -30,7 +30,7 @@ class QuizController extends AbstractController
     public function Afficher()
     {
         $repo = $this->getDoctrine()->getRepository(Quiz::class);
-        $quiz = $repo->findAll();
+        $quiz = $repo->findBy(["archive" =>0]);
         return $this->render('quiz/Afficher.html.twig', array("Quiz" => $quiz));
     }
 
