@@ -128,5 +128,14 @@ class InteractionController extends AbstractController
         return $this->render("back/updateInteraction.html.twig", array("formInteraction" => $form->createView()));
     }
 
+    /**
+     * @Route ("/autoMatching",name="automatching")
+     */
+    public function autoMatching(){
+
+
+        return $this->redirectToRoute("back_interaction");
+    }
+
 
 }
