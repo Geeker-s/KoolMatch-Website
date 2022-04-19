@@ -47,7 +47,7 @@ class Matching
      *
      * @ORM\Column(name="archive", type="integer", nullable=false)
      */
-    private $archive = '0';
+    private $archive;
 
     public function getIdMatch(): ?int
     {

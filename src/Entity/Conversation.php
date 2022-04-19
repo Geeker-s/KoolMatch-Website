@@ -47,7 +47,7 @@ class Conversation
      *
      * @ORM\Column(name="archive", type="integer", nullable=false)
      */
-    private $archive = '0';
+    private $archive;
 
     public function getIdConversation(): ?int
     {

@@ -3,16 +3,20 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 
 /**
  * Reservation
  *
- * @ORM\Table(name="reservation")
+ * @ORM\Table(name="reservation", indexes={@ORM\Index(name="FK_U", columns={"id_restaurant"})})
  * @ORM\Entity
  */
 class Reservation
 {
-    /**
+     /**
      * @var int
      *
      * @ORM\Column(name="id_reservation", type="integer", nullable=false)
@@ -25,24 +29,19 @@ class Reservation
      * @var \DateTime
      *
      * @ORM\Column(name="date_reservation", type="date", nullable=false)
+     * @Assert\GreaterThanOrEqual("today",message="la date doit être sup a {{ compared_value }}.")
      */
     private $dateReservation;
 
+    
     /**
      * @var int
      *
      * @ORM\Column(name="nbPlace_reservation", type="integer", nullable=false)
+     * @Assert\NotBlank(message="Number de place est requis")
      */
     private $nbplaceReservation;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_restaurant", type="integer", nullable=false)
-     */
-    private $idRestaurant;
-
-    /**
+/**
      * @var int
      *
      * @ORM\Column(name="id_user", type="integer", nullable=false)
@@ -60,6 +59,7 @@ class Reservation
      * @var string
      *
      * @ORM\Column(name="nom_resto", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Nom Restaurant est requis")
      */
     private $nomResto;
 
@@ -74,8 +74,19 @@ class Reservation
      * @var string
      *
      * @ORM\Column(name="adresse", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Adresse est requis")
      */
     private $adresse;
+
+    /**
+     * @var \Restaurant
+     *
+     * @ORM\ManyToOne(targetEntity="Restaurant")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_restaurant", referencedColumnName="id_restaurant")
+     * })
+     */
+    private $idRestaurant;
 
     public function getIdReservation(): ?int
     {
@@ -102,18 +113,6 @@ class Reservation
     public function setNbplaceReservation(int $nbplaceReservation): self
     {
         $this->nbplaceReservation = $nbplaceReservation;
-
-        return $this;
-    }
-
-    public function getIdRestaurant(): ?int
-    {
-        return $this->idRestaurant;
-    }
-
-    public function setIdRestaurant(int $idRestaurant): self
-    {
-        $this->idRestaurant = $idRestaurant;
 
         return $this;
     }
@@ -174,6 +173,18 @@ class Reservation
     public function setAdresse(string $adresse): self
     {
         $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getIdRestaurant(): ?Restaurant
+    {
+        return $this->idRestaurant;
+    }
+
+    public function setIdRestaurant(?Restaurant $idRestaurant): self
+    {
+        $this->idRestaurant = $idRestaurant;
 
         return $this;
     }

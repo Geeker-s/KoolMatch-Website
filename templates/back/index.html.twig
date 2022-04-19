@@ -27,7 +27,7 @@
     <link href="{{asset('back/assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="{{asset('back/assets/css/style.css')}}" rel="stylesheet">
+    <link href="{{asset ('back/assets/css/style.css')}}" rel="stylesheet">
     {% endblock %}
 </head>
 
@@ -51,85 +51,7 @@
         </form>
     </div><!-- End Search Bar -->
 
-    <nav class="header-nav ms-auto">
-        <ul class="d-flex align-items-center">
-
-            <li class="nav-item d-block d-lg-none">
-                <a class="nav-link nav-icon search-bar-toggle " href="#">
-                    <i class="bi bi-search"></i>
-                </a>
-            </li><!-- End Search Icon-->
-
-            <li class="nav-item dropdown">
-
-                <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                    <i class="bi bi-bell"></i>
-                    <span class="badge bg-primary badge-number">4</span>
-                </a><!-- End Notification Icon -->
-
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-                    <li class="dropdown-header">
-                        You have 4 new notifications
-                        <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li class="notification-item">
-                        <i class="bi bi-exclamation-circle text-warning"></i>
-                        <div>
-                            <h4>Lorem Ipsum</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
-                            <p>30 min. ago</p>
-                        </div>
-                    </li>
-
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li class="notification-item">
-                        <i class="bi bi-x-circle text-danger"></i>
-                        <div>
-                            <h4>Atque rerum nesciunt</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
-                            <p>1 hr. ago</p>
-                        </div>
-                    </li>
-
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li class="notification-item">
-                        <i class="bi bi-check-circle text-success"></i>
-                        <div>
-                            <h4>Sit rerum fuga</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
-                            <p>2 hrs. ago</p>
-                        </div>
-                    </li>
-
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li class="notification-item">
-                        <i class="bi bi-info-circle text-primary"></i>
-                        <div>
-                            <h4>Dicta reprehenderit</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
-                            <p>4 hrs. ago</p>
-                        </div>
-                    </li>
-
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li class="dropdown-footer">
-                        <a href="#">Show all notifications</a>
-                    </li>
+   
 
                 </ul><!-- End Notification Dropdown Items -->
 
@@ -153,7 +75,7 @@
 
                     <li class="message-item">
                         <a href="#">
-                            <img src="back/assets/img/messages-1.jpg" alt="" class="rounded-circle">
+                            <img src="{{ asset('back/assets/img/messages-1.jpg" alt="" class="rounded-circle')}}">
                             <div>
                                 <h4>Maria Hudson</h4>
                                 <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -167,7 +89,7 @@
 
                     <li class="message-item">
                         <a href="#">
-                            <img src="back/assets/img/messages-2.jpg" alt="" class="rounded-circle">
+                            <img src="{{ asset('back/assets/img/messages-2.jpg')}}" alt="" class="rounded-circle">
                             <div>
                                 <h4>Anna Nelson</h4>
                                 <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -181,7 +103,7 @@
 
                     <li class="message-item">
                         <a href="#">
-                            <img src="back/assets/img/messages-3.jpg" alt="" class="rounded-circle">
+                            <img src="{{ asset('back/assets/img/messages-3.jpg')}}" alt="" class="rounded-circle">
                             <div>
                                 <h4>David Muldon</h4>
                                 <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -204,7 +126,7 @@
             <li class="nav-item dropdown pe-3">
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <img src="back/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                    <img src="{{ asset('back/assets/img/profile-img.jpg')}}" alt="Profile" class="rounded-circle">
                     <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
                 </a><!-- End Profile Iamge Icon -->
 
@@ -280,72 +202,72 @@
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="components-alerts.html">
+                    <a href="{{ asset('components-alerts.html')}}">
                         <i class="bi bi-circle"></i><span>Alerts</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-accordion.html">
-                        <i class="bi bi-circle"></i><span>Accordion</span>
+                    <a href="{{('components-accordion.html')}}">
+                        <i class="{{ asset('bi bi-circle')}}"></i><span>Accordion</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-badges.html">
+                    <a href="{{ asset('components-badges.html')}}">
                         <i class="bi bi-circle"></i><span>Badges</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-breadcrumbs.html">
+                    <a href="{{ asset('components-breadcrumbs.html')}}">
                         <i class="bi bi-circle"></i><span>Breadcrumbs</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-buttons.html">
+                    <a href="{{ asset('components-buttons.html')}}">
                         <i class="bi bi-circle"></i><span>Buttons</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-cards.html">
+                    <a href="{{ asset('components-cards.html')}}">
                         <i class="bi bi-circle"></i><span>Cards</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-carousel.html">
+                    <a href="{{ asset('components-carousel.html')}}">
                         <i class="bi bi-circle"></i><span>Carousel</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-list-group.html">
+                    <a href="{{ asset('components-list-group.html')}}">
                         <i class="bi bi-circle"></i><span>List group</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-modal.html">
+                    <a href="{{ asset('components-modal.html')}}">
                         <i class="bi bi-circle"></i><span>Modal</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-tabs.html">
+                    <a href="{{ asset('components-tabs.html')}}">
                         <i class="bi bi-circle"></i><span>Tabs</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-pagination.html">
+                    <a href="{{ asset('components-pagination.html')}}">
                         <i class="bi bi-circle"></i><span>Pagination</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-progress.html">
+                    <a href="{{ asset('components-progress.html')}}">
                         <i class="bi bi-circle"></i><span>Progress</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-spinners.html">
+                    <a href="{{ asset('components-spinners.html')}}">
                         <i class="bi bi-circle"></i><span>Spinners</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-tooltips.html">
+                    <a href="{{ asset('components-tooltips.html')}}">
                         <i class="bi bi-circle"></i><span>Tooltips</span>
                     </a>
                 </li>
@@ -358,22 +280,22 @@
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="forms-elements.html">
+                    <a href="{{ asset('forms-elements.html')}}">
                         <i class="bi bi-circle"></i><span>Form Elements</span>
                     </a>
                 </li>
                 <li>
-                    <a href="forms-layouts.html">
+                    <a href="{{ asset('forms-layouts.html')}}">
                         <i class="bi bi-circle"></i><span>Form Layouts</span>
                     </a>
                 </li>
                 <li>
-                    <a href="forms-editors.html">
+                    <a href="{{ asset('forms-editors.html')}}">
                         <i class="bi bi-circle"></i><span>Form Editors</span>
                     </a>
                 </li>
                 <li>
-                    <a href="forms-validation.html">
+                    <a href="{{ asset('forms-validation.html')}}">
                         <i class="bi bi-circle"></i><span>Form Validation</span>
                     </a>
                 </li>
@@ -396,25 +318,48 @@
                     </a>
                 </li>
             </ul>
+            
         </li><!-- End Tables Nav -->
-
+ <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-layout-text-window-reverse"></i><span>Gestion Restaurants</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ path('restaurant_app') }}">
+                        <i class="bi bi-circle"></i><span>add Restaurants</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('liste1')}}">
+                        <i class="bi bi-circle"></i><span>Mes restaurants</span>
+                    </a>
+                </li>
+                 <li>
+                    <a href="{{ path('back_list')}}">
+                        <i class="bi bi-circle"></i><span>Les Reservations</span>
+                    </a>
+                </li>
+            </ul>
+            
+        </li><!-- End Tables Nav -->
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="charts-chartjs.html">
+                    <a href="{{ asset('charts-chartjs.html')}}">
                         <i class="bi bi-circle"></i><span>Chart.js</span>
                     </a>
-                </li>
+                </li>       
                 <li>
-                    <a href="charts-apexcharts.html">
+                    <a href="{{ asset('charts-apexcharts.html')}}">
                         <i class="bi bi-circle"></i><span>ApexCharts</span>
                     </a>
                 </li>
                 <li>
-                    <a href="charts-echarts.html">
+                    <a href="{{ asset('charts-echarts.html')}}">
                         <i class="bi bi-circle"></i><span>ECharts</span>
                     </a>
                 </li>

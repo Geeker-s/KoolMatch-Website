@@ -138,7 +138,7 @@ class Quiz
      *
      * @ORM\Column(name="archive", type="integer", nullable=true)
      */
-    private $archive = '0';
+    private $archive;
 
     public function getIdQuiz(): ?int
     {

@@ -1,0 +1,54 @@
+{% extends 'back/index.html.twig' %}
+{% block title %}Hello mes restaurants!{% endblock %}
+{% block body %}
+<section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+                <div class="card-body">
+               
+                <h5 class="card-title">Ajouter Restaurant</h5>
+        
+             <table class="table datatable">
+               
+                          <thead>
+                  <tr>
+                    <th scope="col">Nom resto</th>
+                    <th scope="col">Specialite</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Telephone</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Nb de place</th>
+                    
+                    <th scope="col">Image</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                          {% for e in Restaurant %}
+                    
+                        <tr>
+                        <td>{{ e.nomRestaurant|upper }}</td>
+                        <td>{{ e.specialiteRestaurant }}</td>
+                        <td>{{ e.adresseRestaurant}}</td>
+                        <td>{{ e.telephoneRestaurant  }}</td>
+                        <td>{{ e.description}}</td>
+                        <td>{{ e.nbPlaceresto }}</td>
+                       
+                        <td>{{ e.image }}</td>
+                      
+                    <td><button> <a href="{{ path('delete',{'idRestaurant':e.idRestaurant})}}">Delete </a></button>
+                  <button><a href="{{ path('update', {'idRestaurant': e.idRestaurant}) }}">edit</a></button></td>
+                        </tr>
+
+                 {% endfor %}
+                </table>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+   
+{% endblock %}
