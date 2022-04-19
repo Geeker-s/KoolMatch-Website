@@ -9,7 +9,11 @@
                 <div class="card-body">
                
                 <h5 class="card-title">Ajouter Restaurant</h5>
-        
+        {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+        {{message}}
+        </div>
+        {% endfor %}
              <table class="table datatable">
                
                           <thead>
@@ -35,7 +39,9 @@
                         <td>{{ e.description}}</td>
                         <td>{{ e.nbPlaceresto }}</td>
                        
-                        <td>{{ e.image }}</td>
+                       <td> <img style="width:100px ; height:100px" src="{{asset(e.image) }}"
+                                          class="img-responsive" alt="Image"></td>
+                                <td>
                       
                     <td><button> <a href="{{ path('delete',{'idRestaurant':e.idRestaurant})}}">Delete </a></button>
                   <button><a href="{{ path('update', {'idRestaurant': e.idRestaurant}) }}">edit</a></button></td>

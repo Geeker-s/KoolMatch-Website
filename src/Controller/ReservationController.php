@@ -50,12 +50,10 @@ class ReservationController extends AbstractController
         $reservation->setArchive(0);
         $reservation->setIdUser(1);
         $reservation->setImage('aaaaaaa');
-       
 
         $form=$this->createForm(reservationType::class,$reservation);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
-        
         {
             $em=$this->getDoctrine()->getManager();
             $em->persist($reservation);

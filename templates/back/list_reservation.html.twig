@@ -28,7 +28,39 @@
                         <p>{{detailE.adresseRestaurant}} </p>
                     
                 </div>
+<div class="example-wrapper">
+    <div class="container">
+            <div class="row">
+                <div></div>
+                <img id="postcard" src="{{ asset ('front/assets/img/logo.png') }}" alt="postcard" class="img-responsive move">
+                <div id="content" >
+                    <h1> KoolMatch </h1>
 
+                    {{ form_start(forms,{'attr': {novalidate: 'novalidate'}} ) }}
+ {{ form_errors(forms.nomResto) }}
+        {{ form_label(forms.nomResto,"Nom Restaurant") }}
+        {{ form_widget(forms.nomResto) }}
+
+        {{ form_errors(forms.adresse) }}
+        {{ form_label(forms.adresse,"Adresse Reservation") }}
+        {{ form_widget(forms.adresse,{'attr':{'class':'form-danger'}})}}
+
+        {{ form_errors(forms.nbplaceReservation) }}
+        {{ form_label(forms.nbplaceReservation,"Number de place") }}
+        {{ form_widget(forms.nbplaceReservation) }}
+
+        {{ form_errors(forms.dateReservation) }}
+        {{ form_label(forms.dateReservation,"Date Reservation") }}
+        {{ form_widget(forms.dateReservation)}}
+
+
+       
+                    {{ form_end(forms) }}
+                </div>
+            </div>
+            
+        </div>
+</div>
             </div>
         </article>
         
@@ -38,5 +70,5 @@
     
     </div>
 </div>
-
+<div class="example-wrapper">
 {% endblock %}
