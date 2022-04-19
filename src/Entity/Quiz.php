@@ -1,14 +1,15 @@
 <?php
 
 namespace App\Entity;
-
+use App\Repository\QuizRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Quiz
  *
- * @ORM\Table(name="quiz")
- * @ORM\Entity
+ * @ORM\Table(name="quiz", indexes={@ORM\Index(name="fk_r", columns={"id_recette"})})
+ * @ORM\Entity(repositoryClass=QuizRepository::class)
  */
 class Quiz
 {
@@ -22,16 +23,10 @@ class Quiz
     private $idQuiz;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id_jeu", type="integer", nullable=false)
-     */
-    private $idJeu;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="Q1", type="text", length=65535, nullable=false)
+     *
      */
     private $q1;
 
@@ -39,6 +34,7 @@ class Quiz
      * @var string
      *
      * @ORM\Column(name="rc1", type="text", length=65535, nullable=false)
+     * @Assert\NotBlank(message="la question est obligatoire")
      */
     private $rc1;
 
@@ -46,6 +42,7 @@ class Quiz
      * @var string
      *
      * @ORM\Column(name="rf11", type="text", length=65535, nullable=false)
+     * @Assert\NotBlank(message="la reponse est obligatoire")
      */
     private $rf11;
 
@@ -67,6 +64,7 @@ class Quiz
      * @var string
      *
      * @ORM\Column(name="Q2", type="text", length=65535, nullable=false)
+     * @Assert\NotBlank(message="la question est obligatoire")
      */
     private $q2;
 
@@ -74,6 +72,7 @@ class Quiz
      * @var string
      *
      * @ORM\Column(name="rc2", type="text", length=65535, nullable=false)
+     * @Assert\NotBlank(message="la reponse est obligatoire")
      */
     private $rc2;
 
@@ -109,6 +108,7 @@ class Quiz
      * @var string
      *
      * @ORM\Column(name="rc3", type="text", length=65535, nullable=false)
+     * @Assert\NotBlank(message="la question est obligatoire")
      */
     private $rc3;
 
@@ -116,6 +116,7 @@ class Quiz
      * @var string
      *
      * @ORM\Column(name="rf31", type="text", length=65535, nullable=false)
+     * @Assert\NotBlank(message="la reponse est obligatoire")
      */
     private $rf31;
 
@@ -140,21 +141,30 @@ class Quiz
      */
     private $archive = '0';
 
-    public function getIdQuiz(): ?int
+    /**
+     * @var \Recette
+     *
+     * @ORM\ManyToOne(targetEntity="Recette")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_recette", referencedColumnName="id_recette")
+     * })
+     */
+    protected $idRecette;
+
+    /**
+     * @return int
+     */
+    public function getIdQuiz(): int
     {
         return $this->idQuiz;
     }
 
-    public function getIdJeu(): ?int
+    /**
+     * @param int $idQuiz
+     */
+    public function setIdQuiz(int $idQuiz): void
     {
-        return $this->idJeu;
-    }
-
-    public function setIdJeu(int $idJeu): self
-    {
-        $this->idJeu = $idJeu;
-
-        return $this;
+        $this->idQuiz = $idQuiz;
     }
 
     public function getQ1(): ?string
@@ -345,6 +355,18 @@ class Quiz
     public function setArchive(?int $archive): self
     {
         $this->archive = $archive;
+
+        return $this;
+    }
+
+    public function getIdRecette(): ?Recette
+    {
+        return $this->idRecette;
+    }
+
+    public function setIdRecette(?Recette $idRecette): self
+    {
+        $this->idRecette = $idRecette;
 
         return $this;
     }

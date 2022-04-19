@@ -1,14 +1,15 @@
 <?php
 
 namespace App\Entity;
-
+use App\Repository\RecetteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Recette
  *
  * @ORM\Table(name="recette")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=RecetteRepository::class)
  */
 class Recette
 {
@@ -25,6 +26,7 @@ class Recette
      * @var string
      *
      * @ORM\Column(name="nom_recette", type="string", length=20, nullable=false)
+     * @Assert\NotBlank(message="le nom est obligatoire")
      */
     private $nomRecette;
 
@@ -46,6 +48,7 @@ class Recette
      * @var string
      *
      * @ORM\Column(name="categorie_recette", type="string", length=20, nullable=false)
+     * @Assert\NotBlank(message="categorie est obligatoire")
      */
     private $categorieRecette;
 
@@ -60,6 +63,7 @@ class Recette
      * @var int
      *
      * @ORM\Column(name="archive", type="integer", nullable=false)
+     * @Assert\NotBlank(message="la duree est obligatoire")
      */
     private $archive = '0';
 

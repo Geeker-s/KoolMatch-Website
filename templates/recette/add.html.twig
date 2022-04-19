@@ -1,0 +1,24 @@
+{% extends 'back/index.html.twig' %}
+
+{% block title %}Hello RecetteController!{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 1000px; width: 100%; font: 20px/1 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+
+    </style>
+    <div class="example-wrapper">
+    <div class="container">
+    <div class="row">
+    <div></div>
+    <img id="postcard" src="{{ asset ('front/assets/img/logo.png') }}" alt="postcard" class="img-responsive move">
+    <div id="content" >
+<h1>Ajout recette</h1>
+        {{ form_start(formrecette,{'attr': {'novalidate': 'novalidate'}} ) }}
+       {{ form_end(formrecette)}}
+    </div>
+    </div>
+    </div>
+    </div>
+{% endblock  %}

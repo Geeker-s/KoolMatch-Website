@@ -1,0 +1,54 @@
+{% extends 'back/index.html.twig' %}
+
+{% block title %}Hello RecetteController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 1000px; width: 95%; font: 17px/0.55 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+
+</style>
+
+<h1>List des Quiz</h1>
+    <br>
+<table >
+    <tr>
+        <th> Question 1</th>
+        <th> Réponse correct</th>
+        <td>choix 1</td>
+        <th> choix 2</th>
+        <td>choix 3</td>
+        <th> Question 2</th>
+        <th> Réponse correct</th>
+        <td>choix 1</td>
+        <th> choix 2</th>
+        <td>choix 3</td>
+        <th> Question 3</th>
+        <th> Réponse correct</th>
+        <td>choix 1</td>
+        <th> choix 2</th>
+        <td>choix 3</td>
+        <td>nom recette</td>
+    </tr>
+    <tr {% for q in Quiz %}  >
+        <td> {{ q.getQ1() }} </td>
+        <td>{{ q.getRc1() }} </td>
+        <td> {{ q.getRf11() }} </td>
+        <td>{{ q.getRf12() }} </td>
+        <td> {{ q.getRf13() }} </td>
+        <td> {{ q.getQ2() }} </td>
+        <td>{{ q.getRc2() }} </td>
+        <td> {{ q.getRf21() }} </td>
+        <td>{{ q.getRf22() }} </td>
+        <td> {{ q.getRf23() }} </td>
+        <td> {{ q.getQ3() }} </td>
+        <td>{{ q.getRc3() }} </td>
+        <td> {{ q.getRf31() }} </td>
+        <td>{{ q.getRf32() }} </td>
+        <td> {{ q.getRf33() }} </td>
+        <td> {{ q.idRecette.getNomRecette() }} </td>
+        <td><a href="{{ path('sq',{'id':q.getIdQuiz()})}}">Delete </a>
+        <td><a href="{{ path('u',{'id':q.getIdQuiz()})}}">Update </a>
+    </tr {% endfor %}>
+</table>
+{% endblock  %}

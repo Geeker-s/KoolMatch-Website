@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Entity;
-
+use App\Repository\JeuRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Jeu
  *
  * @ORM\Table(name="jeu")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=JeuRepository::class)
  */
 class Jeu
 {

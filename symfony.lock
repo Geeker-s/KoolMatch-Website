@@ -1,4 +1,7 @@
 {
+    "cmen/google-charts-bundle": {
+        "version": "5.0.0"
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {
@@ -79,6 +82,9 @@
     "doctrine/sql-formatter": {
         "version": "1.1.2"
     },
+    "dompdf/dompdf": {
+        "version": "v1.2.1"
+    },
     "egulias/email-validator": {
         "version": "3.1.2"
     },
@@ -87,6 +93,12 @@
     },
     "laminas/laminas-code": {
         "version": "4.5.1"
+    },
+    "laminas/laminas-eventmanager": {
+        "version": "3.4.0"
+    },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.4.1"
     },
     "monolog/monolog": {
         "version": "1.27.0"
@@ -102,6 +114,12 @@
     },
     "phar-io/version": {
         "version": "3.2.1"
+    },
+    "phenx/php-font-lib": {
+        "version": "0.5.4"
+    },
+    "phenx/php-svg-lib": {
+        "version": "0.4.1"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
@@ -155,6 +173,9 @@
     },
     "psr/log": {
         "version": "1.1.4"
+    },
+    "sabberworm/php-css-parser": {
+        "version": "8.4.0"
     },
     "sebastian/cli-parser": {
         "version": "1.0.1"
@@ -409,6 +430,9 @@
             "tests/bootstrap.php"
         ]
     },
+    "symfony/polyfill-intl-grapheme": {
+        "version": "v1.25.0"
+    },
     "symfony/polyfill-intl-icu": {
         "version": "v1.25.0"
     },
@@ -492,6 +516,9 @@
     "symfony/stopwatch": {
         "version": "v4.4.38"
     },
+    "symfony/string": {
+        "version": "v5.4.3"
+    },
     "symfony/translation": {
         "version": "4.4",
         "recipe": {
@@ -560,6 +587,15 @@
             "config/packages/test/web_profiler.yaml",
             "config/routes/dev/web_profiler.yaml"
         ]
+    },
+    "symfony/web-server-bundle": {
+        "version": "4.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "dae9b39fd6717970be7601101ce5aa960bf53d9a"
+        }
     },
     "symfony/yaml": {
         "version": "v4.4.37"
