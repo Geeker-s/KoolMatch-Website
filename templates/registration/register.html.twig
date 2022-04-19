@@ -1,0 +1,41 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <h1>Register</h1>
+
+    {# If there are any errors on the form, display them #}
+    {% set formErrors = registrationForm.vars.errors.form.getErrors(true) %}
+    {% if formErrors|length %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for error in formErrors %}
+                    <li>{{ error.message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {# Render the Form #}
+    {{ form_start(registrationForm) }}
+    {{ form_row(registrationForm.nomUser) }}
+    {{ form_row(registrationForm.prenomUser) }}
+    {{ form_row(registrationForm.emailUser) }}
+    {{ form_row(registrationForm.passwordUser) }}
+    {{ form_row(registrationForm.dateNaissance_user) }}
+    {{ form_row(registrationForm.sexe_user) }}
+    {{ form_row(registrationForm.telephone_user) }}
+    {{ form_row(registrationForm.photo_user) }}
+    {{ form_row(registrationForm.description_user) }}
+    {{ form_row(registrationForm.adresse_user) }}
+    {{ form_row(registrationForm.maxDistance_user) }}
+    {{ form_row(registrationForm.preferredMinAge_user) }}
+    {{ form_row(registrationForm.preferredMaxAge_user) }}
+    {{ form_row(registrationForm.latitude) }}
+    {{ form_row(registrationForm.longitude) }}
+    {{ form_row(registrationForm.Interet_user) }}
+    <button class="btn">Register</button>
+    {{ form_end(registrationForm) }}
+{% endblock %}
