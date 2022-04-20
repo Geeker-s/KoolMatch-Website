@@ -1,52 +1,21 @@
 {% extends 'base.html.twig' %}
 {% block title %}Hello mes restaurants!{% endblock %}
 {% block body %}
-
     {% for e in Restaurant %}
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
-
-<div class="container">
-    <div class="row">
-        <div class="col-lg-3">
-            <div class="sidebar">
-                
-        
-                        <div class="candidate-list-details">
-                          
-                            
-                            </div>
-                            </div>
-                            </div>
-        <div class="col-sm-6 col-lg-4 mb-4">
-                    <div class="candidate-list candidate-grid">
-                        <div class="candidate-list-image">
-                            <img class="img-fluid" src="{{e.image}}" alt="">
-                        </div>
-                        <div class="candidate-list-details">
-                            <div class="candidate-list-info">
-                                <div class="candidate-list-title">
-                                    <h5><a href="candidate-detail.html">{{e.nomRestaurant}}</a></h5>
-                                </div>
-                                <div class="candidate-list-option">
-                                    <ul class="list-unstyled">
-                                        <li><i class="fas fa-filter pr-1"></i>{{e.specialiteRestaurant}}</li>
-                                        <li><i class="fas fa-map-marker-alt pr-1"></i>{{e.adresseRestaurant}}</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="candidate-list-favourite-time">
-                                <a class="candidate-list-favourite order-2" href="/detail/{{e.idRestaurant}}"><i class="far fa-heart"></i></a>
-                                <span class="candidate-list-time order-1"><i class="far fa-clock pr-1"></i>3M ago</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                            
-
-        </div>
+ 
+<main class="page-content">
+  <div class="card">
+    <div class="content">
+    <img style="width:200px ; height:120px"src="{{asset(e.image)}}" />
+      <h2 class="title">{{e.nomRestaurant}}</h2>
+      <p class="copy">Les meilleurs restaurants de votre ville
+Avec un grand choix de restaurants, vous trouverez toujours votre plat préféré et découvrirez de nouveaux restaurants !</p>
+      <button class="btn"><a href="/detail/{{e.idRestaurant}}"> View Trips</a></button>
     </div>
-</div>
+  </div>
+</main>
 {%  endfor %}
+
 <div class="pagination">
                         {{ knp_pagination_render(Restaurant) }}
 

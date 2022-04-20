@@ -46,7 +46,7 @@ class RestaurantsController extends AbstractController
     {
         $Restaurant=$paginator->paginate(
         $Restaurant=$this->getDoctrine()->getRepository(Restaurant::class)->findAll(),
-        $request->query->getInt('page',1),2);
+        $request->query->getInt('page',1),5);
         return $this->render("Restaurants/list.html.twig",array("Restaurant"=>$Restaurant));
     }
    
@@ -62,7 +62,7 @@ class RestaurantsController extends AbstractController
          $data = array(    
          'detailE' => $detaild,
         );
-        return $this->render('back/listdetail.html.twig', $data);
+        return $this->render('back/list_reservation.html.twig', $data);
     }
 
       /**
@@ -93,7 +93,7 @@ class RestaurantsController extends AbstractController
             return $this->redirectToRoute("listereservation");
         }
         
-        return $this->render('back/list_reservation.html.twig',array('detailE' => $detaild,"forms"=>$form->createView()));
+        return $this->render('back/listdetail.html.twig',array('detailE' => $detaild,"forms"=>$form->createView()));
     }
 
     

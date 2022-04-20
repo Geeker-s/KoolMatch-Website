@@ -3,41 +3,67 @@
 {% block title %}detail{% endblock %}
 
 {% block body %}
- 
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
-<div class="container">
-    <div class="row">
-        <div class="col-md-5">
-            <div class="project-info-box mt-0">
-                <h5>RESTAURANT DETAILS</h5>
-                <p class="mb-0">{{detailE.description}}</p>
-            </div><!-- / project-info-box -->
+ <!--font awesome bootstrap CDN-->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-            <div class="project-info-box">
-                <p><b>Nom restaurant:</b> {{detailE.nomRestaurant}}</p>
-                <p><b>Numéro de téléphone:</b>{{detailE.telephoneRestaurant}}</p>
-                <p><b>Adresse:</b>{{detailE.adresseRestaurant}}</p>
-                <p><b>specialite:</b> {{detailE.specialiteRestaurant}}S</p>
-            </div><!-- / project-info-box -->
+  <link rel="stylesheet" href="style.css">
 
-            <div class="project-info-box mt-0 mb-0">
-                <p class="mb-0">
-                    <span class="fw-bold mr-10 va-middle hide-mobile">Share:</span>
-                    <a href="#x" class="btn btn-xs btn-facebook btn-circle btn-icon mr-5 mb-0"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#x" class="btn btn-xs btn-twitter btn-circle btn-icon mr-5 mb-0"><i class="fab fa-twitter"></i></a>
-                    <a href="#x" class="btn btn-xs btn-pinterest btn-circle btn-icon mr-5 mb-0"><i class="fab fa-pinterest"></i></a>
-                    <a href="#x" class="btn btn-xs btn-linkedin btn-circle btn-icon mr-5 mb-0"><i class="fab fa-linkedin-in"></i></a>
-                </p>
-            </div><!-- / project-info-box -->
-        </div><!-- / column -->
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
 
-        <div class="col-md-7">
-            <img src="{{asset(detailE.image)}}" alt="project-image" class="rounded">
-            <div class="project-info-box">
-                <p><b>Categories:</b> Design, Illustration</p>
-                <p><b>Skills:</b><a href="/detail_resto/{{detailE.idRestaurant}}">Reservation</a></p>
-            </div><!-- / project-info-box -->
-        </div><!-- / column -->
+<body>
+  <div class="card1">
+    <div class="image">
+      <img style="width:400px ; height:200px" src="{{asset(detailE.image)}}"></img>
     </div>
+    <div class="details">
+      <div class="center">
+        <h1>Meilleur resto<br></h1>
+        
+      </div>
+    </div>
+  </div>
+<link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+<div id='stars'></div>
+<div id='stars2'></div>
+<div id='stars3'></div>
+<div id='horizon'>
+  <div class='glow'></div>
 </div>
+<div id='earth'></div>
+<div id='title'>
+  {{detailE.nomRestaurant}}
+</div>
+<div id='subtitle'>
+  <span>
+  Specialité:{{detailE.specialiteRestaurant}}
+  </span>
+  <span>
+    Adresse :{{detailE.adresseRestaurant}}
+  </span>
+  <span>
+    Telephone :{{detailE.telephoneRestaurant}}
+  </span>
+  <div class="foorm">
+
+                                        {{ form_start(forms,{'attr': {novalidate: 'novalidate'}} ) }}
+                           
+                            {{ form_errors(forms.nbplaceReservation) }}
+                            {{ form_label(forms.nbplaceReservation,"Number de place") }}
+                            {{ form_widget(forms.nbplaceReservation) }}
+
+                            {{ form_errors(forms.dateReservation) }}
+                            {{ form_label(forms.dateReservation,"Date Reservation") }}
+                            {{ form_widget(forms.dateReservation)}}
+                           
+                            
+
+                        
+                                        {{ form_end(forms) }}
+
+</div>
+</div>
+
 {% endblock %}

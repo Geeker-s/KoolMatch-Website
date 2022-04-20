@@ -81,7 +81,7 @@ class Reservation
     /**
      * @var \Restaurant
      *
-     * @ORM\ManyToOne(targetEntity="Restaurant")
+     * @ORM\ManyToOne(targetEntity="Restaurant",)
      * @ORM\JoinColumns({
      * @ORM\JoinColumn(name="id_restaurant", referencedColumnName="id_restaurant")
      * })

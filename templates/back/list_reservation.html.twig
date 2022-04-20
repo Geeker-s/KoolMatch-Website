@@ -4,62 +4,26 @@
 
 {% block body %}
 
-<div class="container">
-    <div class="col-md-12 col-lg-12">
-        <article class="post vt-post">
-            <div class="row">
-                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-4">
-                    <div class="post-type post-img">
-                        <a href="#"><img src="{{asset(detailE.image)}}" class="img-responsive" alt="image post"></a>
-                    </div>
-                    <div class="author-info author-info-2">
-                        <ul class="list-inline">
-                            <li>
-                                <div class="info">
-                                    <p>Nom restaurant:
-                                    <strong>{{detailE.nomRestaurant}}</strong></p></div>
-                                     <br>
-                        <p>Address :<strong>{{detailE.adresseRestaurant}}</strong> </p>
-                            </li>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-8">
-                   
-                    <div class="example-wrapper">
-   
-                <img id="postcard" src="{{ asset ('front/assets/img/logo.png') }}" alt="postcard" class="img-responsive move">
-          <div>     
-                    <h1> KoolMatch </h1>
+<div class="ft-recipe"> 
+  <div class="ft-recipe__thumb"><span id="close-modal"><i class="ion ion-md-close"></i></span>
+    <h3>Bienvenue dans le meilleur restaurant</h3><img src="{{asset(detailE.image)}}" alt="Strawberry Waffle"/>
+  </div>
+  <div class="ft-recipe__content">
+    <header class="content__header">
+      <div class="row-wrapper">
+        <h2 class="recipe-title">{{detailE.nomRestaurant}}</h2>
+        <div class="user-rating"></div>
+      </div>
+      <ul class="recipe-details">
+        <li class="recipe-details-item time"><i class="ion ion-ios-clock-outline"></i><span class="value">Specialité</span><span class="title">{{detailE.specialiteRestaurant}} </span></li>
+        <li class="recipe-details-item ingredients"><i class="ion ion-ios-book-outline"></i><span class="value">Adresse</span><span class="title">{{detailE.adresseRestaurant}}</span></li>
+        <li class="recipe-details-item ingredients"><i class="ion ion-ios-book-outline"></i><span class="value">Telephone</span><span class="title">{{detailE.telephoneRestaurant}}</span></li>
 
-                                        {{ form_start(forms,{'attr': {novalidate: 'novalidate'}} ) }}
-                           
-                            {{ form_errors(forms.nbplaceReservation) }}
-                            {{ form_label(forms.nbplaceReservation,"Number de place") }}
-                            {{ form_widget(forms.nbplaceReservation) }}
-
-                            {{ form_errors(forms.dateReservation) }}
-                            {{ form_label(forms.dateReservation,"Date Reservation") }}
-                            {{ form_widget(forms.dateReservation)}}
-                           
-                            
-
-                        
-                                        {{ form_end(forms) }}
-                                
-            </div>
-            
-                </div>
-
-        </div>
+      </ul>
+    </header>
+    <p class="description">
+{{detailE.description}}
+    <footer class="content__footer"><a href="/detail_resto/{{detailE.idRestaurant}}">Reservation</a></footer>
+  </div>
 </div>
-            </div>
-        </article>
-        
-        
-       
-       
-    
-    </div>
-</div>
-<div class="example-wrapper">
 {% endblock %}
