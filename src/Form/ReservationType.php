@@ -3,12 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Reservation;
+use App\Entity\Restaurant;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\EntityType;
-
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 
 class ReservationType extends AbstractType
@@ -18,12 +18,12 @@ class ReservationType extends AbstractType
         $builder
             ->add('dateReservation')
             ->add('nbplaceReservation')
-            //->add('idRestaurant')
+            ->add('idRestaurant',EntityType::class,['class'=>Restaurant::class,'choice_label'=>'nomRestaurant','label'=>'choisissez le nom de votre restaurant'])
             //->add('idUser')
-           // ->add('archive')
-            ->add('nomResto')
-            // ->add('image')
-            ->add('adresse')
+            //->add('archive')
+            //->add('nomResto')
+            //->add('image')
+            //->add('adresse')
             ->add("save",SubmitType::class)
         ;
     }

@@ -83,7 +83,7 @@ class Reservation
      *
      * @ORM\ManyToOne(targetEntity="Restaurant")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_restaurant", referencedColumnName="id_restaurant")
+     * @ORM\JoinColumn(name="id_restaurant", referencedColumnName="id_restaurant")
      * })
      */
     private $idRestaurant;

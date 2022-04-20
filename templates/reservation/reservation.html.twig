@@ -17,13 +17,7 @@
                     <h1> KoolMatch </h1>
 
                     {{ form_start(forms,{'attr': {novalidate: 'novalidate'}} ) }}
- {{ form_errors(forms.nomResto) }}
-        {{ form_label(forms.nomResto,"Nom Restaurant") }}
-        {{ form_widget(forms.nomResto) }}
 
-        {{ form_errors(forms.adresse) }}
-        {{ form_label(forms.adresse,"Adresse Reservation") }}
-        {{ form_widget(forms.adresse,{'attr':{'class':'form-danger'}})}}
 
         {{ form_errors(forms.nbplaceReservation) }}
         {{ form_label(forms.nbplaceReservation,"Number de place") }}

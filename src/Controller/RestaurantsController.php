@@ -75,6 +75,9 @@ class RestaurantsController extends AbstractController
         $reservation->setArchive(0);
         $reservation->setIdUser(1);
         $reservation->setImage('aaaaaaa');
+        $reservation->setnomResto('aaaaaaa');
+        $reservation->setadresse('aaaaaaa');
+
        
        
 
@@ -87,7 +90,7 @@ class RestaurantsController extends AbstractController
             $em->persist($reservation);
             $em->flush();
 
-            return $this->redirectToRoute("reservation_app");
+            return $this->redirectToRoute("listereservation");
         }
         
         return $this->render('back/list_reservation.html.twig',array('detailE' => $detaild,"forms"=>$form->createView()));
@@ -119,20 +122,8 @@ class RestaurantsController extends AbstractController
 
         if($form->isSubmitted()&& $form->isValid())
         {
-           
-    $sid    = "AC74900876b5c27e0c2c667afe542f6934"; 
-$token  = "d44b6dbc8237514b3c000e08f3f805ff"; 
-$twilio = new Client($sid, $token); 
-
-$message = $twilio->messages 
-          ->create("+21658658857", // to 
-                   array(  
-                       "messagingServiceSid" => "MG1af988a0efdfac8890ae76afd693760a",      
-                       "body" => "votre réservation a été effectué avec succès" 
-                   ) 
-          ); 
-
-print($message->sid); 
+         
+   
              /**
              * @var UploadedFile $file
              */

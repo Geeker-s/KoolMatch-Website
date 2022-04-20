@@ -21,14 +21,8 @@
                       <p class="card-text">{{e.dateReservation.format('d/m/Y')}}</p>
                     
                     </div>
-                    <img src="{{e.image}}" class="card-img-bottom" alt="...">
-
-
-
-
-
-
-                
+                   <button> <a href="{{ path('delete1',{'idReservation':e.idReservation})}}">Delete </a>
+                   <button> <a href="{{ path('update1',{'idReservation':e.idReservation})}}">Delete </a>
              </div>
         {% endfor %}
         
