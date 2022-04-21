@@ -34,6 +34,7 @@ class Recette
      * @var string
      *
      * @ORM\Column(name="photo_recette", type="string", length=255, nullable=false)
+     * @Assert\Image()
      */
     private $photoRecette;
 

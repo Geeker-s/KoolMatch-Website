@@ -73,4 +73,11 @@ class JeuRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function orderBys()
+    {
+        $qb=$this->createQueryBuilder('j')
+            ->orderBy('j.scoreJeu','DESC');
+
+        return $qb->getQuery()->getResult();
+    }
 }

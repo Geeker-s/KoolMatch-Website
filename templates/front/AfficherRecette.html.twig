@@ -6,24 +6,48 @@
     <style>
         .example-wrapper { margin: 1em auto; max-width: 1000px; width: 95%; font: 18px/1.5 sans-serif; }
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+        .imp {
+            display: inline-block;
+            background-color: #FE7837;
+            border-radius: 10px;
+            border: 4px double #FE7837;
+            color: #FE7837;
+            text-align: center;
+            font-size: 28px;
+            padding: 5px;
+            width: 100%;
+            -webkit-transition: all 0.5s;
+            -moz-transition: all 0.5s;
+            -o-transition: all 0.5s;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btnk {
+            color: #fff;
+            background-color: #441FC1;
+            border-color: #441FC1;
+            font-size: 20px;
+            padding: 3px;
+
+        }
     </style>
     <div class="example-wrapper">
         <main>
 
             <div class="container mt-5 mb-5">
-                <div class="d-flex justify-content-between mb-3">  <button class="tox-button--icon"><a href="{{ path('ir') }}">imprimer les Recette</a></button> </div>
+                <div class="d-flex justify-content-between mb-3">  <button class="imp"><a href="{{ path('ir') }}">imprimer les Recette</a></button> </div>
                 <div class="row g-2">
                     {%  for r in recette %}
                         <div class="col-md-3">
                             <div class="card p-2 py-3 text-center">
-                                <div class="img mb-2">
-
-
-                                </div>
+                                <img style="width:200px ; height:120px"src="{{asset(r.getPhotoRecette())}}" />
                                 <h5 class="mb-0">{{r.getNomRecette()}}</h5> <small>{{ r.getDescriptionRecette()}}</small><h5 class="mb-0">{{r.getCategorieRecette()}}</h5> <small>{{ r.getDureeRecette()}}</small>
 
                                 <div class="mt-4 apointment">
-                                    <button class="btn btn-success text-uppercase" ><a href="{{ path('b', {'id': r.getIdRecette()}) }}">play</a></button>
+                                    <button class="btnk" ><a href="{{ path('b', {'id': r.getIdRecette()}) }}">play</a></button>
+                                    <button class="btnk" > <a href="{{ path('q',{'id':r.getIdRecette()})}}">Cuisiner </a></button>
+
                                 </div>
                             </div>
 

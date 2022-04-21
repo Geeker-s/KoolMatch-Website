@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class RecetteType extends AbstractType
 {
@@ -14,7 +15,7 @@ class RecetteType extends AbstractType
     {
         $builder
             ->add('nomRecette')
-            ->add('photoRecette')
+            ->add('photoRecette', FileType::class, array('data_class' => null))
             ->add('descriptionRecette')
             ->add('categorieRecette')
             ->add('dureeRecette')

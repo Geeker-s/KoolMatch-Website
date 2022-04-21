@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use GuzzleHttp\Psr7\UploadedFile;
 
 
 class RecetteController extends AbstractController
@@ -75,6 +76,12 @@ class RecetteController extends AbstractController
         $form->add('Ajouter',SubmitType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form['photoRecette']->getData();
+
+            $recette = $form->getData();
+            $file->move('back/assets/img/users/', $file->getClientOriginalName());
+            $recette->setPhotoRecette("back/assets/img/users/" . $file->getClientOriginalName());
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($recette);
             $em->flush();
@@ -93,6 +100,11 @@ class RecetteController extends AbstractController
      $form->handleRequest($request);
      if($form->isSubmitted() && $form->isValid())
      {
+         $file = $form['photoRecette']->getData();
+
+         $recette = $form->getData();
+         $file->move('back/assets/img/users/', $file->getClientOriginalName());
+         $recette->setPhotoRecette("back/assets/img/users/" . $file->getClientOriginalName());
          $em=$this->getDoctrine()->getManager();
          $em->flush();
          return $this->redirectToRoute("afficherR");
@@ -135,5 +147,22 @@ class RecetteController extends AbstractController
         ]);
         return $this->redirectToRoute('imprimer_com');
     }
+
+    /**
+     * @param RecetteRepository $repository
+     * @param $id
+     * @return Response
+     * @Route("/qr/{id}",name="q")
+     */
+public function show(RecetteRepository $repository,$id)
+{ $recette=$repository->find($id);
+    $myurl = 'https://www.youtube.com/results?search_query='.$recette->getNomRecette();
+    return $this->render('front/details.html.twig', [
+        'recette' => $recette,
+        'myurl' => $myurl,
+    ]);
+}
+
+
 }
 

@@ -74,7 +74,7 @@ class JeuController extends AbstractController
 
 
              return $this->render('jeu/Affichej.html.twig',[
-                 "jeu"=>  $jeuRepository->findAll(),'piechart' => $pieChart
+                 "jeu"=>  $jeuRepository->orderBys(),'piechart' => $pieChart
              ]);
          }
     }
@@ -113,7 +113,7 @@ class JeuController extends AbstractController
      * @return Response
      * @Route ("/va/{id}",name="va")
      */
-    public function Recherche($id,JeuRepository $repo){
+    public function Calcule($id,JeuRepository $repo){
         $jeu = new Jeu();
         $repo = $this->getDoctrine()->getRepository(Jeu::class);
          $jeu=$repo->findOneBy(['idUser' => 4]); /*Current user*/

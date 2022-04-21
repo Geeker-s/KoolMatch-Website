@@ -6,12 +6,52 @@
 <style>
     .example-wrapper { margin: 1em auto; max-width: 1000px; width: 95%; font: 17px/0.55 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .kka {
+        color: #fff;
+        background-color: #EFEFEF;
+        border-color: #EFEFEF;
+        font-size: 20px;
+        padding: 3px;
+
+    }
+    .styled-table {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+    .styled-table thead tr {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: left;
+    }
+    .styled-table th,
+    .styled-table td {
+        padding: 12px 15px;
+    }
+    .styled-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+    .styled-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+
+    .styled-table tbody tr:last-of-type {
+        border-bottom: 2px solid #009879;
+    }
+    .styled-table tbody tr.active-row {
+        font-weight: bold;
+        color: #009879;
+    }
 
 </style>
 
 <h1>List des Quiz</h1>
     <br>
-<table >
+<table class="styled-table" >
     <tr>
         <th> Question 1</th>
         <th> Réponse correct</th>
@@ -47,8 +87,8 @@
         <td>{{ q.getRf32() }} </td>
         <td> {{ q.getRf33() }} </td>
         <td> {{ q.idRecette.getNomRecette() }} </td>
-        <td><a href="{{ path('sq',{'id':q.getIdQuiz()})}}">Delete </a>
-        <td><a href="{{ path('u',{'id':q.getIdQuiz()})}}">Update </a>
+        <td><button class="kka" ><a href="{{ path('sq',{'id':q.getIdQuiz()})}}"><p style="color:#000000">Delete </p></a>
+        <td><button class="kka" ><a href="{{ path('u',{'id':q.getIdQuiz()})}}"><p style="color:#000000">Update </p></a>
     </tr {% endfor %}>
 </table>
 {% endblock  %}
