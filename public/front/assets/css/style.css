@@ -3,18 +3,6 @@ body {
   overflow: hidden;
   color: #535353;
 }
-button{
-  border: none;
-  outline: none;
-  font-size: 50px;
-  color: #535353;
-  padding: 23px 44px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: 500;
-  background: rgba(255, 255, 255, 0);
-  box-shadow: 0 0 20px 0 rgba(0,0,0,0.1);
-}
 a {
   color: #84dcc6;
   text-decoration: none;
@@ -1210,6 +1198,31 @@ section {
   transform: scale(1);
 }
 
+.tinder--filter {
+  flex: 0 0 100px;
+  text-align: center;
+  padding-top: 15px;
+}
+
+.tinder--filter button {
+  border-radius: 50%;
+  line-height: 60px;
+  width: 60px;
+  border: 0;
+  background: #ffffff;
+  display: inline-block;
+  margin: 0 8px;
+}
+
+.tinder--filter button:focus {
+  outline: 0;
+}
+
+.tinder--filter i {
+  font-size: 32px;
+  vertical-align: middle;
+}
+
 .tinder--cards {
   flex-grow: 1;
   padding-top: 10px;
@@ -1224,9 +1237,8 @@ section {
   display: inline-block;
   width: 90vw;
   max-width: 400px;
-  height: 70vh;
+  height: 65vh;
   background: #ffffff;
-  padding-bottom: 40px;
   border-radius: 8px;
   overflow: hidden;
   position: absolute;
@@ -1274,7 +1286,7 @@ section {
 .tinder--buttons {
   flex: 0 0 100px;
   text-align: center;
-  padding-top: 20px;
+  padding-top: 15px;
 }
 
 .tinder--buttons button {

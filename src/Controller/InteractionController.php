@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function PHPUnit\Framework\matches;
 
 class InteractionController extends AbstractController
 {
@@ -39,6 +40,7 @@ class InteractionController extends AbstractController
         // returns an array of User objects
         return $query->getResult();
     }
+
     //Convertir un String suite de binaire en nombre decimale
     function hex($s)
     {
@@ -50,8 +52,10 @@ class InteractionController extends AbstractController
         }
         return intval($res);
     }
+
     //Calculate Age of user
-    function Age(User $u){
+    function Age(User $u)
+    {
         $today = date("Y-m-d");
         $diff = date_diff(date_create($u->getDatenaissanceUser()), date_create($today));
         return $diff->format('%y');
@@ -62,14 +66,9 @@ class InteractionController extends AbstractController
      */
     public function addInteraction(Request $request)
     {
-
         //This will be replaced by session
-        $connectedUser = $this->getDoctrine()->getRepository(User::class)->find(1);
-
-
-        //$interactions = $this->getDoctrine()->getRepository(User::class)->findAll();
+        $connectedUser = $this->getDoctrine()->getRepository(User::class)->find(23);
         $interactions = $this->algorithm($connectedUser);
-
         $em = $this->getDoctrine()->getManager();
         $interaction = new Interaction();
         $interaction->setIdUser1($connectedUser);
@@ -79,11 +78,42 @@ class InteractionController extends AbstractController
             $id_user = $request->request->get("iduser");
             $interaction->setIdUser2($this->getDoctrine()->getRepository(User::class)->find($id_user));
             $interaction->setTypeInteraction($type);
-            $em->persist($interaction);
-            $em->flush();
+            if ( $type = "x") {
+
+            }
+            //Auto Matching chaque interaction
+            $sql = $this->getDoctrine()->getManager()
+                ->createQuery('SELECT i
+            FROM App\Entity\Interaction i
+            WHERE i.idUser1 = :id_user1 AND i.idUser2 = :id_user2 AND i.typeInteraction = :typeInteraction')
+                ->setParameter('id_user1', $id_user)
+                ->setParameter('id_user2', $connectedUser->getIdUser())
+                ->setParameter('typeInteraction', "o");
+            $isMatched = $sql->getResult();
+
+            if (empty($isMatched)) {
+                $em->persist($interaction);
+                $em->flush();
+            } else {
+                $em = $this->getDoctrine()->getManager();
+                foreach ($isMatched as $item) {
+                    $em->remove($item);
+                }
+                $em->flush();
+                $match = new Matching();
+                $match->setIdUser1($connectedUser);
+                $hasbeenReacted = $this->getDoctrine()->getRepository(User::class)->find($id_user);
+                $match->setIdUser2($hasbeenReacted);
+                $match->setDateMatching(new \DateTime("now", new \DateTimeZone('+0100')));
+                $this->forward('App\Controller\MatchingController::ajouterMatching', [
+                    'm'  => $match,
+                ]);
+
+            }
+
         }
         return $this->render('interaction/addInteraction.html.twig',
-            array('interactions' => $interactions, 'lat'=> $connectedUser->getLatitude(),'lon'=> $connectedUser->getLongitude()));
+            array('interactions' => $interactions, 'lat' => $connectedUser->getLatitude(), 'lon' => $connectedUser->getLongitude()));
     }
 
     /**
@@ -131,7 +161,8 @@ class InteractionController extends AbstractController
     /**
      * @Route ("/autoMatching",name="automatching")
      */
-    public function autoMatching(){
+    public function autoMatching()
+    {
 
 
         return $this->redirectToRoute("back_interaction");

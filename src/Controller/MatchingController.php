@@ -31,6 +31,11 @@ class MatchingController extends AbstractController
         ]);
     }
 
+    public function ajouterMatching($m){
+        $em=$this->getDoctrine()->getManager();
+        $em->persist($m);
+        $em->flush();
+    }
 
     /**
      * @param $id
