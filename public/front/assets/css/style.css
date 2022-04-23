@@ -1581,8 +1581,8 @@ body {
               
               #earth {
                 position: absolute;
-                width: 200%;
-                height: 75%;
+                width: 167%;
+                height: 87%;
                 background: black;
                 border-radius: 100%/100%;
                 left: 50%;
@@ -1616,7 +1616,7 @@ body {
               #title {
                 position: absolute;
                 font-weight: 300;
-                top: 68%;
+                top: 29%;
                 left: 0;
                 right: 0;
                 margin-top: -80px;
@@ -1624,10 +1624,10 @@ body {
                 text-align: center;
                 letter-spacing: 20px;
                 padding-left: 20px;
-                background: -webkit-linear-gradient(white, #dbdde0, #38495a);
+                background: -webkit-linear-gradient(#030e18, #b14650, #467aad);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
-                animation-duration: 6s;
+                animation-duration: 9s;
                 animation-iteration-count: infinite;
                 animation-timing-function: ease;
                 animation-name: animGravity;
@@ -1636,16 +1636,16 @@ body {
               #subtitle {
                 position: absolute;
                 font-weight: 300;
-                top: 84%;
-                left: 0;
+                top: 61%;
+                left: 40px;
                 right: 0;
                 font-size: 19px;
                 text-align: center;
                 letter-spacing: 6px;
               }
               #subtitle span {
-                color: #d8d8d8;
-                animation-duration: 6s;
+                color: #dc3545;
+                animation-duration: 10s;
                 animation-iteration-count: infinite;
                 animation-timing-function: ease;
               }
@@ -1977,4 +1977,164 @@ a {
   box-shadow: 0 10px 34px 0 rgba(255, 79, 135, 0.32);
 } .foorm{
   block-size:2px;
+}
+*, :before, :after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  background: url("https://cbwconline.com/IMG/Codepen/Dark-Grey-Repeating-Background.png");
+}
+
+body {
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.6) 100%);
+  height: 100vh;
+  overflow: hidden;
+  color: #736e6e;
+  font-family: Roboto;
+}
+
+.modal {
+  height: 400px;
+  width: 650px;
+  margin: auto;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-size: 0;
+}
+
+.side {
+  background: linear-gradient(-45deg, #001F60, #009DE0);
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+.side .skew {
+  background: #F6F6F6;
+  height: 110%;
+  width: 45%;
+  padding: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  position: absolute;
+  top: -5%;
+  z-index: 5;
+  transform: skew(8deg);
+}
+.side .skew * {
+  transform: skew(-8deg);
+}
+.side .skew h3 {
+  color: #474747;
+  font: 25px Roboto;
+  text-align: center;
+}
+.side .skew img {
+  width: 100%;
+  margin: 25px 0;
+}
+.side .skew .btn {
+  background: #474747;
+  width: 180px;
+  margin: 10px auto;
+  padding: 10px 18px;
+  font-size: 16px;
+  text-align: center;
+  border-radius: 3px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25);
+  cursor: default;
+}
+
+.header {
+  width: 60%;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.header h1 {
+  background: linear-gradient(-45deg, #2ed6bc, #01BCE6);
+  padding: 10px 25px;
+  font: 25px Roboto;
+}
+
+.form {
+  width: 350px;
+  height: 100%;
+  position: absolute;
+  top: 56px;
+  right: 0;
+}
+
+input, select, fieldset, button {
+  border: none;
+  outline: none;
+  font: 16px Roboto;
+}
+
+fieldset {
+  display: block;
+}
+
+label {
+  display: block;
+  color: #01BCE6;
+  font: 500 13px Roboto;
+}
+
+input, select {
+  background: rgba(255, 255, 255, 0.18);
+  padding: 8px 12px;
+  margin: 5px 5px 5px 0;
+  border-radius: 3px;
+  color: #f3ecec;
+}
+input:nth-last-of-type(1), select:nth-last-of-type(1) {
+  margin-right: 0;
+}
+
+option {
+  background: #474747;
+}
+
+.number input {
+  width: calc(25% - 7px);
+}
+
+.name input {
+  width: 100%;
+}
+
+.exp, .ccv {
+  display: inline-block;
+}
+
+.exp {
+  width: 60%;
+}
+.exp select {
+  width: calc(50% - 5px);
+}
+
+.ccv {
+  width: 40%;
+}
+.ccv input {
+  width: 100%;
+}
+
+button {
+  display: block;
+  background: linear-gradient(-45deg, #2ed6bc, #01BCE6);
+  width: 200px;
+  color: white;
+  padding: 10px 18px;
+  margin: 40px auto;
+  font-size: 18px;
+  border-radius: 22px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }

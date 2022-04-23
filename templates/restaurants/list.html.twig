@@ -4,7 +4,8 @@
     {% for e in Restaurant %}
  
 <main class="page-content">
-  <div class="card">
+ <div class="card" style="background-image: url({{asset(e.image)}})">
+         
     <div class="content">
     <img style="width:200px ; height:120px"src="{{asset(e.image)}}" />
       <h2 class="title">{{e.nomRestaurant}}</h2>

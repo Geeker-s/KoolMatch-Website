@@ -11,13 +11,9 @@
 <div class="example-wrapper">
     <div class="container">
             <div class="row">
-                <div></div>
-                <img id="postcard" src="{{ asset ('front/assets/img/logo.png') }}" alt="postcard" class="img-responsive move">
-                <div id="content" >
                     <h1> KoolMatch </h1>
 
                     {{ form_start(forms,{'attr': {novalidate: 'novalidate'}} ) }}
-
 
         {{ form_errors(forms.nbplaceReservation) }}
         {{ form_label(forms.nbplaceReservation,"Number de place") }}

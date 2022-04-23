@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Form;
-
 use App\Entity\Restaurant;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\AbstractType;

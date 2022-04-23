@@ -9,20 +9,21 @@
 <main>
     
 <div class="container mt-5 mb-5">
-    <div class="d-flex justify-content-between mb-3"> <span>Restaurants</span> <button class="butt"><a href="{{ path('reservation_app') }}">Ajouter Reservation</a></button> </div>
+    <div class="d-flex justify-content-between mb-3"> <span>.</span></div>
     <div class="row g-2">
     {% for e in Reservation %}
       
             
        <div class="card">
                     <div class="card-body">
-                      <h5 class="card-title">Reservations</h5>
+                      <h5 class="card-title">{{e.idRestaurant.nomRestaurant}}</h5>
                       <p class="card-text">{{e.nbplaceReservation}}</p>
+                           <img style="width:100px ; height:100px" class="card-text" src="{{asset(e.idRestaurant.image)}}"/>
                       <p class="card-text">{{e.dateReservation.format('d/m/Y')}}</p>
                     
-                    </div>
+                    
                    <button> <a href="{{ path('delete1',{'idReservation':e.idReservation})}}">Delete </a>
-                   <button> <a href="{{ path('update1',{'idReservation':e.idReservation})}}">Delete </a>
+                   <button> <a href="{{ path('update1',{'idReservation':e.idReservation})}}">Modifier </a></div>
              </div>
         {% endfor %}
         

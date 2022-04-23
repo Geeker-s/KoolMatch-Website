@@ -1,9 +1,9 @@
 <?php
-
 namespace App\Controller;
 use App\Entity\Restaurant;
 use App\Form\RestaurantsType;
 use App\Entity\Reservation;
+use App\Repository\RestaurantRepository;
 use App\Form\ReservationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +15,9 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Twilio\Rest\Client; 
 use Knp\Component\Pager\PaginatorInterface;
+use \Statickidz\GoogleTranslate;
+use Doctrine\ORM\EntityManagerInterface;
+
 class RestaurantsController extends AbstractController
 {
     /**
@@ -32,13 +35,20 @@ class RestaurantsController extends AbstractController
    /**
      * @Route("/list_back", name="liste1")
      */
-    public function liste()
+    public function liste(Request $request)
     {
-       
         $Restaurant=$this->getDoctrine()->getRepository(Restaurant::class)->findAll();
+        $em=$this->getDoctrine()->getManager();
+
+        if ($request->isXmlHttpRequest()) {
+            $search  = $request->get('search');
+            dump($search);
+            $event = new Restaurant();
+            $repo  = $em->getRepository(Restaurant::class);
+            $event = $repo->findAjax($search);}
         return $this->render("back/affichage_table_restaurant.html.twig",array("Restaurant"=>$Restaurant));
     }
-
+    
      /**
      * @Route("/list_front", name="liste")
      */
@@ -78,18 +88,17 @@ class RestaurantsController extends AbstractController
         $reservation->setnomResto('aaaaaaa');
         $reservation->setadresse('aaaaaaa');
 
-       
-       
-
         $form=$this->createForm(reservationType::class,$reservation);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
-        
+       
         {
+
+          //$reservation->setnomResto($request->get('nomRestaurant'));
             $em=$this->getDoctrine()->getManager();
             $em->persist($reservation);
             $em->flush();
-
+            
             return $this->redirectToRoute("listereservation");
         }
         
@@ -147,8 +156,6 @@ class RestaurantsController extends AbstractController
     }
 
 
-
-    
      
      /**
      * @Route("/updateStudent/{idRestaurant}", name="update")
@@ -171,7 +178,35 @@ class RestaurantsController extends AbstractController
         return $this->render("back/resto.html.twig",array("forms"=>$form->createView()));
     }
 
+
+
+    public function translateajaxAction(Request $request)
+    {
+        if($request->isXmlHttpRequest())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $idRestaurant=$request->get('idRestaurant');
+            $rows = $em->getRepository(Restaurant::class)->findBy(array('id'=>$idRestaurant));
+            $tabEnsembles = array();
+            $i = 0;
+            foreach($rows as $ensemble) {
+                $source = 'english';
+                $target = 'fr';
+                $text = $ensemble->getDescription();
+                $trans = new GoogleTranslate();
+                $result = $trans->translate($source, $target, $text);
+                $tabEnsembles[$i]['new'] = $result;
+                $tabEnsembles[$i]['old'] = $ensemble->getDescription();
+                $i++;
+            }
+            $data = json_encode($tabEnsembles);
+            $response = new Response();
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
      
-        
+    }
+    return new Response("Erreur: Ce n'est pas une requete ajax",400);
+}       
     
+  
 }

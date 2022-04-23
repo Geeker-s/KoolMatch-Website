@@ -7,6 +7,14 @@
     .example-wrapper { margin: 1em auto; max-width: 1000px; width: 100%; font: 25px/0.9 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
+<script  type="text/javascript" src="{{asset('https://maps.googleapis.com/maps/api/js?key=AIzaSyC---xS-vkfHpsdoTz6IcXMCgv-Yu0TMmI&libraries=geometry,places')}}"></script>
+<script>
+   function init() {
+      var input = document.getElementById('restaurants_adresseRestaurant');
+      var autocomplete = new google.maps.places.Autocomplete(input);
+   }
+google.maps.event.addDomListener(window, 'load', init);
+</script>
 
 <div class="card">
             <div class="card-body">

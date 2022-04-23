@@ -1,6 +1,17 @@
 {% extends 'back/index.html.twig' %}
 {% block title %}Hello mes restaurants!{% endblock %}
 {% block body %}
+
+ <header class="header-design">
+  
+    <div class="listar-map-button-text" style="display: inline-block; opacity: 1;">
+    
+    </div>
+ 
+
+  <div class="footer-wave"></div>
+</header>
+
 <section class="section">
       <div class="row">
         <div class="col-lg-12">
@@ -8,7 +19,7 @@
           <div class="card">
                 <div class="card-body">
                
-                <h5 class="card-title">Ajouter Restaurant</h5>
+        <h5 class="card-title">Ajouter Restaurant</h5>
         {% for message in app.flashes('success') %}
         <div class="alert alert-success">
         {{message}}
@@ -56,5 +67,6 @@
         </div>
       </div>
     </section>
+    
    
 {% endblock %}

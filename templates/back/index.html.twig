@@ -12,7 +12,9 @@
     <!-- Favicons -->
     <link href="{{asset('front/assets/img/logo.png')}}" rel="icon">
     <link href="{{asset('front/assets/img/logo.png')}}" rel="apple-touch-icon">
-
+    <link rel="stylesheet" href="{{asset('https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.css')}}">
+    <link rel="stylesheet" href="{{asset('https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.css')}}">
+    <link rel="stylesheet" href="{{asset('https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.css')}}">
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -58,7 +60,7 @@
             </li><!-- End Notification Nav -->
 
             <li class="nav-item dropdown">
-
+ <div id="calendar-holder"></div>
                 <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                     <i class="bi bi-chat-left-text"></i>
                     <span class="badge bg-success badge-number">3</span>
@@ -645,6 +647,34 @@
                                             }
                                         }).render();
                                     });
+                                    document.addEventListener('DOMContentLoaded', () => {
+    var calendarEl = document.getElementById('calendar-holder');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        defaultView: 'dayGridMonth',
+        editable: true,
+        eventSources: [
+            {
+                url: "/fc-load-events",
+                method: "POST",
+                extraParams: {
+                    filters: JSON.stringify({})
+                },
+                failure: () => {
+                    // alert("There was an error while fetching FullCalendar!");
+                },
+            },
+        ],
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay',
+        },
+        plugins: [ 'interaction', 'dayGrid', 'timeGrid' ], // https://fullcalendar.io/docs/plugin-index
+        timeZone: 'UTC',
+    });
+    calendar.render();
+});
                                 </script>
                                 <!-- End Line Chart -->
 
@@ -824,6 +854,10 @@
 <script src="{{asset('back/assets/vendor/simple-datatables/simple-datatables.js')}}"></script>
 <script src="{{asset('back/assets/vendor/tinymce/tinymce.min.js')}}"></script>
 <script src="{{asset('back/assets/vendor/php-email-form/validate.js')}}"></script>
+ <script src="{{asset('https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.js')}}"></script>
+<script src="{{asset('https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.1.0/main.min.js')}}"></script>
+<script src="{{asset('https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.js')}}"></script>
+<script src="{{asset('https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.js')}}"></script>
 
 <!-- Template Main JS File -->
 <script src="{{asset('back/assets/js/main.js')}}"></script>
