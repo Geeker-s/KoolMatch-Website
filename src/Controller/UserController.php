@@ -31,7 +31,8 @@ class UserController extends AbstractController
             $allusers = $userRepository->search($term);
         }
         else{
-            $allUsers = $userRepository->findAll();
+            $allusers = $userRepository->findAll();
+            $allusers = $userRepository->orderByNom();
         }
         $user = $paginator->paginate(
         // Doctrine Query, not results

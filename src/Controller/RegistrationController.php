@@ -45,6 +45,7 @@ class RegistrationController extends AbstractController
             $mailer->send($email);
             $entityManager->persist($user);
             $entityManager->flush();
+            $this->addFlash('success','votre comte est créer avec sucés');
             return $this->redirectToRoute('user_login');
         }
 

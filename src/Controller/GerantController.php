@@ -36,6 +36,7 @@ class GerantController extends AbstractController
         }
         else{
             $allgerants = $gerantRepository->findAll();
+            $allgerants = $gerantRepository->orderByNom();
         }
         $gerant = $paginator->paginate(
         // Doctrine Query, not results
@@ -81,7 +82,9 @@ class GerantController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($gerant);
             $em->flush();
+            $this->addFlash('success','Gerant créer avec sucés');
             return $this->redirectToRoute('display_gerant');
+
         }
         return $this->render('gerant/creatGerant.html.twig',['ger'=>$form->createView()]);
     }

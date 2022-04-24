@@ -81,4 +81,11 @@ class GerantRepository extends ServiceEntityRepository
             ->getQuery()
             ->execute();
     }
+    public function orderByNom()
+    {
+        return $this->createQueryBuilder('Gerant')
+            ->orderBy('Gerant.nomGerant', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }

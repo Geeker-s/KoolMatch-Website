@@ -81,4 +81,11 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
             ->execute();
     }
+    public function orderByNom()
+    {
+        return $this->createQueryBuilder('User')
+            ->orderBy('User.nomUser', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }
