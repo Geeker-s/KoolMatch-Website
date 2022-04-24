@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+use Captcha\Bundle\CaptchaBundle\Form\Type\CaptchaType;
+use Captcha\Bundle\CaptchaBundle\Validator\Constraints\ValidCaptcha;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,6 +17,14 @@ class ConnexionUserType extends AbstractType
         $builder
             ->add('emailUser')
             ->add('passwordUser', PasswordType::class)
+            ->add('captchaCode', CaptchaType::class, [
+                'captchaConfig' => 'ExampleCaptcha',
+                'constraints' => [
+                    new ValidCaptcha([
+                        'message' => 'Invalid captcha, please try again',
+                    ]),
+                ]
+            ])
             ->add('connexion', SubmitType::class)
         ;
     }

@@ -7,7 +7,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 class RegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -22,9 +23,15 @@ class RegistrationType extends AbstractType
                 'required' => false,
                 'empty_data' => '',
             ])
-            ->add('sexe_user')
+            ->add('sexeUser', ChoiceType::class, [
+                'choices'  => [
+                    'Homme' => 'homme',
+                    'Femme' => 'femme',
+
+                ],
+            ])
             ->add('telephone_user')
-            ->add('photo_user')
+            ->add('photo_user',FileType::class)
             ->add('description_user')
             ->add('adresse_user')
             ->add('maxDistance_user')

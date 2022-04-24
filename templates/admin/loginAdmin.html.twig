@@ -16,6 +16,7 @@
                         <div class="col-sm-10">
                             {{ form_widget(f.loginAdmin,{'attr':{'class':'form-control'}}) }}
                         </div>
+                        {{ form_errors(f.loginAdmin,{'attr':{'class':'text-danger'}}) }}
 
                     </div>
                     <div class="row mb-3">
@@ -23,9 +24,9 @@
                         <div class="col-sm-10">
                             {{ form_widget(f.passwordAdmin,{'attr':{'class':'form-control'}}) }}
                         </div>
-
+                        {{ form_errors(f.passwordAdmin,{'attr':{'class':'text-danger'}}) }}
                     </div>
-
+                    {{ form_widget(f.captchaCode) }}
                     <div class="row mb-3" align="right">
 
                         <div class="col-sm-10">

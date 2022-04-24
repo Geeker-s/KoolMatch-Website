@@ -16,16 +16,16 @@
                         <div class="col-sm-10">
                             {{ form_widget(g.emailGerant,{'attr':{'class':'form-control'}}) }}
                         </div>
-
+                        {{ form_errors(g.emailGerant,{'attr':{'class':'text-danger'}}) }}
                     </div>
                     <div class="row mb-3">
                         <label for="inputPassword" class="col-sm-6 col-form-label">Mot de passe</label>
                         <div class="col-sm-10">
                             {{ form_widget(g.passwordGerant,{'attr':{'class':'form-control'}}) }}
                         </div>
-
+                        {{ form_errors(g.passwordGerant,{'attr':{'class':'text-danger'}}) }}
                     </div>
-
+                    {{ form_widget(g.captchaCode) }}
                     <div class="row mb-3" align="right">
 
                         <div class="col-sm-10">

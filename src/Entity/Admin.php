@@ -3,15 +3,19 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symdony\Component\Validator\Constraints\NotBlank;
+use App\Repository\AdminRepository;
+
 
 /**
  * Admin
  *
  * @ORM\Table(name="admin")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=AdminRepository::class)
  */
 class Admin
-{
+{  protected $captchaCode;
     /**
      * @var int
      *
@@ -23,8 +27,9 @@ class Admin
 
     /**
      * @var string
-     *
      * @ORM\Column(name="login_admin", type="string", length=20, nullable=false)
+     * @Assert\NotBlank(message="Login doit etre non vide")
+     * @Assert\Length(min = 5,minMessage="Entrer un login au mini de 5 caracteres")
      */
     private $loginAdmin;
 
@@ -32,6 +37,11 @@ class Admin
      * @var string
      *
      * @ORM\Column(name="password_admin", type="string", length=20, nullable=false)
+     * @Assert\NotBlank (message=" Mot de passe doit etre non vide")
+     * @Assert\Regex(
+     *      pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/",
+     *      message="Utiliser au moin une lettre Majiscule, une lettre miniscule et un nombre"
+     * )
      */
     private $passwordAdmin;
 
@@ -82,6 +92,14 @@ class Admin
 
         return $this;
     }
+    public function getCaptchaCode()
+    {
+        return $this->captchaCode;
+    }
 
+    public function setCaptchaCode($captchaCode)
+    {
+        $this->captchaCode = $captchaCode;
+    }
 
 }

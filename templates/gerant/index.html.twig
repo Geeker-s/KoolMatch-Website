@@ -3,18 +3,46 @@
 {% block title %}Hello GerantController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+    <div class="example-wrapper">
+        <h4 align="center"> Gestion des Gerants </h4>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        {{ form_start(searchform) }}
+        {{ form_widget(searchform) }}
+        <button class="btn">{{ button_label|default('Rechercher') }}</button>
+        {{ form_end(searchform) }}
+        <div style="display : flex ; align-items: center ; justify-content: center ">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/MED ZOUARI/Desktop/PI WEB2/KoolMatch-Website/src/Controller/GerantController.php'|file_link(0) }}">src/Controller/GerantController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/MED ZOUARI/Desktop/PI WEB2/KoolMatch-Website/templates/gerant/index.html.twig'|file_link(0) }}">templates/gerant/index.html.twig</a></code></li>
-    </ul>
-</div>
+            <table class="table">
+                <thead>
+                <th> Nom  </th>
+                <th> Prenom  </th>
+                <th> Email </th>
+                <th> Téléphone </th>
+                <th> Date début abonnement </th>
+                <th> Date fin abonnement </th>
+                </thead>
+                <tbody>
+                {% for gerant in gr  %}
+                    <tr>
+                        <td> {{ gerant.nomGerant }}</td>
+                        <td> {{ gerant.prenomGerant }} </td>
+                        <td> {{ gerant.emailGerant }}</td>
+                        <td> {{ gerant.telephoneGerant }}</td>
+                        <td> {{ gerant.ddAbonnement|date('d-m-Y') }} </td>
+                        <td> {{ gerant.dfAbonnement|date('d-m-Y') }} </td>
+                        <td> <a href="{{ path('modifgerant',{'idGerant':gerant.idGerant}) }}"><input class="favorite styled" type="button" value="Modifier"></a> </td>
+                        <td> <a href="{{ path('suprimer_gerant',{'idGerant':gerant.idGerant}) }}"><input class="favorite styled" type="button" value="Supprimer"></a> </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="navigation">
+            {{ knp_pagination_render(gr) }}
+        </div>
+    </div>
 {% endblock %}

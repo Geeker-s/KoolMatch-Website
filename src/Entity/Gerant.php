@@ -3,15 +3,19 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symdony\Component\Validator\Constraints\NotBlank;
+use App\Repository\GerantRepository;
+
 
 /**
  * Gerant
  *
  * @ORM\Table(name="gerant")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=GerantRepository::class)
  */
 class Gerant
-{
+{    protected $captchaCode;
     /**
      * @var int
      *
@@ -25,6 +29,11 @@ class Gerant
      * @var string
      *
      * @ORM\Column(name="nom_gerant", type="string", length=100, nullable=false)
+     * @Assert\NotBlank(message="Nom doit etre non vide")
+     * @Assert\Length(
+     *      min = 3,
+     *      minMessage="Entrer un login au mini de 3 caracteres"
+     *     )
      */
     private $nomGerant;
 
@@ -32,6 +41,11 @@ class Gerant
      * @var string
      *
      * @ORM\Column(name="prenom_gerant", type="string", length=100, nullable=false)
+     * @Assert\NotBlank(message="Prenom doit etre non vide")
+     * @Assert\Length(
+     *      min = 5,
+     *      minMessage="Entrer un login au mini de 5 caracteres"
+     *     )
      */
     private $prenomGerant;
 
@@ -39,6 +53,8 @@ class Gerant
      * @var string
      *
      * @ORM\Column(name="email_gerant", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Email doit etre non vide")
+     * @Assert\Email(message="Adresse Email invalide")
      */
     private $emailGerant;
 
@@ -46,6 +62,11 @@ class Gerant
      * @var string
      *
      * @ORM\Column(name="password_gerant", type="string", length=255, nullable=false)
+     * @Assert\NotBlank (message=" Mot de passe doit etre non vide")
+     * @Assert\Regex(
+     *      pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/",
+     *      message="Utiliser au moin une lettre Majiscule, une lettre miniscule et un nombre"
+     * )
      */
     private $passwordGerant;
 
@@ -53,6 +74,10 @@ class Gerant
      * @var int
      *
      * @ORM\Column(name="telephone_gerant", type="integer", nullable=false)
+     * @Assert\NotBlank (message="Ajoutez votre numéro de téléphone")
+     * @Assert\Regex (
+     *   pattern = "/(90|92|93|94|95|96|97|98|99|20|21|22|23|24|25|26|27|28|29|50|51|52|53|54|55|58|40|41|42|43)[0-9]{6}/"
+     * )
      */
     private $telephoneGerant;
 
@@ -60,6 +85,15 @@ class Gerant
      * @var \DateTime
      *
      * @ORM\Column(name="dd_abonnement", type="date", nullable=false)
+     * @Assert\NotBlank (message="Ajoutez la date de début d'abonnement")
+     *      @Assert\Type(
+     *      type = "\DateTime",
+     *      message = "Date invalide",
+     * )
+     * @Assert\GreaterThanOrEqual(
+     *      value = "today",
+     *      message = "Date invalide "
+     * )
      */
     private $ddAbonnement;
 
@@ -67,6 +101,15 @@ class Gerant
      * @var \DateTime
      *
      * @ORM\Column(name="df_abonnement", type="date", nullable=false)
+     * @Assert\NotBlank (message="Ajoutez la date de fin d'abonnement")
+     *      @Assert\Type(
+     *      type = "\DateTime",
+     *      message = "Date invalide",
+     * )
+     * @Assert\GreaterThanOrEqual(
+     *      value = "today",
+     *      message = "Date invalide "
+     * )
      */
     private $dfAbonnement;
 
@@ -177,6 +220,14 @@ class Gerant
 
         return $this;
     }
+    public function getCaptchaCode()
+    {
+        return $this->captchaCode;
+    }
 
+    public function setCaptchaCode($captchaCode)
+    {
+        $this->captchaCode = $captchaCode;
+    }
 
 }
