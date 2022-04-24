@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : mar. 19 avr. 2022 à 07:10
+-- Généré le : dim. 24 avr. 2022 à 06:48
 -- Version du serveur : 5.7.34
 -- Version de PHP : 7.4.21
 
@@ -135,8 +135,16 @@ CREATE TABLE `interaction` (
 --
 
 INSERT INTO `interaction` (`id_interaction`, `type_interaction`, `date_interaction`, `id_user1`, `id_user2`, `archive`) VALUES
-(40, 'o', '2022-04-12', 1, 2, 0),
-(47, 'x', '2022-04-18', 2, 1, 0);
+(57, 'x', '2022-04-21', 1, 23, 0),
+(59, 'o', '2022-04-21', 23, 1, 0),
+(60, 'o', '2022-04-21', 23, 21, 0),
+(61, 'o', '2022-04-24', 23, 22, 0),
+(62, 'o', '2022-04-24', 23, 22, 0),
+(63, 'o', '2022-04-24', 23, 22, 0),
+(64, 'o', '2022-04-24', 23, 22, 0),
+(65, 'o', '2022-04-24', 23, 22, 0),
+(66, 'o', '2022-04-24', 23, 22, 0),
+(67, 'o', '2022-04-24', 23, 22, 0);
 
 -- --------------------------------------------------------
 
@@ -207,6 +215,14 @@ CREATE TABLE `matching` (
   `date_matching` date NOT NULL,
   `archive` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `matching`
+--
+
+INSERT INTO `matching` (`id_match`, `id_user1`, `id_user2`, `date_matching`, `archive`) VALUES
+(3, 2, 1, '2022-04-21', 0),
+(4, 3, 1, '2022-04-21', 0);
 
 -- --------------------------------------------------------
 
@@ -382,7 +398,7 @@ INSERT INTO `user` (`id_user`, `email_user`, `password_user`, `nom_user`, `preno
 (1, 'yakoubi.marwen@esprit.tn', '1234', 'Marwen', 'Yakoubi', '1998-05-14', 'homme', 29163283, 'marwen.jpg', 'I love lablebi. Et quibusdam accusamus sed voluptas consectetur est temporibus dignissimos?', 50, 18, 35, 'ESPRIT', 36.90138, 10.19012, 24122, 0),
 (2, 'eya.benromdhane@esprit.tn', '1234', 'Eya', 'Benromdhane', '2010-05-12', 'femme', 94366666, 'femme5.jpeg', 'I love sushi. Et quibusdam accusamus sed voluptas consectetur est temporibus dignissimos?', 20, 20, 28, 'ESPRIT', 36.87427, 10.27263, 22211, 0),
 (3, 'sondes@esprit.tn', '1234', 'Sondes', 'kharroubi', '1998-05-14', 'femme', 29163283, 'femme6.jpeg', 'I love hargma. Et quibusdam accusamus sed voluptas consectetur est temporibus dignissimos?', 10, 20, 28, 'ISI', 36.85858, 10.18436, 21422, 0),
-(21, 'wassimbenr@gmail.com', '1234', 'Wassim', 'Ben R', '1998-09-01', 'Homme', 94366666, 'wassim.jpg', 'I love Coffee. Et quibusdam accusamus sed voluptas consectetur est temporibus dignissimos?', 80, 30, 58, 'MSB', 36.85853401864276, 10.25627057556146, 41212, 0),
+(21, 'wassimbenr@gmail.com', '1234', 'Wassim', 'Ben R', '1998-09-01', 'Homme', 94366666, 'wassim.jpg', 'I love Coffee. Et quibusdam accusamus sed voluptas consectetur est temporibus dignissimos?', 80, 30, 58, 'MSB', 36.800481, 10.187607, 41212, 0),
 (22, 'said@esprit.tn', '1234', 'Said', 'Mohamed', '1999-06-16', 'Homme', 29932123, 'homme1.jpeg', 'I love chawarma. Et quibusdam accusamus sed voluptas consectetur est temporibus dignissimos?', 55, 18, 24, 'ISET Gafsa', 34.42589577900697, 8.777963316936145, 11121, 0),
 (23, 'lina@esprit.tn', '1234', 'Lina', 'Toumi', '1999-03-08', 'Femme', 94377345, 'femme4.jpeg', 'I love Crepe. Et quibusdam accusamus sed voluptas consectetur est temporibus dignissimos?', 20, 21, 25, 'INSAT', 36.91971402746499, 10.282887734817388, 12444, 0);
 
@@ -510,7 +526,7 @@ ALTER TABLE `gerant`
 -- AUTO_INCREMENT pour la table `interaction`
 --
 ALTER TABLE `interaction`
-  MODIFY `id_interaction` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id_interaction` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT pour la table `invitation`
@@ -528,7 +544,7 @@ ALTER TABLE `jeu`
 -- AUTO_INCREMENT pour la table `matching`
 --
 ALTER TABLE `matching`
-  MODIFY `id_match` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_match` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `message`

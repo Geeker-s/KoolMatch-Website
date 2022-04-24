@@ -1198,31 +1198,6 @@ section {
   transform: scale(1);
 }
 
-.tinder--filter {
-  flex: 0 0 100px;
-  text-align: center;
-  padding-top: 15px;
-}
-
-.tinder--filter button {
-  border-radius: 50%;
-  line-height: 60px;
-  width: 60px;
-  border: 0;
-  background: #ffffff;
-  display: inline-block;
-  margin: 0 8px;
-}
-
-.tinder--filter button:focus {
-  outline: 0;
-}
-
-.tinder--filter i {
-  font-size: 32px;
-  vertical-align: middle;
-}
-
 .tinder--cards {
   flex-grow: 1;
   padding-top: 10px;
@@ -1245,6 +1220,56 @@ section {
   will-change: transform;
   transition: all 0.3s ease-in-out;
   cursor: grab;
+}
+
+
+.tinder--filter {
+  display: flex;
+  width: 90vw;
+  max-width: 400px;
+  height: 65vh;
+  background: rgba(255, 255, 255, 0.85);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 25vh;
+  margin-top: 3vh;
+  border-radius: 8px;
+  overflow: hidden;
+  will-change: transform;
+  transition: all 0.3s ease-in-out;
+  cursor: grab;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+
+.rangeslider{
+  width: 50%;
+}
+
+.myslider {
+  -webkit-appearance: none;
+  background: #FCF3CF  ;
+  width: 50%;
+  height: 20px;
+  opacity: 2;
+}
+
+
+.myslider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  cursor: pointer;
+  background: #34495E  ;
+  width: 5%;
+  height: 20px;
+}
+
+
+.myslider:hover {
+  opacity: 1;
 }
 
 .moving.tinder--card {

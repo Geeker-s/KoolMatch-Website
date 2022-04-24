@@ -218,6 +218,7 @@ class User
         $meter = ($earth_radius * $d);
         return round($meter / 1000);
     }
+
     //Ending wassim function
 
 

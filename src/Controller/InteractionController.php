@@ -9,7 +9,16 @@ use App\Form\InteractionType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
+//API
+use JeroenDesloovere\Geolocation\Geolocation;
+use JeroenDesloovere\Geolocation\Result\Address;
+use JeroenDesloovere\Geolocation\Result\Coordinates;
+//bundle
+use Twilio\Rest\Client;
+
 use function PHPUnit\Framework\matches;
 
 class InteractionController extends AbstractController
@@ -29,6 +38,9 @@ class InteractionController extends AbstractController
     //Function Algorithm qui retourne une liste des utilisateurs selon l'interet d'un User
     public function algorithm(User $u): array
     {
+        //Make sure if user has been interacted: don't show him again
+
+
         $query = $this->getDoctrine()->getManager()
             ->createQuery('SELECT u
             FROM App\Entity\User u
@@ -64,11 +76,30 @@ class InteractionController extends AbstractController
     /**
      * @Route ("/addInteraction", name="addInteraction")
      */
-    public function addInteraction(Request $request)
+    public function addInteraction(Request $request,MailerInterface $mailer)
     {
         //This will be replaced by session
-        $connectedUser = $this->getDoctrine()->getRepository(User::class)->find(23);
+        $connectedUser = $this->getDoctrine()->getRepository(User::class)->find(21);
+
+        //algorithme
         $interactions = $this->algorithm($connectedUser);
+
+        //get addresse from lattitude longitude API
+        $geocoder = new \OpenCage\Geocoder\Geocoder('1d6b2244086f43a5af7f645a47a06fa7');
+        $addrr = $geocoder->geocode($connectedUser->getLatitude().','.$connectedUser->getLongitude()); # latitude,longitude (y,x)
+
+/*
+ * Google maps Geocoding
+ *
+        $latitude = $connectedUser->getLatitude();
+        $longitude = $connectedUser->getLongitude();
+        $GEOapi = new Geolocation("null",false);
+        $addrr = $GEOapi->getAddress(
+            $latitude,
+            $longitude
+        );
+*/
+
         $em = $this->getDoctrine()->getManager();
         $interaction = new Interaction();
         $interaction->setIdUser1($connectedUser);
@@ -78,9 +109,6 @@ class InteractionController extends AbstractController
             $id_user = $request->request->get("iduser");
             $interaction->setIdUser2($this->getDoctrine()->getRepository(User::class)->find($id_user));
             $interaction->setTypeInteraction($type);
-            if ( $type = "x") {
-
-            }
             //Auto Matching chaque interaction
             $sql = $this->getDoctrine()->getManager()
                 ->createQuery('SELECT i
@@ -90,7 +118,6 @@ class InteractionController extends AbstractController
                 ->setParameter('id_user2', $connectedUser->getIdUser())
                 ->setParameter('typeInteraction', "o");
             $isMatched = $sql->getResult();
-
             if (empty($isMatched)) {
                 $em->persist($interaction);
                 $em->flush();
@@ -108,12 +135,30 @@ class InteractionController extends AbstractController
                 $this->forward('App\Controller\MatchingController::ajouterMatching', [
                     'm'  => $match,
                 ]);
-
+                //sms for matching
+                $sid = "ACb346185897d260a3628d46fda6278411"; // Your Account SID from www.twilio.com/console
+                $token = "d389d7f6fc4d2b32f88fc007eb6026f7"; // Your Auth Token from www.twilio.com/console
+                $client = new Client($sid, $token);
+                $client->messages->create(
+                    '+21694366666', // Text this number
+                    [
+                        'from' => '+18565531869', // From a valid Twilio number
+                        'body' => 'Félicitation '.$connectedUser->getNomUser().'! Vous avez un nouveau Match'
+                    ]
+                );
+                //email the other user
+                $x = $this->getDoctrine()->getRepository(User::class)->find($id_user);
+                $email = (new Email())
+                    ->from('matchkool@gmail.com')
+                    ->to($x->getEmailUser())
+                    ->subject('Félicitation '.$x->getNomUser())
+                    ->text('Vous avez un nouveau Match!');
+                $mailer->send($email);
             }
 
         }
         return $this->render('interaction/addInteraction.html.twig',
-            array('interactions' => $interactions, 'lat' => $connectedUser->getLatitude(), 'lon' => $connectedUser->getLongitude()));
+            array('interactions' => $interactions, 'lat' => $connectedUser->getLatitude(), 'lon' => $connectedUser->getLongitude(),'adrr'=>$addrr['results'][0]['formatted'],'ageUser'=>$connectedUser->getAge()));
     }
 
     /**
