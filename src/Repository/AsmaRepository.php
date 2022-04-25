@@ -2,32 +2,32 @@
 
 namespace App\Repository;
 
-use App\Entity\Reservation;
+use App\Entity\Asma;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Reservation>
+ * @extends ServiceEntityRepository<Asma>
  *
- * @method Reservation|null find($id, $lockMode = null, $lockVersion = null)
- * @method Reservation|null findOneBy(array $criteria, array $orderBy = null)
- * @method Reservation[]    findAll()
- * @method Reservation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Asma|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Asma|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Asma[]    findAll()
+ * @method Asma[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ReservationRepository extends ServiceEntityRepository
+class AsmaRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Reservation::class);
+        parent::__construct($registry, Asma::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Reservation $entity, bool $flush = true): void
+    public function add(Asma $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -39,7 +39,7 @@ class ReservationRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Reservation $entity, bool $flush = true): void
+    public function remove(Asma $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -48,15 +48,15 @@ class ReservationRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Reservation[] Returns an array of Reservation objects
+    //  * @return Asma[] Returns an array of Asma objects
     //  */
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
+            ->orderBy('a.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -65,10 +65,10 @@ class ReservationRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Reservation
+    public function findOneBySomeField($value): ?Asma
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()

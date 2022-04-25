@@ -6,13 +6,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use App\Repository\ReservationRepository;
+
 
 
 /**
  * Reservation
  *
  * @ORM\Table(name="reservation", indexes={@ORM\Index(name="FK_U", columns={"id_restaurant"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=ReservationRepository::class)
  */
 class Reservation
 {

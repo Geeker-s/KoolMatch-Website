@@ -37,7 +37,7 @@ class RestaurantsController extends AbstractController
      */
     public function liste(Request $request)
     {
-        $Restaurant=$this->getDoctrine()->getRepository(Restaurant::class)->findAll();
+        $Restaurant=$this->getDoctrine()->getRepository(Restaurant::class)->orderByNb();
         $em=$this->getDoctrine()->getManager();
 
         if ($request->isXmlHttpRequest()) {
@@ -56,7 +56,7 @@ class RestaurantsController extends AbstractController
     {
         $Restaurant=$paginator->paginate(
         $Restaurant=$this->getDoctrine()->getRepository(Restaurant::class)->findAll(),
-        $request->query->getInt('page',1),5);
+        $request->query->getInt('page',1),3);
         return $this->render("Restaurants/list.html.twig",array("Restaurant"=>$Restaurant));
     }
    
@@ -85,16 +85,28 @@ class RestaurantsController extends AbstractController
         $reservation->setArchive(0);
         $reservation->setIdUser(1);
         $reservation->setImage('aaaaaaa');
-        $reservation->setnomResto('aaaaaaa');
+        $reservation->setnomResto($detaild->getNomRestaurant());
         $reservation->setadresse('aaaaaaa');
 
         $form=$this->createForm(reservationType::class,$reservation);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
-       
         {
+            $sid    = "AC2948f9de09ac7c277c45360f325056f8"; 
+            $token  = "8713b00d012937c2ec8354e776e8f013"; 
+            $twilio = new Client($sid, $token); 
+             
+            $message = $twilio->messages 
+                              ->create("+21698486031", // to 
+                                       array(  
+                                           "messagingServiceSid" => "MGaa2b84aa2f0e81be7e1476fe43390036",      
+                                           "body" => "votre réservation a bien été prise en compte" 
+                                       ) 
+                              ); 
+             
+            print($message->sid);
 
-          //$reservation->setnomResto($request->get('nomRestaurant'));
+        
             $em=$this->getDoctrine()->getManager();
             $em->persist($reservation);
             $em->flush();
@@ -207,6 +219,23 @@ class RestaurantsController extends AbstractController
     }
     return new Response("Erreur: Ce n'est pas une requete ajax",400);
 }       
-    
+public function rechercheAjaxAction(Request $request)
+{
   
+    $em=$this->getDoctrine()->getManager();
+
+    if ($request->isXmlHttpRequest()) {
+        $search  = $request->get('search');
+        dump($search);
+        $event = new Evenement();
+        $repo  = $em->getRepository(Restaurant::class);
+        $event = $repo->findAjax($search);
+        return $this->render('back/affichage_table_restaurant.html.twig',array('events' => $event));
+    }
+
+
+}
+
+
+
 }

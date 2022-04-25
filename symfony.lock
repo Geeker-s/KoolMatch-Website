@@ -1,4 +1,7 @@
 {
+    "cmen/google-charts-bundle": {
+        "version": "5.0.0"
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {
@@ -82,8 +85,38 @@
     "egulias/email-validator": {
         "version": "3.1.2"
     },
+    "firebase/php-jwt": {
+        "version": "v3.0.0"
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.7"
+    },
+    "google/apiclient": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "2.0",
+            "ref": "49c5d7a66d863d28513979bf0666dc77599100c0"
+        },
+        "files": [
+            "./config/packages/google_apiclient.yaml"
+        ]
+    },
+    "google/apiclient-services": {
+        "version": "v0.245.0"
+    },
+    "google/auth": {
+        "version": "v0.8"
+    },
+    "guzzlehttp/guzzle": {
+        "version": "6.2.0"
+    },
+    "guzzlehttp/promises": {
+        "version": "1.5.1"
+    },
+    "guzzlehttp/psr7": {
+        "version": "1.2.3"
     },
     "knplabs/knp-components": {
         "version": "v3.4.0"
@@ -117,6 +150,9 @@
     },
     "phpdocumentor/type-resolver": {
         "version": "1.6.1"
+    },
+    "phpseclib/phpseclib": {
+        "version": "2.0.37"
     },
     "phpspec/prophecy": {
         "version": "v1.15.0"
@@ -155,6 +191,9 @@
     },
     "psr/container": {
         "version": "1.1.2"
+    },
+    "psr/http-message": {
+        "version": "1.0.1"
     },
     "psr/link": {
         "version": "1.0.0"

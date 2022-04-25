@@ -20,11 +20,17 @@
                 <div class="card-body">
                
         <h5 class="card-title">Ajouter Restaurant</h5>
+        <div>
+                            <p style="100px" > <input  id="myInput"  type="text" placeholder="search">
+                                <img src="https://img.icons8.com/nolan/344/google-web-search.png" style="width:50px;height:50px;"/></p>
+
+                        </div>
         {% for message in app.flashes('success') %}
         <div class="alert alert-success">
         {{message}}
         </div>
         {% endfor %}
+        
              <table class="table datatable">
                
                           <thead>
@@ -40,6 +46,9 @@
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
+                <tbody>
+                            <tbody>
+                            <tbody id="myTable">
                           {% for e in Restaurant %}
                     
                         <tr>
@@ -59,6 +68,10 @@
                         </tr>
 
                  {% endfor %}
+                 </tbody>
+                 <tbody id="search">
+
+                            </tbody>
                 </table>
 
             </div>
@@ -66,7 +79,18 @@
 
         </div>
       </div>
-    </section>
     
+    </section>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
    
 {% endblock %}

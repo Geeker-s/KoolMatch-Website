@@ -4,12 +4,14 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Repository\RestaurantRepository;
+
 
 /**
  * Restaurant
  *
  * @ORM\Table(name="restaurant")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=RestaurantRepository::class)
  */
 class Restaurant
 {
@@ -108,7 +110,7 @@ class Restaurant
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=100, nullable=false)
-     * @Assert\Length(min = 2,max = 50,
+     * @Assert\Length(min = 2,max = 255,
      * minMessage = "Votre description doit être au moins{{ limit }} Longs caractères",
      * maxMessage = "Votre description ne peut pas dépasser{{ limit }} caractères"
      * )    

@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\Request;
 use GuzzleHttp\Psr7\UploadedFile;
 use Twilio\Rest\Client; 
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 class ReservationController extends AbstractController
 {
     /**
@@ -62,20 +63,6 @@ class ReservationController extends AbstractController
         }
         return $this->render('reservation/reservation.html.twig',array("forms"=>$form->createView()));
     }
-
-
-
-
-
-
-  
-
-
-
-
-
-
-    
      /**
      * @Route("/delete1/{idReservation}", name="delete1")
      */
@@ -107,5 +94,41 @@ class ReservationController extends AbstractController
     }
 
 
+  /**
+     * @Route("/stat", name="stat")
+     */
+public function indexAction()
+{
+    $pieChart = new pieChart();
+    $em = $this->getDoctrine();
+    $e = $em->getRepository(Reservation::class)->findAll();
+    $totaleq = 0;
+    foreach ($e as $Reservation) {
+        $totaleq = $totaleq + $Reservation->getNbplaceReservation();
+    }
+    $data = array();
+    $stat = ['NbplaceReservationout', 'NomResto'];
+    $nb = 0;
+    array_push($data, $stat);
+    foreach ($e as $Reservation) {
+        $stat = array();
+        array_push($stat, $Reservation->getNomResto(), (($Reservation->getNbplaceReservation()) * 100) / $totaleq);
+        $nb = ($Reservation->getNbplaceReservation() * 100) / $totaleq;
+
+    
+        $stat = [$Reservation->getNomResto (), $nb];
+        array_push($data, $stat);
+    }
+    $pieChart->getData()->setArrayToDataTable($data);
+    $pieChart->getOptions()->setTitle('Pourcentage des Reservations par leurs marque disponibles');
+    $pieChart->getOptions()->setHeight(500);
+    $pieChart->getOptions()->setWidth(900);
+    $pieChart->getOptions()->getTitleTextStyle()->setItalic(true);
+    $pieChart->getOptions()->getTitleTextStyle()->setFontName('Arial');
+    $pieChart->getOptions()->getTitleTextStyle()->setFontSize(20);
+
+        return $this->render('back/stats.html.twig', array('piechart' => $pieChart));
+    }
 
 }
+
