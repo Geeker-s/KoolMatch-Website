@@ -33,10 +33,6 @@ class Evenement
      *
      *      )
      */
-
-
-
-
     private $nomEvent;
 
     /**

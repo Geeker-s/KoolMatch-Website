@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 
-
-
 {% block body %}
     <style>
         .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
@@ -9,53 +7,103 @@
 
     </style>
 
+    {% for evenement in e  %}
+        <style>
+            article.card:hover .infos {
+                transform: translateY(-50px);
+            }
+            article.card:hover .infos , article.card:hover .infos .txt, article.card:hover .infos  {
+                opacity: 1;
+            }
+            article.card .infos {
+                width: auto;
+                height: 220px;
+                position: relative;
+                padding: 14px 24px;
+                background: #fff;
+                transition: 0.4s 0.15s cubic-bezier(0.17, 0.67, 0.5, 1.03);
+            }
+            article.card {
+                width: 280px;
+                margin-left:50px;
+                margin-top: 110px;
+                margin-right: 50px;
 
-{% for evenement in e  %}
+                border-radius: 3px;
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+                overflow: hidden;}
+            article.card .thumb {
+                width: auto;
+                height: 110px;
+                background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/397014/new-york-city.png") no-repeat center;
+                background-size: cover;
+                border-radius: 3px;}
+            article.card .infos .txt {
+                font-family: "Merriweather", sans-serif;
+                line-height: 2;
+                font-size: 0.95rem;
+                color: rgba(21, 37, 54, 0.7);
+                opacity: 0;
+                transition: 0.1s 0.1s cubic-bezier(0.17, 0.67, 0.5, 1.03);
+            }
+            article.card .infos .date, article.card .infos  {
+                margin-bottom: 10px;
+                text-transform: uppercase;
+                font-size: 0.85rem;
+                color: rgba(21, 37, 54, 0.7);
+                font-family: "Grotesque", sans-serif;
+            }
+            article.card .infos .title {
+                position: relative;
+                margin: 10px 0;
+                letter-spacing: 3px;
+                color: #FFC0CB;
+                font-family: "Grotesque Black", sans-serif;
+                font-size: 1rem;
+                text-transform: uppercase;
+                text-shadow: 0 0 0px #32577f;
 
 
+            }
 
+            navigaion {
+                position: relative;
 
-        <!-- venue item-->
+            }
 
-    <section  >
+        </style>
 
-        <div style="margin-right: 10px;margin-left: 10px" >
-            <div class="card h-100 border-0 shadow ">
-                    <div class="card-img-overlay-bottom z-index-20">
-                        <h4 >{{ evenement.nomEvent }}</h4>
-                        <p class="mb-2 text-xs"><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-gray-300">                    </i>
-                        </p>
-                    </div>
-                    <div class="card-img-overlay-top d-flex justify-content-between align-items-center">
+        <!-- partial:index.partial.html -->
 
-                        <div class="badge badge-transparent badge-pill px-3 py-2"></div><a class="card-fav-icon position-relative z-index-40" href="javascript: void();">
-                            <svg class="svg-icon text-white">
-
-                                <use xlink:href="#heart-1"> </use>
-                            </svg></a>
-                    </div>
-
-                <div class="card-body">
-                    <p class="text-sm text-muted mb-3"> {{ evenement.ddEvent |date('d-m-Y') }}</p>
-
-                    <p class="text-sm text-muted text-uppercase mb-1"> <a href="#" class="text-dark">{{ evenement.themeEvent }}</a></p>
-                    <p class="text-sm mb-0"><a class="mr-1" href="#">{{ evenement.adresseEvent }},</a><a class="mr-1" href="#"></a>
-                    </p>
-                </div>
+        <article class="card">
+            <div class="thumb">
 
             </div>
+            <div class="infos">
+                <h2 class="title">{{ evenement.nomEvent }}</h2>
+                <h3 class="date">{{ evenement.ddEvent |date('d-m-Y') }}</h3>
+
+                <p class="txt">
+                    Theme: {{ evenement.themeEvent }}
+                    <br>
+
+                    Adresse : {{ evenement.adresseEvent }}
+                    <br>
+
+                    Contact : {{ evenement.telephone }}
+
+                </p>
+
+            </div>
+        </article>
+        <!-- partial -->
+    {% endfor %}
 
 
-        </div>
 
 
 
-
-    </section>
-
-{% endfor %}
-
-    <div style="margin-top: 550px ; margin-left: -600px" >
+    <div class="navigation" style=" margin-top: 550px ; margin-left: -600px ;" center-text >
 
         {{ knp_pagination_render(e ) }}
 
