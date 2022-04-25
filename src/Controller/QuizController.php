@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Quiz;
 use App\Form\QuizType;
 use App\Repository\QuizRepository;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,6 +47,7 @@ class QuizController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->remove($jeu);
         $em->flush();
+        $this->addFlash('info','Quiz Supprimer!');
         return $this->redirectToRoute("Afficherq");
     }
 
@@ -64,6 +66,7 @@ class QuizController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($quiz);
             $em->flush();
+            $this->addFlash('info','Quiz Ajouté!');
             return $this->redirectToRoute("Afficherq");
         }
         return $this->render("quiz/add.html.twig", array("formq" => $form->createView()));

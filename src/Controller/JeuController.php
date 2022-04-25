@@ -10,12 +10,15 @@ use App\Repository\QuizRepository;
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 use phpDocumentor\Reflection\Types\Null_;
 use PHPUnit\Framework\Constraint\IsNull;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 
 class JeuController extends AbstractController
@@ -65,10 +68,12 @@ class JeuController extends AbstractController
                  ]
              );
              $pieChart->getOptions()->setHeight(500);
-             $pieChart->getOptions()->setWidth(900);
-             $pieChart->getOptions()->setBackgroundColor('#191c24');
-             $pieChart->getOptions()->getLegend()->getTextStyle()->setColor('#FFFFFF');
-             $pieChart->getOptions()->getLegend()->setPosition('bottom');
+             $pieChart->getOptions()->setWidth(800);
+             $pieChart->getOptions()->getTitleTextStyle()->setBold(true);
+             $pieChart->getOptions()->getTitleTextStyle()->setColor('#009900');
+             $pieChart->getOptions()->getTitleTextStyle()->setItalic(true);
+             $pieChart->getOptions()->getTitleTextStyle()->setFontName('Arial');
+             $pieChart->getOptions()->getTitleTextStyle()->setFontSize(20);
 
 
 
@@ -92,6 +97,42 @@ class JeuController extends AbstractController
         $em->flush();
         return $this->redirectToRoute('Affichejeu');
 
+
+    }
+
+    /**
+     *
+     * @Route ("/jeu/excel",name="ex")
+     */
+    public function excel(JeuRepository $repo){
+        $jeu=$repo->findAll();
+        $spreadsheet = new Spreadsheet();
+
+        /* @var $sheet \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet */
+        $sheet = $spreadsheet->getActiveSheet();
+        $x=1;
+        foreach ($jeu as $jeu) {
+            $sheet->setCellValue('A'.$x, $jeu->getIdUser());
+            $sheet->setCellValue('B'.$x, $jeu->getScoreJeu());
+            $sheet->setCellValue('C'.$x, $jeu->getArchive());
+
+
+            $sheet->setTitle("Jeu");
+            $x++;
+        }
+
+// Create your Office 2007 Excel (XLSX Format)
+        $writer = new Xlsx($spreadsheet);
+
+// Create a Temporary file in the system
+        $fileName = 'Jeu.xlsx';
+        $temp_file = tempnam(sys_get_temp_dir(), $fileName);
+
+// Create the excel file in the tmp directory of the system
+        $writer->save($temp_file);
+
+// Return the excel file as an attachment
+        return $this->file($temp_file, $fileName, ResponseHeaderBag::DISPOSITION_INLINE);
 
     }
 

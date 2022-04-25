@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use GuzzleHttp\Psr7\UploadedFile;
@@ -60,6 +61,7 @@ class RecetteController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->remove($recette);
         $em->flush();
+        $this->addFlash('info','Recette Supprimé!');
         return $this->redirectToRoute('afficherR');
 
 
@@ -85,6 +87,7 @@ class RecetteController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($recette);
             $em->flush();
+            $this->addFlash('info','Recette Ajouté!');
             return $this->redirectToRoute("afficherR");
         }
         return $this->render("recette/add.html.twig", array("formrecette" => $form->createView()));
@@ -107,6 +110,7 @@ class RecetteController extends AbstractController
          $recette->setPhotoRecette("back/assets/img/users/" . $file->getClientOriginalName());
          $em=$this->getDoctrine()->getManager();
          $em->flush();
+         $this->addFlash('info','Recette Modifié!');
          return $this->redirectToRoute("afficherR");
 
      }
@@ -134,6 +138,7 @@ class RecetteController extends AbstractController
     {
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->set('isRemoteEnabled', TRUE);
         $dompdf = new Dompdf($pdfOptions);
         $recette = $repository->findAll();
         $html = $this->renderView('recette/pdf.html.twig', [

@@ -3,7 +3,35 @@
 {% block title %}Hello RecetteController!{% endblock %}
 
 {% block body %}
-<style>
+    {% for message in app.flashes('info') %}
+        <div class="alertaa">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{ message }}
+        </div>
+    {% endfor %}
+    <style>
+        .alertaa {
+            padding: 20px;
+            background-color: #40826d; /* Red */
+            color: white;
+            margin-bottom: 15px;
+        }
+        /* The close button */
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        /* When moving the mouse over the close button */
+        .closebtn:hover {
+            color: black;
+        }
     .example-wrapper { margin: 1em auto; max-width: 1000px; width: 95%; font: 17px/0.55 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
     .kka {
@@ -48,9 +76,23 @@
     }
 
 </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
 
 <h1>List des Quiz</h1>
     <br>
+    <input id="myInput" type="text" placeholder="Search..">
+    <br><br>
+
 <table class="styled-table" >
     <tr>
         <th> Question 1</th>
@@ -70,7 +112,9 @@
         <td>choix 3</td>
         <td>nom recette</td>
     </tr>
+    <tbody id="myTable">
     <tr {% for q in Quiz %}  >
+
         <td> {{ q.getQ1() }} </td>
         <td>{{ q.getRc1() }} </td>
         <td> {{ q.getRf11() }} </td>
@@ -90,5 +134,6 @@
         <td><button class="kka" ><a href="{{ path('sq',{'id':q.getIdQuiz()})}}"><p style="color:#000000">Delete </p></a>
         <td><button class="kka" ><a href="{{ path('u',{'id':q.getIdQuiz()})}}"><p style="color:#000000">Update </p></a>
     </tr {% endfor %}>
+    </tbody>
 </table>
 {% endblock  %}

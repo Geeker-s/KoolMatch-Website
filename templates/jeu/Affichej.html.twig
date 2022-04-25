@@ -13,6 +13,14 @@
             font-size: 20px;
             padding: 3px;
         }
+        .kkka {
+            color: #fff;
+            background-color: #bef574;
+            border-color: #bef574;
+            font-size: 20px;
+            padding: 3px;
+        }
+
     </style>
     <!-- stat -->
 
@@ -31,8 +39,13 @@
         <main>
 
             <div class="container mt-5 mb-5">
+                <a  class="kkka" href="{{ path('ex') }}">
+                    <i class="fa fa-book"></i>
+                    Générer excel
+                </a>
                 <div class="d-flex justify-content-between mb-3">
                 <div class="row g-2">
+
                     {%  for j in jeu %}
                         <div class="col-md-3">
                             <div class="card p-2 py-3 text-center">

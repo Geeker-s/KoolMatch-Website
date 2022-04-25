@@ -27,6 +27,7 @@ class Recette
      *
      * @ORM\Column(name="nom_recette", type="string", length=20, nullable=false)
      * @Assert\NotBlank(message="le nom est obligatoire")
+     * @Assert\Length(min=3,minMessage= "le nom doit contenir au moins  {{ limit }} caractères.")
      */
     private $nomRecette;
 
@@ -42,6 +43,7 @@ class Recette
      * @var string
      *
      * @ORM\Column(name="description_recette", type="string", length=255, nullable=false)
+     * @Assert\Length(min=4 , minMessage= "la description doit contenir au moins {{ limit }} caractères.")
      */
     private $descriptionRecette;
 
@@ -50,6 +52,7 @@ class Recette
      *
      * @ORM\Column(name="categorie_recette", type="string", length=20, nullable=false)
      * @Assert\NotBlank(message="categorie est obligatoire")
+     * @Assert\Length(min=3,minMessage= "la categorie doit contenir au moins {{ limit }} caractères.")
      */
     private $categorieRecette;
 

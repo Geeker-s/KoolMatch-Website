@@ -26,6 +26,8 @@ class Quiz
      * @var string
      *
      * @ORM\Column(name="Q1", type="text", length=65535, nullable=false)
+     * @Assert\NotBlank(message="la question est obligatoire")
+     * @Assert\Length(min=3,minMessage= "la question doit contenir au moins  {{ limit }} caractères.")
      *
      */
     private $q1;
@@ -35,6 +37,7 @@ class Quiz
      *
      * @ORM\Column(name="rc1", type="text", length=65535, nullable=false)
      * @Assert\NotBlank(message="la question est obligatoire")
+     * @Assert\Length(min=3,minMessage= "la question doit contenir au moins  {{ limit }} caractères.")
      */
     private $rc1;
 
@@ -43,6 +46,7 @@ class Quiz
      *
      * @ORM\Column(name="rf11", type="text", length=65535, nullable=false)
      * @Assert\NotBlank(message="la reponse est obligatoire")
+     * @Assert\Length(min=3,minMessage= "la réponse doit contenir au moins  {{ limit }} caractères.")
      */
     private $rf11;
 
@@ -50,6 +54,8 @@ class Quiz
      * @var string
      *
      * @ORM\Column(name="rf12", type="text", length=65535, nullable=false)
+     * @Assert\NotBlank(message="la reponse est obligatoire")
+     * @Assert\Length(min=3,minMessage= "la réponse doit contenir au moins  {{ limit }} caractères.")
      */
     private $rf12;
 
@@ -57,6 +63,7 @@ class Quiz
      * @var string
      *
      * @ORM\Column(name="rf13", type="text", length=65535, nullable=false)
+     * @Assert\Length(min=3,minMessage= "la réponse doit contenir au moins  {{ limit }} caractères.")
      */
     private $rf13;
 
@@ -65,6 +72,7 @@ class Quiz
      *
      * @ORM\Column(name="Q2", type="text", length=65535, nullable=false)
      * @Assert\NotBlank(message="la question est obligatoire")
+     * @Assert\Length(min=3,minMessage= "la réponse doit contenir au moins  {{ limit }} caractères.")
      */
     private $q2;
 
@@ -73,34 +81,40 @@ class Quiz
      *
      * @ORM\Column(name="rc2", type="text", length=65535, nullable=false)
      * @Assert\NotBlank(message="la reponse est obligatoire")
+     * @Assert\Length(min=3,minMessage= "la question doit contenir au moins  {{ limit }} caractères.")
+     *
      */
     private $rc2;
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank(message="la reponse est obligatoire")
      * @ORM\Column(name="rf21", type="text", length=65535, nullable=false)
+     * @Assert\Length(min=3,minMessage= "la réponse doit contenir au moins  {{ limit }} caractères.")
      */
     private $rf21;
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank(message="la reponse est obligatoire")
      * @ORM\Column(name="rf22", type="text", length=65535, nullable=false)
+     * @Assert\Length(min=3,minMessage= "la réponse doit contenir au moins  {{ limit }} caractères.")
      */
     private $rf22;
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank(message="la reponse est obligatoire")
      * @ORM\Column(name="rf23", type="text", length=65535, nullable=false)
+     * @Assert\Length(min=3,minMessage= "la réponse doit contenir au moins  {{ limit }} caractères.")
      */
     private $rf23;
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank(message="la reponse est obligatoire")
      * @ORM\Column(name="Q3", type="text", length=65535, nullable=false)
+     * @Assert\Length(min=3,minMessage= "la question doit contenir au moins  {{ limit }} caractères.")
      */
     private $q3;
 
@@ -109,6 +123,7 @@ class Quiz
      *
      * @ORM\Column(name="rc3", type="text", length=65535, nullable=false)
      * @Assert\NotBlank(message="la question est obligatoire")
+     * @Assert\Length(min=3,minMessage= "la réponse doit contenir au moins  {{ limit }} caractères.")
      */
     private $rc3;
 
@@ -117,6 +132,7 @@ class Quiz
      *
      * @ORM\Column(name="rf31", type="text", length=65535, nullable=false)
      * @Assert\NotBlank(message="la reponse est obligatoire")
+     * @Assert\Length(min=3,minMessage= "la réponse doit contenir au moins  {{ limit }} caractères.")
      */
     private $rf31;
 
@@ -124,6 +140,8 @@ class Quiz
      * @var string
      *
      * @ORM\Column(name="rf32", type="text", length=65535, nullable=false)
+     * @Assert\NotBlank(message="la reponse est obligatoire")
+     * @Assert\Length(min=3,minMessage= "la réponse doit contenir au moins  {{ limit }} caractères.")
      */
     private $rf32;
 
@@ -131,6 +149,8 @@ class Quiz
      * @var string
      *
      * @ORM\Column(name="rf33", type="text", length=65535, nullable=false)
+     * @Assert\NotBlank(message="la reponse est obligatoire")
+     * @Assert\Length(min=3,minMessage= "la réponse doit contenir au moins  {{ limit }} caractères.")
      */
     private $rf33;
 
