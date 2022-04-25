@@ -36,6 +36,8 @@
                         <td> {{ user.telephoneUser }} </td>
                         <td> {{ user.adresseUser }} </td>
                         <td> <a href="{{ path('suprimer_user',{'idUser':user.idUser}) }}"><input class="favorite styled" type="button" value="Supprimer"></a> </td>
+                        <td> <a href="{{ path('blocuser',{'idUser':user.idUser}) }}"><input class="favorite styled" type="button" value="Bloquer"></a> </td>
+                        <td> <a href="{{ path('inblocuser',{'idUser':user.idUser}) }}"><input class="favorite styled" type="button" value="Débloquer"></a> </td>
                     </tr>
                 {% endfor %}
                 </tbody>

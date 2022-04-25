@@ -41,6 +41,8 @@
                         <td> {{ gerant.ddAbonnement|date('d-m-Y') }} </td>
                         <td> {{ gerant.dfAbonnement|date('d-m-Y') }} </td>
                         <td> <a href="{{ path('modifgerant',{'idGerant':gerant.idGerant}) }}"><input class="favorite styled" type="button" value="Modifier"></a> </td>
+                        <td> <a href="{{ path('blocgerant',{'idGerant':gerant.idGerant}) }}"><input class="favorite styled" type="button" value="Bloquer"></a> </td>
+                        <td> <a href="{{ path('inblocgerant',{'idGerant':gerant.idGerant}) }}"><input class="favorite styled" type="button" value="Débloquer"></a> </td>
                         <td> <a href="{{ path('suprimer_gerant',{'idGerant':gerant.idGerant}) }}"><input class="favorite styled" type="button" value="Supprimer"></a> </td>
                     </tr>
                 {% endfor %}

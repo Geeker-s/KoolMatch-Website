@@ -59,7 +59,8 @@ class UserController extends AbstractController
         if($form->isSubmitted() ){
             $username = $form["emailUser"]->getData();
             $password = $form["passwordUser"]->getData();
-            $test=$this->getDoctrine()->getRepository(User::class)->findBy(array('emailUser' =>$username,'passwordUser' =>$password));
+            $archive = $request->request->get("archive");
+            $test=$this->getDoctrine()->getRepository(User::class)->findBy(array('emailUser' =>$username,'passwordUser' =>$password,'archive'=>0));
             if ($test){
 
                 return $this->redirectToRoute('app_front');
@@ -75,6 +76,28 @@ class UserController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->remove($user);
         $em->flush();
+        return $this->redirectToRoute('display_user');
+    }
+    /**
+     * @Route("/blocuser/{idUser}", name="blocuser")
+     */
+    public function BlocUser (Request $request,$idUser): Response{
+        $user= $this->getDoctrine()->getManager()->getRepository(User::class)->find($idUser);
+        $user->setArchive(1);
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+        $this->addFlash('success','Utilisateur Bloqué');
+        return $this->redirectToRoute('display_user');
+    }
+    /**
+     * @Route("/inblocUser/{idUser}", name="inblocuser")
+     */
+    public function InBlocUser (Request $request,$idUser): Response{
+        $user= $this->getDoctrine()->getManager()->getRepository(User::class)->find($idUser);
+        $user->setArchive(0);
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+        $this->addFlash('success','Utilisateur débloqué');
         return $this->redirectToRoute('display_user');
     }
 }

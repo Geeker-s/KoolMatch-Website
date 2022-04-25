@@ -23,7 +23,7 @@ class GerantController extends AbstractController
      */
     public function index(PaginatorInterface $paginator,Request $request, GerantRepository $gerantRepository): Response
     {
-        $allgerants= $this->getDoctrine()->getManager()->getRepository(Gerant::class)->findAll();
+        $allgerants= $this->getDoctrine()->getManager()->getRepository(Gerant::class)->findAll(["archive" =>0]);
         $gerant= new Recherche();
         $searchform = $this->createFormBuilder($gerant)
             ->add('nomGerant',TextType::class,array('attr'=>array('class'=>'form-control')))
@@ -62,7 +62,8 @@ class GerantController extends AbstractController
         if($form->isSubmitted()){
             $username = $form["emailGerant"]->getData();
             $password = $form["passwordGerant"]->getData();
-            $test=$this->getDoctrine()->getRepository(Gerant::class)->findBy(array('emailGerant' =>$username,'passwordGerant' =>$password));
+            $archive = $request->request->get("archive");
+            $test=$this->getDoctrine()->getRepository(Gerant::class)->findBy(array('emailGerant' =>$username,'passwordGerant' =>$password,'archive'=>0));
             if ($test){
                 return $this->redirectToRoute('app_back');
 
@@ -112,5 +113,27 @@ class GerantController extends AbstractController
             return $this->redirectToRoute('display_gerant');
         }
         return $this->render('gerant/updateGerant.html.twig',['ger'=>$form->createView()]);
+    }
+    /**
+     * @Route("/blocgerant/{idGerant}", name="blocgerant")
+     */
+    public function BlocGerant (Request $request,$idGerant): Response{
+        $gerant= $this->getDoctrine()->getManager()->getRepository(Gerant::class)->find($idGerant);
+        $gerant->setArchive(1);
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+        $this->addFlash('success','Gerant Bloqué');
+        return $this->redirectToRoute('display_gerant');
+    }
+    /**
+     * @Route("/inblocgerant/{idGerant}", name="inblocgerant")
+     */
+    public function InBlocGerant (Request $request,$idGerant): Response{
+        $gerant= $this->getDoctrine()->getManager()->getRepository(Gerant::class)->find($idGerant);
+        $gerant->setArchive(0);
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+        $this->addFlash('success','Gerant débloqué');
+        return $this->redirectToRoute('display_gerant');
     }
 }
