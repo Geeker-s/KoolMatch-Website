@@ -56,7 +56,7 @@ class UserController extends AbstractController
         $user= new User();
         $form = $this ->createForm(ConnexionUserType::class,$user);
         $form -> handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
+        if($form->isSubmitted() ){
             $username = $form["emailUser"]->getData();
             $password = $form["passwordUser"]->getData();
             $test=$this->getDoctrine()->getRepository(User::class)->findBy(array('emailUser' =>$username,'passwordUser' =>$password));

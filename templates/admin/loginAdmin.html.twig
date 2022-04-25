@@ -1,44 +1,74 @@
 {% extends 'base.html.twig' %}
+
 {% block body %}
-    <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    </style>
-    <div class="example-wrapper">
-        <div style="display : flex ; align-items: center ; justify-content: center ">
-            <div class="card">
-                <div class="card-body">
-                    {{ form_start(f,{attr:{novalidate:'novalidate'}}) }}
+    <div class="container">
 
+        <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
-                    <div class="row mb-3">
-                        <label for="inputEmail" class="col-sm-4 col-form-label">Login Admin</label>
-                        <div class="col-sm-10">
-                            {{ form_widget(f.loginAdmin,{'attr':{'class':'form-control'}}) }}
+                        <div class="card mb-3">
+
+                            <div class="card-body">
+
+                                {{ form_start(f,{attr:{novalidate:'novalidate'}}) }}
+
+                                <div class="col-12">
+                                    <label for="inputEmail" class="col-sm-4 col-form-label">Login Admin</label>
+                                    <div class="col-sm-10">
+                                        {{ form_widget(f.loginAdmin,{'attr':{'class':'form-control'}}) }}
+                                    </div>
+                                    {{ form_errors(f.loginAdmin,{'attr':{'class':'text-danger'}}) }}
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="inputPassword" class="col-sm-6 col-form-label">Mot de passe</label>
+                                    <div class="col-sm-10">
+                                        {{ form_widget(f.passwordAdmin,{'attr':{'class':'form-control'}}) }}
+                                    </div>
+                                    {{ form_errors(f.passwordAdmin,{'attr':{'class':'text-danger'}}) }}
+
+                                    {{ form_widget(f.captchaCode) }}
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
+                                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    {{ form_widget(f.connexion,{'attr':{'class':'btn btn-primary'}}) }}
+                                </div>
+
+                                {{ form_end (f) }}
+                            </div>
                         </div>
-                        {{ form_errors(f.loginAdmin,{'attr':{'class':'text-danger'}}) }}
+
 
                     </div>
-                    <div class="row mb-3">
-                        <label for="inputPassword" class="col-sm-6 col-form-label">Mot de passe</label>
-                        <div class="col-sm-10">
-                            {{ form_widget(f.passwordAdmin,{'attr':{'class':'form-control'}}) }}
-                        </div>
-                        {{ form_errors(f.passwordAdmin,{'attr':{'class':'text-danger'}}) }}
-                    </div>
-                    {{ form_widget(f.captchaCode) }}
-                    <div class="row mb-3" align="right">
-
-                        <div class="col-sm-10">
-                            {{ form_widget(f.connexion,{'attr':{'class':'btn btn-primary'}}) }}
-                        </div>
-                    </div>
-
-
-                    {{ form_end (f) }}
                 </div>
             </div>
-        </div>
+
+        </section>
+
     </div>
+    </main><!-- End #main -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/chart.js/chart.min.js"></script>
+    <script src="assets/vendor/echarts/echarts.min.js"></script>
+    <script src="assets/vendor/quill/quill.min.js"></script>
+    <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
 
 {% endblock %}

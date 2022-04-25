@@ -4,7 +4,9 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <div class="container">
+    <div class="row justify-content-center">
+    <h1>Inscription</h1>
 
     {# If there are any errors on the form, display them #}
     {% set formErrors = registrationForm.vars.errors.form.getErrors(true) %}
@@ -20,21 +22,70 @@
 
     {# Render the Form #}
     {{ form_start(registrationForm) }}
-    {{ form_row(registrationForm.nomUser) }}
-    {{ form_row(registrationForm.prenomUser) }}
-    {{ form_row(registrationForm.emailUser) }}
-    {{ form_row(registrationForm.passwordUser) }}
-    {{ form_row(registrationForm.dateNaissance_user) }}
-    {{ form_row(registrationForm.sexeUser) }}
-    {{ form_row(registrationForm.telephone_user) }}
-    {{ form_row(registrationForm.photo_user) }}
-    {{ form_row(registrationForm.description_user) }}
-    {{ form_row(registrationForm.adresse_user) }}
-    {{ form_row(registrationForm.maxDistance_user) }}
-    {{ form_row(registrationForm.preferredMinAge_user) }}
-    {{ form_row(registrationForm.preferredMaxAge_user) }}
-    {{ form_row(registrationForm.latitude) }}
-    {{ form_row(registrationForm.longitude) }}
-    {{ form_row(registrationForm.Interet_user) }}
+    <div class="col-5">
+        {{ form_row(registrationForm.nomUser) }}
+    </div>
+    <div class="col-5">
+        {{ form_row(registrationForm.prenomUser) }}
+    </div>
+    <div class="col-5">
+        {{ form_row(registrationForm.emailUser) }}
+    </div>
+    <div class="col-5">
+        {{ form_row(registrationForm.passwordUser) }}
+    </div>
+    <div class="col-5">
+        {{ form_row(registrationForm.dateNaissance_user) }}
+    </div>
+    <div class="col-5">
+        {{ form_row(registrationForm.sexeUser) }}
+    </div>
+    <div class="col-5">
+        {{ form_row(registrationForm.telephone_user) }}
+    </div>
+    <div class="col-5">
+        {{ form_row(registrationForm.photo_user) }}
+    </div>
+    <div class="col-5">
+        {{ form_row(registrationForm.description_user) }}
+    </div>
+    <div class="col-5">
+        {{ form_row(registrationForm.adresse_user) }}
+    </div>
+    <div class="col-5">
+        {{ form_row(registrationForm.maxDistance_user) }}
+    </div>
+    <div class="col-5">
+        {{ form_row(registrationForm.preferredMinAge_user) }}
+    </div>
+    <div class="col-5">
+        {{ form_row(registrationForm.preferredMaxAge_user) }}
+    </div>
+    <div class="col-5">
+        {{ form_row(registrationForm.latitude) }}
+    </div>
+    <div class="col-5">
+        {{ form_row(registrationForm.longitude) }}
+    </div>
+    <div class="col-5">
+        {{ form_row(registrationForm.Interet_user) }}
+    </div>
     {{ form_end(registrationForm) }}
+    </div>
+        </div >
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {% endblock %}

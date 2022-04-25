@@ -59,7 +59,7 @@ class GerantController extends AbstractController
         $gerant= new Gerant();
         $form = $this ->createForm(ConnexionGerantType::class,$gerant);
         $form -> handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
+        if($form->isSubmitted()){
             $username = $form["emailGerant"]->getData();
             $password = $form["passwordGerant"]->getData();
             $test=$this->getDoctrine()->getRepository(Gerant::class)->findBy(array('emailGerant' =>$username,'passwordGerant' =>$password));
