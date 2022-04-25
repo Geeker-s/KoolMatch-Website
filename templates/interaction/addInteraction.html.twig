@@ -5,21 +5,26 @@
 {% block body %}
     <div class="tinder--filter">
         <h6> {{ adrr }} </h6>
-        <div id="map1" style="width:400px; height:200px;"></div>
+        <div id="map1" style="width:400px; height:300px;"></div>
 
         <div class="rangeslider">
-            <input type="range" id="distance" name="distance"
-                   min="5" max="500" value="10" class="myslider" step="5">
             <p>Distance préférée: <span id="valueDistance"></span></p>
+            <input type="range" id="distance" name="distance"
+                   min="1" max="150" value="1" class="myslider" step="1">
         </div>
 
         <div class="rangeslider">
+            <p>Age Min préférée: <span id="valueAge"></span></p>
             <input type="range" id="age" name="age"
                    min="18" max="58" value="{{ ageUser }}" class="myslider" step="1">
-            <p>Age préférée: <span id="valueAge"></span></p>
+        </div>
+
+        <div class="rangeslider">
+            <p>Age Max préférée: <span id="valueAgeMax"></span></p>
+            <input type="range" id="ageMax" name="ageMax"
+                   min="18" max="58" value="50" class="myslider" step="1">
         </div>
         <button id="filter">filter</button>
-        <button id="resetFiltre">Reset</button>
     </div>
     <div class="tinder">
         <div class="tinder--status">
@@ -55,7 +60,9 @@
     <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script>
     <script src='https://hammerjs.github.io/dist/hammer.min.js'></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+            integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+            crossorigin=""></script>
     <script src="https://cdn.jsdelivr.net/npm/@opencage/geosearch-bundle"></script>
     <script src="https://cdn.jsdelivr.net/npm/@opencage/leaflet-opencage-geosearch"></script>
     <script id="rendered-js">
@@ -63,34 +70,53 @@
         //map
         document.addEventListener('DOMContentLoaded', () => {
 
+
+
             // create and initialize leaflet map object
-            var map = L.map('map1').setView([{{ lat }}, {{ lon }}], 15);
+            var map = L.map('map1').setView([{{ lat }}, {{ lon }}], 12);
             var circle = L.circle([{{ lat }}, {{ lon }}], {
                 color: 'red',
                 fillColor: '#f03',
                 fillOpacity: 0.5,
-                radius: 200
+                radius: 1000
             }).addTo(map);
+            circle.bindPopup("Distance préférée");
+
 
             // load map tiles
             L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png').addTo(map);
+
+
+            //slider
+            var rangesliderDistance = document.getElementById("distance");
+            var rangesliderAge = document.getElementById("age");
+            var rangesliderAgeMax = document.getElementById("ageMax");
+            var outputDistance = document.getElementById("valueDistance");
+            var outputAge = document.getElementById("valueAge");
+            var outputAgeMax = document.getElementById("valueAgeMax");
+
+            outputDistance.innerHTML = rangesliderDistance.value;
+            outputAge.innerHTML = rangesliderAge.value;
+            outputAgeMax.innerHTML = rangesliderAgeMax.value;
+
+
+            rangesliderDistance.oninput = function () {
+                outputDistance.innerHTML = this.value;
+                circle.setRadius(this.value*1000);
+            }
+            rangesliderAge.oninput = function () {
+                outputAge.innerHTML = this.value;
+            }
+            rangesliderAgeMax.oninput = function () {
+                outputAgeMax.innerHTML = this.value;
+            }
         });
 
 
-        //slider
-        var rangesliderDistance = document.getElementById("distance");
-        var rangesliderAge = document.getElementById("age");
-        var outputDistance = document.getElementById("valueDistance");
-        var outputAge = document.getElementById("valueAge");
-        outputDistance.innerHTML = rangesliderDistance.value;
-        outputAge.innerHTML = rangesliderAge.value;
 
-        rangesliderDistance.oninput = function() {
-            outputDistance.innerHTML = this.value;
-        }
-        rangesliderAge.oninput = function() {
-            outputAge.innerHTML = this.value;
-        }
+
+
+
 
 
         var tinderContainer = document.querySelector('.tinder');

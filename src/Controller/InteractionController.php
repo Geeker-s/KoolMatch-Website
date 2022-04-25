@@ -79,7 +79,7 @@ class InteractionController extends AbstractController
     public function addInteraction(Request $request,MailerInterface $mailer)
     {
         //This will be replaced by session
-        $connectedUser = $this->getDoctrine()->getRepository(User::class)->find(21);
+        $connectedUser = $this->getDoctrine()->getRepository(User::class)->find(2);
 
         //algorithme
         $interactions = $this->algorithm($connectedUser);
@@ -136,8 +136,9 @@ class InteractionController extends AbstractController
                     'm'  => $match,
                 ]);
                 //sms for matching
-                $sid = "ACb346185897d260a3628d46fda6278411"; // Your Account SID from www.twilio.com/console
-                $token = "d389d7f6fc4d2b32f88fc007eb6026f7"; // Your Auth Token from www.twilio.com/console
+
+                $sid = $_ENV["TWILIO_ACCOUNT_SID"];
+                $token = $_ENV["TWILIO_AUTH_TOKEN"];
                 $client = new Client($sid, $token);
                 $client->messages->create(
                     '+21694366666', // Text this number
@@ -158,7 +159,7 @@ class InteractionController extends AbstractController
 
         }
         return $this->render('interaction/addInteraction.html.twig',
-            array('interactions' => $interactions, 'lat' => $connectedUser->getLatitude(), 'lon' => $connectedUser->getLongitude(),'adrr'=>$addrr['results'][0]['formatted'],'ageUser'=>$connectedUser->getAge()));
+            array('interactions' => $interactions, 'lat' => $connectedUser->getLatitude(), 'lon' => $connectedUser->getLongitude(),'adrr'=>$addrr['results'][0]['formatted'],'ageUser'=>$connectedUser->getAge(),'connectedUser'=>$connectedUser));
     }
 
     /**
