@@ -39,13 +39,6 @@ class RestaurantsController extends AbstractController
     {
         $Restaurant=$this->getDoctrine()->getRepository(Restaurant::class)->orderByNb();
         $em=$this->getDoctrine()->getManager();
-
-        if ($request->isXmlHttpRequest()) {
-            $search  = $request->get('search');
-            dump($search);
-            $event = new Restaurant();
-            $repo  = $em->getRepository(Restaurant::class);
-            $event = $repo->findAjax($search);}
         return $this->render("back/affichage_table_restaurant.html.twig",array("Restaurant"=>$Restaurant));
     }
     
@@ -93,20 +86,18 @@ class RestaurantsController extends AbstractController
         if($form->isSubmitted() && $form->isValid())
         {
             $sid    = "AC2948f9de09ac7c277c45360f325056f8"; 
-            $token  = "8713b00d012937c2ec8354e776e8f013"; 
+            $token  = "81bf370433d6915626b0b7dcb3db7b31"; 
             $twilio = new Client($sid, $token); 
              
             $message = $twilio->messages 
                               ->create("+21698486031", // to 
                                        array(  
                                            "messagingServiceSid" => "MGaa2b84aa2f0e81be7e1476fe43390036",      
-                                           "body" => "votre réservation a bien été prise en compte" 
+                                           "body" => " votre réservation a bien été prise en compte" 
                                        ) 
                               ); 
              
             print($message->sid);
-
-        
             $em=$this->getDoctrine()->getManager();
             $em->persist($reservation);
             $em->flush();
@@ -117,7 +108,6 @@ class RestaurantsController extends AbstractController
         return $this->render('back/listdetail.html.twig',array('detailE' => $detaild,"forms"=>$form->createView()));
     }
 
-    
 
      /**
      * @Route("/delete/{idRestaurant}", name="delete")

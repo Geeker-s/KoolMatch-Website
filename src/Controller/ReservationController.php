@@ -7,11 +7,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Reservation;
 use App\Form\ReservationType;
+use App\Controller\ReservationRepository;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\Request;
 use GuzzleHttp\Psr7\UploadedFile;
 use Twilio\Rest\Client; 
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
+Use Dompdf\Dompdf;
+use Dompdf\Options;
 class ReservationController extends AbstractController
 {
     /**
@@ -112,15 +115,15 @@ public function indexAction()
     array_push($data, $stat);
     foreach ($e as $Reservation) {
         $stat = array();
-        array_push($stat, $Reservation->getNomResto(), (($Reservation->getNbplaceReservation()) * 100) / $totaleq);
-        $nb = ($Reservation->getNbplaceReservation() * 100) / $totaleq;
+        array_push($stat, $Reservation->getNomResto(), (($Reservation->getNbplaceReservation()) * $totaleq) / 100);
+        $nb = ($Reservation->getNbplaceReservation() * $totaleq) / 100 ;
 
-    
+   
         $stat = [$Reservation->getNomResto (), $nb];
         array_push($data, $stat);
     }
     $pieChart->getData()->setArrayToDataTable($data);
-    $pieChart->getOptions()->setTitle('Pourcentage des Reservations par leurs marque disponibles');
+    $pieChart->getOptions()->setTitle('Pourcentage de places selon les restaurants disponibles');
     $pieChart->getOptions()->setHeight(500);
     $pieChart->getOptions()->setWidth(900);
     $pieChart->getOptions()->getTitleTextStyle()->setItalic(true);
@@ -130,5 +133,48 @@ public function indexAction()
         return $this->render('back/stats.html.twig', array('piechart' => $pieChart));
     }
 
+ /**
+     * @Route("/DownloadreservationsData", name="DownloadreservationsData")
+     */
+    public function DownloadreservationsData()
+    {
+        $Reservation=$this->getDoctrine()->getRepository(Reservation::class)->findAll();
+
+        // On définit les options du PDF
+        $pdfOptions = new Options();
+        // Police par défaut
+        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->setIsRemoteEnabled(true);
+
+        // On instancie Dompdf
+        $dompdf = new Dompdf($pdfOptions);
+        $context = stream_context_create([
+            'ssl' => [
+                'verify_peer' => FALSE,
+                'verify_peer_name' => FALSE,
+                'allow_self_signed' => TRUE
+            ]
+        ]);
+        $dompdf->setHttpContext($context);
+
+        // On génère le html
+        $html = $this->renderView('back/download.html.twig',
+            ['Reservation'=>$Reservation ]);
+
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        // On génère un nom de fichier
+        $fichier = 'Tableau des Reservation.pdf';
+
+        // On envoie le PDF au navigateur
+        $dompdf->stream($fichier, [
+            'Attachment' => true
+        ]);
+
+        return new Response();
+    }
 }
 

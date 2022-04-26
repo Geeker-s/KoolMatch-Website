@@ -1,36 +1,16 @@
-{% extends 'back/index.html.twig' %}
-
-{% block title %}Hello les reservations!{% endblock %}
-{% block body %}
-
-      <header class="header-design">
-  
-    <div class="listar-map-button-text" style="display: inline-block; opacity: 1;">
-    
-    </div>
- 
-
-  <div class="footer-wave"></div>
-</header>
 
 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Tableau des Reservations</title>
+</head>
+<body >
+<h1 style="text-align: center; color: red">Reservation Services</h1>
+<h2 style="text-align: center">Tableau des Reservation</h2>
 
- <section class="section">
-      <div class="row">
-        <div class="col-lg-12">
-
-          <div class="card">
-                <div class="card-body">
-               
-                <h5 class="card-title">Ajouter Restaurant</h5>
-                <a href="{{ path('DownloadreservationsData') }}" class="btn btn-dark waves-effect waves-light">Download PDF</a>
-
-        {% for message in app.flashes('success') %}
-        <div class="alert alert-success">
-        {{message}}
-        </div>
-        {% endfor %}
-             <table class="table datatable">
+ <table border="1">
                
                           <thead>
                   <tr>
@@ -60,10 +40,6 @@
                  {% endfor %}
                 </table>
 
-            </div>
-          </div>
 
-        </div>
-      </div>
-    </section>
-{% endblock %}
+</body>
+</html>
