@@ -49,58 +49,5 @@ class Message
      */
     private $archive = '0';
 
-    public function getIdMessage(): ?int
-    {
-        return $this->idMessage;
-    }
-
-    public function getMsgMessage(): ?string
-    {
-        return $this->msgMessage;
-    }
-
-    public function setMsgMessage(string $msgMessage): self
-    {
-        $this->msgMessage = $msgMessage;
-
-        return $this;
-    }
-
-    public function getDateMessage(): ?\DateTimeInterface
-    {
-        return $this->dateMessage;
-    }
-
-    public function setDateMessage(\DateTimeInterface $dateMessage): self
-    {
-        $this->dateMessage = $dateMessage;
-
-        return $this;
-    }
-
-    public function getIdConversation(): ?int
-    {
-        return $this->idConversation;
-    }
-
-    public function setIdConversation(int $idConversation): self
-    {
-        $this->idConversation = $idConversation;
-
-        return $this;
-    }
-
-    public function getArchive(): ?int
-    {
-        return $this->archive;
-    }
-
-    public function setArchive(int $archive): self
-    {
-        $this->archive = $archive;
-
-        return $this;
-    }
-
 
 }

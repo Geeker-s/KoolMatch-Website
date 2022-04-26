@@ -173,6 +173,17 @@ class User
      */
     private $archive = '0';
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=300,nullable=true)
+     */
+    private $Reset_Token;
+
+
+
+
+
     public function getIdUser(): ?int
     {
         return $this->idUser;
@@ -390,5 +401,21 @@ class User
     {
         $this->captchaCode = $captchaCode;
     }
+
+    public function getResetToken(): ?string
+    {
+        return $this->Reset_Token;
+    }
+
+    public function setResetToken(string $Reset_Token): self
+    {
+        $this->Reset_Token = $Reset_Token;
+
+        return $this;
+    }
+
+
+
+
 
 }

@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+        .example-wrapper { margin: 1em auto; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5}
     </style>
     {% for message in app.flashes('success') %}
         <div class="alert alert-success" align="center">
@@ -40,6 +40,7 @@
 
 
                     {{ form_end (u) }}
+                    <a href="{{ path('app_forgotten_password') }}"><input  class="btn" value="Mot de passe oublié ?"></a>
                 </div>
             </div>
         </div>

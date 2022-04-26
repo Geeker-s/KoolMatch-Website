@@ -44,6 +44,14 @@ class UserRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
+    public function findytoken($token)
+    {
+        return $this->createQueryBuilder('s')
+            ->Where('s.Reset_Token = :token')
+            ->setParameter('token', $token)
+            ->getQuery()
+            ->getSingleResult();
+    }
 
     // /**
     //  * @return User[] Returns an array of User objects
@@ -88,4 +96,14 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function findOneByEmail($mail)
+    {
+        return $this->createQueryBuilder('User')
+
+            ->Where('User.emailUser = :email')
+            ->setParameter('email', $mail)
+            ->getQuery()
+            ->getSingleResult();
+    }
+
 }

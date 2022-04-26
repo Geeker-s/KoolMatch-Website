@@ -52,6 +52,7 @@ class Admin
      */
     private $archive = '0';
 
+
     public function getIdAdmin(): ?int
     {
         return $this->idAdmin;
@@ -101,5 +102,7 @@ class Admin
     {
         $this->captchaCode = $captchaCode;
     }
+
+
 
 }
