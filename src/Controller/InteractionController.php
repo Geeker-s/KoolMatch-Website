@@ -37,11 +37,9 @@ class InteractionController extends AbstractController
     }
 
 
-
     //Function Algorithm qui retourne une liste des utilisateurs selon l'interet d'un User
     public function algorithm(User $u): array
     {
-        //Make sure if user has been interacted: don't show him again
 
         $today = new \DateTime("now", new \DateTimeZone('+0100'));
         $query = $this->getDoctrine()->getManager()
@@ -51,6 +49,7 @@ class InteractionController extends AbstractController
             and Year(:CURRENT_DATE) - Year(u.datenaissanceUser) > :minAge and Year(:CURRENT_DATE) - Year(u.datenaissanceUser) < :maxAge 
             and ((((ACOS ( SIN((u.latitude*PI()/180))*SIN((:lat *PI()/180))+COS((u.latitude*PI()/180))*COS((:lat*PI()/180))*COS((u.longitude-:long)*PI()/180))))*180/PI())*60*1.1515*1.609344) <= :prefDistance
             ORDER BY ABS(u.interetUser - :Interet_user)')
+            //composer for datetime and numeric functions
             ->setParameter('id_user', $u->getIdUser())
             ->setParameter('sexe_user', $u->getSexeUser())
             ->setParameter('Interet_user', $u->getInteretUser())
@@ -65,6 +64,7 @@ class InteractionController extends AbstractController
     }
 
     //Filter le recherche des users selon l age et distance
+
     /**
      * @param $id
      * @Route ("filter/{id}",name="filter")
@@ -119,7 +119,7 @@ class InteractionController extends AbstractController
         //algorithme
         $interactions = $this->algorithm($connectedUser);
 
-        //get addresse from lattitude longitude API
+        //get addresse from lattitude et longitude longitude API
         $geocoder = new \OpenCage\Geocoder\Geocoder('1d6b2244086f43a5af7f645a47a06fa7');
         $addrr = $geocoder->geocode($connectedUser->getLatitude() . ',' . $connectedUser->getLongitude()); # latitude,longitude (y,x)
 
@@ -134,7 +134,6 @@ class InteractionController extends AbstractController
                     $longitude
                 );
         */
-
         $em = $this->getDoctrine()->getManager();
         $interaction = new Interaction();
         $interaction->setIdUser1($connectedUser);
@@ -171,12 +170,11 @@ class InteractionController extends AbstractController
                     'm' => $match,
                 ]);
                 //sms for matching
-
                 $sid = $_ENV["TWILIO_ACCOUNT_SID"];
                 $token = $_ENV["TWILIO_AUTH_TOKEN"];
                 $client = new Client($sid, $token);
                 $client->messages->create(
-                    '+216'.$connectedUser->getTelephoneUser(),
+                    '+216' . $connectedUser->getTelephoneUser(),
                     [
                         'from' => '+18565531869', // From a valid Twilio number
                         'body' => 'Félicitation ' . $connectedUser->getNomUser() . '! Vous avez un nouveau Match'
@@ -191,7 +189,6 @@ class InteractionController extends AbstractController
                     ->text('Vous avez un nouveau Match!');
                 $mailer->send($email);
             }
-
         }
         return $this->render('interaction/addInteraction.html.twig',
             array('interactions' => $interactions, 'lat' => $connectedUser->getLatitude(), 'lon' => $connectedUser->getLongitude(), 'adrr' => $addrr['results'][0]['formatted'], 'ageUser' => $connectedUser->getAge(), 'connectedUser' => $connectedUser));
@@ -204,7 +201,6 @@ class InteractionController extends AbstractController
     {
         $interactions = $this->getDoctrine()->getRepository(Interaction::class)->findAll();
         $matches = $this->getDoctrine()->getRepository(Matching::class)->findAll();
-
         return $this->render('/back/interaction.html.twig',
             array('interactions' => $interactions, 'matches' => $matches)
         );
