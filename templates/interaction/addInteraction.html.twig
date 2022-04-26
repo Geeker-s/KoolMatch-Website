@@ -6,25 +6,24 @@
     <div class="tinder--filter">
         <h6> {{ adrr }} </h6>
         <div id="map1" style="width:400px; height:300px;"></div>
-
         <div class="rangeslider">
             <p>Distance préférée: <span id="valueDistance"></span></p>
             <input type="range" id="distance" name="distance"
-                   min="1" max="150" value="1" class="myslider" step="1">
+                   min="1" max="150" value="{{ connectedUser.maxdistanceUser }}" class="myslider" step="1">
         </div>
-
         <div class="rangeslider">
             <p>Age Min préférée: <span id="valueAge"></span></p>
             <input type="range" id="age" name="age"
-                   min="18" max="58" value="{{ ageUser }}" class="myslider" step="1">
+                   min="18" max="58" value="{{ connectedUser.preferredminageUser }}" class="myslider" step="1">
         </div>
 
         <div class="rangeslider">
             <p>Age Max préférée: <span id="valueAgeMax"></span></p>
             <input type="range" id="ageMax" name="ageMax"
-                   min="18" max="58" value="50" class="myslider" step="1">
+                   min="18" max="60" value="{{ connectedUser.preferredmaxageUser }}" class="myslider" step="1">
         </div>
-        <button id="filter">filter</button>
+        <button><a id="filter" href="{{ path('filter',{'id':connectedUser.idUser}) }}" onclick=""> Filter </a>
+        </button>
     </div>
     <div class="tinder">
         <div class="tinder--status">
@@ -71,14 +70,13 @@
         document.addEventListener('DOMContentLoaded', () => {
 
 
-
             // create and initialize leaflet map object
-            var map = L.map('map1').setView([{{ lat }}, {{ lon }}], 12);
+            var map = L.map('map1').setView([{{ lat }}, {{ lon }}], 11);
             var circle = L.circle([{{ lat }}, {{ lon }}], {
                 color: 'red',
                 fillColor: '#f03',
                 fillOpacity: 0.5,
-                radius: 1000
+                radius: {{ connectedUser.maxdistanceUser }}*1000
             }).addTo(map);
             circle.bindPopup("Distance préférée");
 
@@ -102,7 +100,7 @@
 
             rangesliderDistance.oninput = function () {
                 outputDistance.innerHTML = this.value;
-                circle.setRadius(this.value*1000);
+                circle.setRadius(this.value * 1000);
             }
             rangesliderAge.oninput = function () {
                 outputAge.innerHTML = this.value;
@@ -111,12 +109,6 @@
                 outputAgeMax.innerHTML = this.value;
             }
         });
-
-
-
-
-
-
 
 
         var tinderContainer = document.querySelector('.tinder');

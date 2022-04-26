@@ -219,6 +219,12 @@ class User
         return round($meter / 1000);
     }
 
+    public function updateU($distance,$age,$ageMax){
+        $this->setMaxdistanceUser( intval($distance));
+        $this->setPreferredmaxageUser(intval($ageMax));
+        $this->setPreferredminageUser(intval($age));
+    }
+
     //Ending wassim function
 
 

@@ -12,10 +12,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
+
 //API
 use JeroenDesloovere\Geolocation\Geolocation;
 use JeroenDesloovere\Geolocation\Result\Address;
 use JeroenDesloovere\Geolocation\Result\Coordinates;
+
 //bundle
 use Twilio\Rest\Client;
 
@@ -35,22 +37,52 @@ class InteractionController extends AbstractController
     }
 
 
+
     //Function Algorithm qui retourne une liste des utilisateurs selon l'interet d'un User
     public function algorithm(User $u): array
     {
         //Make sure if user has been interacted: don't show him again
 
-
+        $today = new \DateTime("now", new \DateTimeZone('+0100'));
         $query = $this->getDoctrine()->getManager()
             ->createQuery('SELECT u
             FROM App\Entity\User u
             WHERE u.idUser NOT LIKE :id_user AND u.archive = 0 AND Upper(u.sexeUser) NOT LIKE Upper(:sexe_user)
+            and Year(:CURRENT_DATE) - Year(u.datenaissanceUser) > :minAge and Year(:CURRENT_DATE) - Year(u.datenaissanceUser) < :maxAge 
+            and ((((ACOS ( SIN((u.latitude*PI()/180))*SIN((:lat *PI()/180))+COS((u.latitude*PI()/180))*COS((:lat*PI()/180))*COS((u.longitude-:long)*PI()/180))))*180/PI())*60*1.1515*1.609344) <= :prefDistance
             ORDER BY ABS(u.interetUser - :Interet_user)')
             ->setParameter('id_user', $u->getIdUser())
             ->setParameter('sexe_user', $u->getSexeUser())
-            ->setParameter('Interet_user', $u->getInteretUser());
+            ->setParameter('Interet_user', $u->getInteretUser())
+            ->setParameter('CURRENT_DATE', $today)
+            ->setParameter('minAge', $u->getPreferredminageUser())
+            ->setParameter('maxAge', $u->getPreferredmaxageUser())
+            ->setParameter('lat', $u->getLatitude())
+            ->setParameter('long', $u->getLongitude())
+            ->setParameter('prefDistance', $u->getMaxdistanceUser());
         // returns an array of User objects
         return $query->getResult();
+    }
+
+    //Filter le recherche des users selon l age et distance
+    /**
+     * @param $id
+     * @Route ("filter/{id}",name="filter")
+     */
+    public function filter(Request $request, $id)
+    {
+        $distance = $request->query->get('distance');
+        $age = $request->query->get('age');
+        $ageMax = $request->query->get('ageMax');
+
+        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+        $user->setMaxdistanceUser(intval($distance));
+        $user->setPreferredminageUser(intval($age));
+        $user->setPreferredmaxageUser(intval($ageMax));
+
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+        return $this->redirectToRoute("addInteraction");
     }
 
     //Convertir un String suite de binaire en nombre decimale
@@ -76,29 +108,32 @@ class InteractionController extends AbstractController
     /**
      * @Route ("/addInteraction", name="addInteraction")
      */
-    public function addInteraction(Request $request,MailerInterface $mailer)
+    public function addInteraction(Request $request, MailerInterface $mailer)
     {
         //This will be replaced by session
-        $connectedUser = $this->getDoctrine()->getRepository(User::class)->find(2);
+        $connectedUser = $this->getDoctrine()->getRepository(User::class)->find(1);
+        $distance = $request->query->get('distance');
+        $age = $request->query->get('age');
+        $ageMax = $request->query->get('ageMax');
 
         //algorithme
         $interactions = $this->algorithm($connectedUser);
 
         //get addresse from lattitude longitude API
         $geocoder = new \OpenCage\Geocoder\Geocoder('1d6b2244086f43a5af7f645a47a06fa7');
-        $addrr = $geocoder->geocode($connectedUser->getLatitude().','.$connectedUser->getLongitude()); # latitude,longitude (y,x)
+        $addrr = $geocoder->geocode($connectedUser->getLatitude() . ',' . $connectedUser->getLongitude()); # latitude,longitude (y,x)
 
-/*
- * Google maps Geocoding
- *
-        $latitude = $connectedUser->getLatitude();
-        $longitude = $connectedUser->getLongitude();
-        $GEOapi = new Geolocation("null",false);
-        $addrr = $GEOapi->getAddress(
-            $latitude,
-            $longitude
-        );
-*/
+        /*
+         * Google maps Geocoding
+         *
+                $latitude = $connectedUser->getLatitude();
+                $longitude = $connectedUser->getLongitude();
+                $GEOapi = new Geolocation("null",false);
+                $addrr = $GEOapi->getAddress(
+                    $latitude,
+                    $longitude
+                );
+        */
 
         $em = $this->getDoctrine()->getManager();
         $interaction = new Interaction();
@@ -133,7 +168,7 @@ class InteractionController extends AbstractController
                 $match->setIdUser2($hasbeenReacted);
                 $match->setDateMatching(new \DateTime("now", new \DateTimeZone('+0100')));
                 $this->forward('App\Controller\MatchingController::ajouterMatching', [
-                    'm'  => $match,
+                    'm' => $match,
                 ]);
                 //sms for matching
 
@@ -141,10 +176,10 @@ class InteractionController extends AbstractController
                 $token = $_ENV["TWILIO_AUTH_TOKEN"];
                 $client = new Client($sid, $token);
                 $client->messages->create(
-                    '+21694366666', // Text this number
+                    '+216'.$connectedUser->getTelephoneUser(),
                     [
                         'from' => '+18565531869', // From a valid Twilio number
-                        'body' => 'Félicitation '.$connectedUser->getNomUser().'! Vous avez un nouveau Match'
+                        'body' => 'Félicitation ' . $connectedUser->getNomUser() . '! Vous avez un nouveau Match'
                     ]
                 );
                 //email the other user
@@ -152,14 +187,14 @@ class InteractionController extends AbstractController
                 $email = (new Email())
                     ->from('matchkool@gmail.com')
                     ->to($x->getEmailUser())
-                    ->subject('Félicitation '.$x->getNomUser())
+                    ->subject('Félicitation ' . $x->getNomUser())
                     ->text('Vous avez un nouveau Match!');
                 $mailer->send($email);
             }
 
         }
         return $this->render('interaction/addInteraction.html.twig',
-            array('interactions' => $interactions, 'lat' => $connectedUser->getLatitude(), 'lon' => $connectedUser->getLongitude(),'adrr'=>$addrr['results'][0]['formatted'],'ageUser'=>$connectedUser->getAge(),'connectedUser'=>$connectedUser));
+            array('interactions' => $interactions, 'lat' => $connectedUser->getLatitude(), 'lon' => $connectedUser->getLongitude(), 'adrr' => $addrr['results'][0]['formatted'], 'ageUser' => $connectedUser->getAge(), 'connectedUser' => $connectedUser));
     }
 
     /**
