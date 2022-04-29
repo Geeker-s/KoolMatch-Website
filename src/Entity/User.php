@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -18,6 +19,7 @@ class User
      * @ORM\Column(name="id_user", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("algorithme")
      */
     private $idUser;
 
@@ -25,6 +27,7 @@ class User
      * @var string
      *
      * @ORM\Column(name="email_user", type="string", length=100, nullable=false)
+     * @Groups("algorithme")
      */
     private $emailUser;
 
@@ -39,6 +42,7 @@ class User
      * @var string
      *
      * @ORM\Column(name="nom_user", type="string", length=20, nullable=false)
+     * @Groups("algorithme")
      */
     private $nomUser;
 
@@ -74,6 +78,7 @@ class User
      * @var string
      *
      * @ORM\Column(name="photo_user", type="string", length=100, nullable=false)
+     * @Groups("algorithme")
      */
     private $photoUser;
 
@@ -81,6 +86,7 @@ class User
      * @var string
      *
      * @ORM\Column(name="description_user", type="string", length=100, nullable=false)
+     * @Groups("algorithme")
      */
     private $descriptionUser;
 
@@ -109,6 +115,7 @@ class User
      * @var string
      *
      * @ORM\Column(name="adresse_user", type="string", length=255, nullable=false, options={"default"="x"})
+     * @Groups("algorithme")
      */
     private $adresseUser = 'x';
 
