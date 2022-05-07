@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+    <h1></h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <td>Nom : </td>
+            <td>{{ user.nomUser }}</td>
+        </tr>
+        <tr>
+            <td>Prenom : </td>
+            <td>{{ user.prenomUser }}</td>
+        </tr>
+        <tr>
+            <td>Email : </td>
+            <td> {{ user.emailUser }}</td>
+        </tr>
+        <tr>
+            <td>Téléphone : </td>
+            <td>{{ user.telephoneUser }}</td>
+        </tr>
+        <tr>
+            <td>Date de Naissance : </td>
+            <td>{{ user.dateNaissanceUser }}</td>
+        </tr>
+        <tr>
+            <td>Photo : </td>
+            <td><img width="90" height="90" src="{{user.photoUser}} " ></td>
+        </tr>
+        <tr>
+            <td>Adresse : </td>
+            <td>{{ user.adresseUser }}</td>
+        </tr>
+
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+
+{% endblock %}

@@ -35,7 +35,7 @@ class AdminController extends AbstractController
             $password = $form["passwordAdmin"]->getData();
             $test=$this->getDoctrine()->getRepository(Admin::class)->findBy(array('loginAdmin' =>$username,'passwordAdmin' =>$password));
             if ($test){
-                return $this->redirectToRoute('app_back');
+                return $this->redirectToRoute('display_gerant');
 
             }
         }
