@@ -111,7 +111,7 @@ class InteractionController extends AbstractController
     public function addInteraction(Request $request, MailerInterface $mailer)
     {
         //This will be replaced by session
-        $connectedUser = $this->getDoctrine()->getRepository(User::class)->find(24);
+        $connectedUser = $this->getDoctrine()->getRepository(User::class)->find(1);
         $distance = $request->query->get('distance');
         $age = $request->query->get('age');
         $ageMax = $request->query->get('ageMax');
