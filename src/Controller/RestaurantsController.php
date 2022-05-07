@@ -94,14 +94,14 @@ class RestaurantsController extends AbstractController
         if($form->isSubmitted() && $form->isValid())
         {
             $sid    = "AC2948f9de09ac7c277c45360f325056f8"; 
-            $token  = "81bf370433d6915626b0b7dcb3db7b31"; 
+            $token  = "51606580c892dc1b0ede15be74f5e5cf"; 
             $twilio = new Client($sid, $token); 
              
             $message = $twilio->messages 
-                              ->create("+21698486031", // to 
+                              ->create("+21653356020", // to 
                                        array(  
                                            "messagingServiceSid" => "MGaa2b84aa2f0e81be7e1476fe43390036",      
-                                           "body" => " votre réservation a bien été prise en compte" 
+                                           "body" => "votre réservation a bien été prise en compte" 
                                        ) 
                               ); 
              
