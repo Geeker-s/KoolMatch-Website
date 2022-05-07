@@ -17,9 +17,17 @@ use Twilio\Rest\Client;
 use Knp\Component\Pager\PaginatorInterface;
 use \Statickidz\GoogleTranslate;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class RestaurantsController extends AbstractController
 {
+    const  ATTRIBUTES_TO_SERIALIZE = ['idRestaurant', 'nomRestaurant', 'adresseRestaurant', 'telephoneRestaurant', 'sitewebRestaurant','specialiteRestaurant','idGerant','image','archive','nbPlaceresto','image_structure_resturant ','description','lien'];
+
     /**
      * @Route("add", name="restaurant_app")
      */
@@ -226,6 +234,109 @@ public function rechercheAjaxAction(Request $request)
 
 }
 
+/**
+     * @Route("resto/ajouter/resto" , name="rseto_ajouter" ,  methods={"GET", "POST"}, requirements={"idRestaurant":"\d+"})
+     */
+    public function ajouter(Request $request, SerializerInterface $serializer)
+    {
 
+        $Restaurant = new Restaurant();
+        $nomRestaurant = $request->query->get('nomRestaurant');
+        $adresseRestaurant = $request->query->get('adresseRestaurant');
+        $telephoneRestaurant = $request->query->get('telephoneRestaurant');
+        $sitewebRestaurant = $request->query->get('sitewebRestaurant');
+        $specialiteRestaurant = $request->query->get('specialiteRestaurant');
+        $imageStructureResturant = $request->query->get('imageStructureResturant');
+        $idGerant = $request->query->get('idGerant');
+        $image = $request->query->get('image');
+        $nbPlaceresto = $request->query->get('nbPlaceresto');
+        $description = $request->query->get('description');
+        $lien = $request->query->get('lien');
+        $em = $this->getDoctrine()->getManager();
+
+        $Restaurant->setNomRestaurant($nomRestaurant);
+        $Restaurant->setAdresseRestaurant($adresseRestaurant);
+        $Restaurant->setTelephoneRestaurant($telephoneRestaurant);
+        $Restaurant->setSitewebRestaurant($sitewebRestaurant);
+        $Restaurant->setSpecialiteRestaurant($specialiteRestaurant);
+        $Restaurant->setIdGerant($idGerant);
+        $Restaurant->setImageStructureResturant($imageStructureResturant);
+        $Restaurant->setImage($image);
+        $Restaurant->setNbPlaceresto($nbPlaceresto);
+        $Restaurant->setDescription($description);
+        $Restaurant->setLien($lien);
+
+
+      
+
+        $em->persist($Restaurant);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($Restaurant);
+        return new JsonResponse($formatted);
+    }
+
+/**
+     * @Route("/afficher/RESTO" , name="resto_afficher" ,  methods={"GET", "POST"}, requirements={"idRestaurant":"\d+"})
+     */
+
+    public function afficher(Request $request, SerializerInterface $serializer)
+    {
+        $repo=$this->getDoctrine()->getRepository(Restaurant::class);
+        $Restaurant=$repo->findAll(["archive"=>0]);
+        $json = $serializer->serialize($Restaurant, 'json', ['groups' => ['Restaurant']]);
+        //tbadel lite hebergement badlou forme jsn
+
+
+        return $this->json(['Restaurant' => $Restaurant], Response::HTTP_OK, [], [
+            'attributes' => self::ATTRIBUTES_TO_SERIALIZE
+        ]);
+    }
+
+    /**
+     * @Route("/modifier/resto/{idRestaurant}" , name="resto_modifier" ,  methods={"GET", "POST"}, requirements={"idRestaurant":"\d+"})
+     */
+
+    public function modifier1(Request $request, SerializerInterface $serializer,$idRestaurant)
+    {
+
+
+        $em = $this->getDoctrine()->getManager();
+        $Restaurant=$em->getRepository(Restaurant::class)->find($idRestaurant);
+        $Restaurant->setNomRestaurant($request->get('nomRestaurant'));
+        $Restaurant->setAdresseRestaurant($request->get('adresseRestaurant'));
+        $Restaurant->setTelephoneRestaurant($request->get('telephoneRestaurant'));
+        $Restaurant->setSitewebRestaurant($request->get('sitewebRestaurant'));
+        $Restaurant->setSpecialiteRestaurant($request->get('specialiteRestaurant'));
+        $Restaurant->setIdGerant($request->get('idGerant'));
+        $Restaurant->setImageStructureResturant($request->get('imageStructureResturant'));
+        $Restaurant->setImage($request->get('image'));
+        $Restaurant->setNbPlaceresto($request->get('nbPlaceresto'));
+        $Restaurant->setDescription($request->get('description'));
+        $Restaurant->setLien($request->get('lien'));
+        $em->persist($Restaurant);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($Restaurant);
+        return new JsonResponse($formatted);
+    }
+
+    /**
+     * @Route("/delete/resto/{idRestaurant}" , name="reservation_delete" ,  methods={"GET", "POST"}, requirements={"idRestaurant":"\d+"})
+     */
+
+    public function Deletee(Request $request, SerializerInterface $serializer,$idRestaurant)
+    {
+
+
+        $em = $this->getDoctrine()->getManager();
+        $Restaurant=$em->getRepository(Restaurant::class)->find($idRestaurant);
+    
+        $em->remove($Restaurant);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($Restaurant);
+        return new JsonResponse($formatted);
+    }
 
 }
