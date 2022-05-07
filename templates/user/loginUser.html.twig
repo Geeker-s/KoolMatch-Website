@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5}
+    </style>
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success" align="center">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="example-wrapper">
+        <div style="display : flex ; align-items: center ; justify-content: center ">
+            <div class="card">
+                <div class="card-body">
+                    {{ form_start(u,{attr:{novalidate:'novalidate'}}) }}
+
+
+                    <div class="row mb-3">
+                        <label for="inputEmail" class="col-sm-6 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            {{ form_widget(u.emailUser,{'attr':{'class':'form-control'}}) }}
+                        </div>
+                        {{ form_errors(u.emailUser,{'attr':{'class':'text-danger'}}) }}
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputPassword" class="col-sm-6 col-form-label">Mot de passe</label>
+                        <div class="col-sm-10">
+                            {{ form_widget(u.passwordUser,{'attr':{'class':'form-control'}}) }}
+                        </div>
+                        {{ form_errors(u.passwordUser,{'attr':{'class':'text-danger'}}) }}
+                    </div>
+                    {{ form_widget(u.captchaCode) }}
+                    <div class="row mb-3" align="right">
+
+                        <div class="col-sm-10">
+                            {{ form_widget(u.connexion,{'attr':{'class':'btn btn-primary'}}) }}
+                        </div>
+                    </div>
+
+
+                    {{ form_end (u) }}
+                    <a href="{{ path('app_forgotten_password') }}"><input  class="btn" value="Mot de passe oublié ?"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

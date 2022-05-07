@@ -2,17 +2,21 @@
 
 namespace App\Entity;
 use Symfony\Component\Serializer\Annotation\Groups;
-
 use Doctrine\ORM\Mapping as ORM;
+use Oh\GoogleMapFormTypeBundle\Traits\LocationTrait;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symdony\Component\Validator\Constraints\NotBlank;
+use App\Repository\UserRepository;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=UserRepository::class)
  */
 class User
 {
+    protected $captchaCode;
     /**
      * @var int
      *
@@ -27,7 +31,8 @@ class User
      * @var string
      *
      * @ORM\Column(name="email_user", type="string", length=100, nullable=false)
-     * @Groups("algorithme")
+     * @Assert\NotBlank(message="Email doit etre non vide")
+     * @Assert\Email(message="Adresse Email invalide")
      */
     private $emailUser;
 
@@ -35,6 +40,11 @@ class User
      * @var string
      *
      * @ORM\Column(name="password_user", type="string", length=20, nullable=false)
+     * @Assert\NotBlank (message=" Mot de passe doit etre non vide")
+     * @Assert\Regex(
+     *      pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/",
+     *      message="Utiliser au moin une lettre Majiscule, une lettre miniscule et un nombre"
+     * )
      */
     private $passwordUser;
 
@@ -146,6 +156,13 @@ class User
      * @ORM\Column(name="archive", type="integer", nullable=false)
      */
     private $archive = '0';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=300,nullable=true)
+     */
+    private $Reset_Token;
 
     public function getIdUser(): ?int
     {
@@ -267,12 +284,12 @@ class User
         return $this;
     }
 
-    public function getPhotoUser(): ?string
+    public function getPhotoUser()
     {
         return $this->photoUser;
     }
 
-    public function setPhotoUser(string $photoUser): self
+    public function setPhotoUser( $photoUser)
     {
         $this->photoUser = $photoUser;
 
@@ -386,6 +403,28 @@ class User
 
         return $this;
     }
+    public function getCaptchaCode()
+    {
+        return $this->captchaCode;
+    }
+
+    public function setCaptchaCode($captchaCode)
+    {
+        $this->captchaCode = $captchaCode;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->Reset_Token;
+    }
+
+    public function setResetToken(string $Reset_Token): self
+    {
+        $this->Reset_Token = $Reset_Token;
+
+        return $this;
+    }
+
 
 
 }

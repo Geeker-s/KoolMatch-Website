@@ -1,0 +1,50 @@
+{% extends 'back/index.html.twig' %}
+{% block title %}Gestion des utilisateurs{% endblock %}
+
+{% block body %}
+
+    {% for message in app.flashes('success') %}
+    <div class="alert alert-success" align="center">
+    {{ message }}
+    </div>
+    {% endfor %}
+    <div class="example-wrapper">
+        <h4 align="center"> Gestion des Utilisateurs </h4>
+        {{ form_start(searchform) }}
+        {{ form_widget(searchform) }}
+        <button class="btn col-5">{{ button_label|default('Rechercher') }}</button>
+        {{ form_end(searchform) }}
+        <div style=" align-items: center ; justify-content: center ">
+            <table class="table">
+                <thead>
+                <th> Nom  </th>
+                <th> Prenom  </th>
+                <th> Sexe </th>
+                <th> Email </th>
+                <th> Date de naissance </th>
+                <th> Numéro de téléphone </th>
+                <th> Adresse </th>
+                </thead>
+                <tbody>
+                {% for user in usr  %}
+                    <tr>
+                        <td> {{ user.nomUser }}</td>
+                        <td> {{ user.prenomUser }} </td>
+                        <td> {{ user.sexeUser }} </td>
+                        <td> {{ user.emailUser }}</td>
+                        <td> {{ user.datenaissanceUser|date('d-m-Y') }}</td>
+                        <td> {{ user.telephoneUser }} </td>
+                        <td> {{ user.adresseUser }} </td>
+                        <td> <a href="{{ path('suprimer_user',{'idUser':user.idUser}) }}"><input class="favorite styled" type="button" value="Supprimer"></a> </td>
+                        <td> <a href="{{ path('blocuser',{'idUser':user.idUser}) }}"><input class="favorite styled" type="button" value="Bloquer"></a> </td>
+                        <td> <a href="{{ path('inblocuser',{'idUser':user.idUser}) }}"><input class="favorite styled" type="button" value="Débloquer"></a> </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="navigation">
+            {{ knp_pagination_render(usr) }}
+        </div>
+    </div>
+{% endblock %}

@@ -2,6 +2,12 @@
     "beberlei/doctrineextensions": {
         "version": "v1.3.0"
     },
+    "captcha-com/captcha": {
+        "version": "4.2.5"
+    },
+    "carlos-mg89/symfony-captcha-bundle": {
+        "version": "4.2.21"
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {
@@ -90,6 +96,12 @@
     },
     "jeroendesloovere/geolocation-php-api": {
         "version": "2.1.0"
+    },
+    "knplabs/knp-components": {
+        "version": "v3.4.0"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.8.0"
     },
     "laminas/laminas-code": {
         "version": "4.5.1"
