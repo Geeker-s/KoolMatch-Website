@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hel    lo ConversationController!{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+{#        {% if conv.idconversation!= conv.getidconveration %}#}
+        {% for channel in conv %}
+            <div class="mb-3">
+                You are logged in as {{ channel.titreConversation }}
+            </div>
+        {% endfor %}
+        {#        {% endif %}#}
+{#        {% if conv.idconversation!= conv.getidconveration %}#}
+
+            <table class="table table-striped">
+                <tbody>
+                {% for channel in conv %}
+                    <tr class="">
+                        <th>
+                            <span>{{ channel.titreConversation }}</span>
+                            <a class="btn btn-primary float-right" href="{{ path('chat', {id: channel.idconversation}) }}">Go chat !</a>
+                        </th>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+{#        {% else %}#}
+{#            <div>#}
+{#                <div class="alert alert-danger text-center">No contact found</div>#}
+{#            </div>#}
+{#        {% endif %}#}
+    </div>
+{% endblock %}

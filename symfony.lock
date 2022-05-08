@@ -88,6 +88,12 @@
     "laminas/laminas-code": {
         "version": "4.5.1"
     },
+    "laminas/laminas-eventmanager": {
+        "version": "3.4.0"
+    },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.4.1"
+    },
     "monolog/monolog": {
         "version": "1.27.0"
     },
@@ -409,6 +415,9 @@
             "tests/bootstrap.php"
         ]
     },
+    "symfony/polyfill-intl-grapheme": {
+        "version": "v1.25.0"
+    },
     "symfony/polyfill-intl-icu": {
         "version": "v1.25.0"
     },
@@ -492,6 +501,9 @@
     "symfony/stopwatch": {
         "version": "v4.4.38"
     },
+    "symfony/string": {
+        "version": "v5.4.3"
+    },
     "symfony/translation": {
         "version": "4.4",
         "recipe": {
@@ -560,6 +572,15 @@
             "config/packages/test/web_profiler.yaml",
             "config/routes/dev/web_profiler.yaml"
         ]
+    },
+    "symfony/web-server-bundle": {
+        "version": "4.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "dae9b39fd6717970be7601101ce5aa960bf53d9a"
+        }
     },
     "symfony/yaml": {
         "version": "v4.4.37"

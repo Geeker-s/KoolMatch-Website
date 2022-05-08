@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="example-wrapper">
+        <div class="mb-3">
+           <h2> You are chatting with {{ con.titreConversation }} , <a href="{{ path('affichageconv') }}" >return</a>
+           </h2>
+        </div>
+
+        <div class="container" style="height: 600px">
+            <div class="container bg-light h-75 overflow-auto">
+                {% for message in messages %}
+{#                    {% if con.idUser1 == current.user %}#}
+{#                    na3mel condition si hatha el cha5ess howa el user ely 7achetna bih nwaly yat3ada sinon#}
+{#    bech ykun el user 2#}
+
+                    {% if message.idConversation == con.idConversation %}
+                        <div class="row w-75 float-right">
+
+                            <b>Me</b>
+                            <p class="alert alert-info w-100">
+                                {{ message.msgMessage }}
+                            </p>
+                        </div>
+                    {% endif %}
+{#                    {% else if con.iduser2 == curent.user %}#}
+                        <div class="row w-75 float-left">
+                            <b>{{ con.titreConversation }}</b>
+                            <p class="alert alert-success w-100">
+                                {{ message.msgMessage }}
+                            </p>
+                        </div>
+{#                    {% endif %}#}
+                {% endfor %}
+            </div>
+            <div >
+                <form id="form" class="container row">
+                    {{ form_row(f.msgMessage , {'attr' : { 'placeholder':"saisir le message " }}) }}
+
+                    <button id="submit" type="submit" class="btn btn-success col-sm-3">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

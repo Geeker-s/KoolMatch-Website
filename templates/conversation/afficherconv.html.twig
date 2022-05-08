@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MessageController!{% endblock %}
+
+{% block body %}
+    <html>
+    <header class="top-50" >
+        <h1>affichage message!!</h1>
+        {% for p in conv %}
+        <tr>
+            {#        {%  if {{ p.idconversation}}= '2' %}#}
+            <div class="col-lg-2 " >
+                <dic class="bxs-package">
+   <textarea rows="3" cols="15">
+      {{ p.titreConversation}}
+       {{p.idUser1}}
+       {{p.idUser2}}
+  </textarea>
+                    <br>
+                    <td><a href="{{ path('updateconv',{'idConversation':p.idConversation}) }}"><i class="fa fa-pencil" style="color:#00aff0;font-size:20px"></i> </a></td>
+                    <td><a href="{{ path('deleteconv',{'idConversation':p.idConversation}) }}"><i class="fa fa-trash" style="color:#ff5b5b;font-size:20px"></i> </a> </td>
+
+
+                </dic>
+            </div>
+        </tr>
+            {% endfor %}
+
+    </header>
+{#    <body>#}
+
+
+{#    {% for p in conv %}#}
+{#    <tr>#}
+{#        #}{#        {%  if {{ p.idconversation}}= '2' %}#}
+{#        <div class="col-lg-2 " >#}
+{#            <dic class="bxs-package">#}
+{#   <textarea rows="3" cols="15">#}
+{#      {{ p.titreConversation}}#}
+{#       {{p.idUser1}}#}
+{#       {{p.idUser2}}#}
+{#  </textarea>#}
+{#                <br>#}
+{#                <td><a href="{{ path('updateconv',{'idConversation':p.idConversation}) }}"><i class="fa fa-pencil" style="color:#00aff0;font-size:20px"></i> </a></td>#}
+{#                <td><a href="{{ path('deleteconv',{'idConversation':p.idConversation}) }}"><i class="fa fa-trash" style="color:#ff5b5b;font-size:20px"></i> </a> </td>#}
+
+
+{#            </dic>#}
+{#        </div>#}
+{#        <br>#}
+{#        #}{#{% endif %} #}
+{#        #}{#        </tr>#}
+{#        #}{#        <tr>#}
+
+{#        #}{#            <td >{{ p.idMessage }}</td>#}
+{#        #}{#            <td>{{ p.msgMessage }}</td>#}
+{#        #}{#            <td>{{ p.dateMessage.format('d/m/Y') }}</td>#}
+{#        #}{#            <td>{{  p.idConversation}}</td>#}
+{#        #}{#            <td>{{ p.archive }}</td>#}
+
+{#        #}{#            <td><a href="{{ path('updateMessage',{'idMessage':p.idMessage}) }}"><i class="fa fa-pencil" style="color:#00aff0;font-size:20px"></i> </a></td>#}
+{#        #}{#            <td><a href="{{ path('deleteMessage',{'idMessage':p.idMessage}) }}"><i class="fa fa-trash" style="color:#ff5b5b;font-size:20px">Supprimer</i> </a> </td>#}
+
+{#        #}{#        </tr>#}
+{#        #}{#        <br>#}
+
+{#        {% endfor %}#}
+{#    </body>#}
+    </html>
+{% endblock %}

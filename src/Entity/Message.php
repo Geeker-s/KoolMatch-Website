@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Message
@@ -24,7 +25,8 @@ class Message
     /**
      * @var string
      *
-     * @ORM\Column(name="msg_message", type="string", length=100, nullable=false)
+     * @ORM\Column(name="msg_message", type="string", length=100, nullable=false )
+     * @assert\NotNull(message="tttt")
      */
     private $msgMessage;
 
@@ -37,7 +39,7 @@ class Message
 
     /**
      * @var int
-     *
+     * @Assert\Positive
      * @ORM\Column(name="id_conversation", type="integer", nullable=false)
      */
     private $idConversation;
@@ -47,7 +49,7 @@ class Message
      *
      * @ORM\Column(name="archive", type="integer", nullable=false)
      */
-    private $archive = '0';
+    private $archive ;
 
     public function getIdMessage(): ?int
     {

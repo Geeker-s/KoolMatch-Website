@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Hello ConversationController!{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+
+{#        {% if channels %}#}
+        <h2>Which chat do you want to join ?</h2>
+    <center>
+    <table class="table table-striped">
+        <tbody>
+        {% for channel in conv %}
+            <tr class="">
+                <th>
+                    <span>{{ channel.titreConversation }}</span>
+                    <a class="btn btn-primary float-right" href="{{ path('affichageMessage' , {idConversation:channel.idconversation }) }}" >Go chat !</a>
+{#                    href="{{ path('chat', {id: channel.idconversation}) }}"#}
+                </th>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </center>
+{#{% else %}#}
+{#    <div>#}
+{#        <div class="alert alert-danger text-center">No Channels found. Create Users with the <b>create:channel</b> command</div>#}
+{#    </div>#}
+{#    {% endif %}#}
+</div>
+{% endblock %}

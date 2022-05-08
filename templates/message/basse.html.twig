@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-{#    {% extends 'base.html.twig' %}#}
     <meta charset="UTF-8">
     <title>
         {% block title %}
             Welcome!
         {% endblock %}
     </title>
+
     {% block stylesheets %}
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -33,15 +33,17 @@
             </div>
             <div class="row">
                 <div class="col-lg-9 col-md-9 col-sm-9">
-                    <textarea id="message-box" class="form-control" rows="3" style="resize:none;"></textarea>
+                    <textarea rows="15" cols="30" id="message-box" class="form-control" ²="3" style="resize:none;"></textarea>
+                    <textarea  id="message-box" class="form-control" ²="3" style="resize:none;"></textarea>
+                    <div>                        <button id="send" type="button" class="btn btn-lg btn-block btn-outline-primary">Send</button>
+                        <small class="text-muted">Press Enter to send</small>
+                    </div>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3">
-                    <button id="send" type="button" class="btn btn-lg btn-block btn-outline-primary">Send</button>
-                    <small class="text-muted">Shift + Enter to send</small>
-                </div>
+
             </div>
         </div>
     </section>
+
 {% endblock %}
 {% block javascripts %}
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"

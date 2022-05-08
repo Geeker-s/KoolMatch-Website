@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MessageController!{% endblock %}
+
+{% block body %}
+    <div class="content-page">
+        <!-- Start content -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <a href="{{ path('affichageMessage') }}">
+                        <i class="fa fa-arrow-circle-left" style="font-size: 40px;"></i>
+                    </a>
+                </div>
+                <div class="row" style="display: flex;align-items: center;justify-content: center">
+                    <div class="col-md-6">
+                        <div class="card-box">
+                            <h4 class="m-t-0 m-b-30 header-title">Ajouter Message</h4>
+                            {{form_start(f)}}
+
+
+                            <div class="form-group">
+                                <label for="name">msgMessage</label>
+                                {{ form_widget(f.msgMessage, {'attr':{'class':'form-control'}})}}
+                            </div>
+                            <div class="form-group">
+                                <label for="name">dateMessage</label>
+                                {{ form_widget(f.dateMessage, {'attr':{'class':'form-control'}})}}
+                            </div>
+                            <div class="form-group">
+                                <label for="name">idConversation</label>
+                                {{ form_widget(f.idConversation, {'attr':{'class':'form-control'}})}}
+                            </div>
+                            <div class="form-group">
+                                <label for="name">archive</label>
+                                {{ form_widget(f.archive, {'attr':{'class':'form-control'}})}}
+                            </div>
+
+
+                            <div class="form-group">
+                                {{ form_widget(f.Submit,{'attr':{'class':'btn btn-pink btn-rounded w-md waves-effect waves-light m-b-5'}}) }}
+                            </div>
+                            {{ form_end(f) }}
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

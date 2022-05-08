@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MessageController!{% endblock %}
+
+{% block body %}
+<html>
+    <header class="top-50" >
+        <center>
+        <h1 >affichage message!!</h1>
+        </center>
+
+        {% for p in Message %}
+
+        <textarea rows="15" cols="30" >
+          {{ p.msgMessage}}
+            {{p.dateMessage.format('d/m/Y')}}
+      </textarea>
+
+
+            <a href="{{ path('updateMessage',{'idMessage':p.idMessage}) }}"><i class="fa fa-pencil" style="color:#00aff0;font-size:20px"></i> </a>
+            <a href="{{ path('deleteMessage',{'idMessage':p.idMessage}) }}"><i class="fa fa-trash" style="color:#ff5b5b;font-size:20px"></i> </a>
+
+
+        {% endfor %}
+
+
+
+    </header>
+{#<body>#}
+
+
+{#    {% for p in Message %}#}
+{#        <tr>#}
+{#        {%  if {{ p.idconversation}}= '2' %}#}
+{#        <div class="col-lg-2 " >#}
+{#            <dic class="bxs-package">#}
+{#   <textarea rows="15" cols="33" >#}
+{#      {{ p.msgMessage}}#}
+{#      {{p.dateMessage.format('d/m/Y')}}#}
+{#  </textarea>#}
+{#            <br>#}
+{#        <td>#}
+{#            <a href="{{ path('updateMessage',{'idMessage':p.idMessage}) }}"><i class="fa fa-pencil" style="color:#00aff0;font-size:20px"></i> </a>#}
+{#                </td>#}
+{#        <td>#}
+{#            <a href="{{ path('deleteMessage',{'idMessage':p.idMessage}) }}"><i class="fa fa-trash" style="color:#ff5b5b;font-size:20px">Supprimer</i> </a>#}
+{#                </td>#}
+
+
+{#            </dic>#}
+{#        </div>#}
+{#        <br>#}
+{#{% endif %} #}
+{#        </tr>#}
+{#        <tr>#}
+
+{#            <td >{{ p.idMessage }}</td>#}
+{#            <td>{{ p.msgMessage }}</td>#}
+{#            <td>{{ p.dateMessage.format('d/m/Y') }}</td>#}
+{#            <td>{{  p.idConversation}}</td>#}
+{#            <td>{{ p.archive }}</td>#}
+
+{#            <td><a href="{{ path('updateMessage',{'idMessage':p.idMessage}) }}"><i class="fa fa-pencil" style="color:#00aff0;font-size:20px"></i> </a></td>#}
+{#            <td><a href="{{ path('deleteMessage',{'idMessage':p.idMessage}) }}"><i class="fa fa-trash" style="color:#ff5b5b;font-size:20px">Supprimer</i> </a> </td>#}
+
+{#        </tr>#}
+{#        <br>#}
+
+{#    {% endfor %}#}
+{#</body>#}
+</html>
+{% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Conversation
@@ -18,6 +19,7 @@ class Conversation
      * @ORM\Column(name="id_conversation", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Assert\Positive
      */
     private $idConversation;
 
@@ -29,22 +31,22 @@ class Conversation
     private $titreConversation;
 
     /**
-     * @var int
-     *
+     * @var in
+     * @Assert\Positive
      * @ORM\Column(name="id_user1", type="integer", nullable=false)
      */
     private $idUser1;
 
     /**
      * @var int
-     *
+     * @Assert\Positive
      * @ORM\Column(name="id_user2", type="integer", nullable=false)
      */
     private $idUser2;
 
     /**
      * @var int
-     *
+
      * @ORM\Column(name="archive", type="integer", nullable=false)
      */
     private $archive = '0';
