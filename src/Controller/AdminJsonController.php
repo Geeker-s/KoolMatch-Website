@@ -37,7 +37,7 @@ class AdminJsonController extends AbstractController
         return new JsonResponse($json);
     }
     /**
-     * @Route("/json/addadmin", name="addadmin", methods={"POST","GET"}, requirements={"idAdmin":"\d+"})
+     * @Route("/json/addadmin", name="JSONaddadmin", methods={"POST","GET"}, requirements={"idAdmin":"\d+"})
      */
     public function addadmin(Request $request)
     {
@@ -56,7 +56,7 @@ class AdminJsonController extends AbstractController
 
     }
     /**
-     * @Route("/json/removeadmin/{idAdmin}", name="suprimer_admin", methods={"DELETE"})
+     * @Route("/json/removeadmin/{idAdmin}", name="JSONsuprimer_admin", methods={"DELETE"})
      */
     public function supprimeradmin(NormalizerInterface $Normalizer, Admin $admin): Response
     {
@@ -67,7 +67,7 @@ class AdminJsonController extends AbstractController
         return new Response("Admin Suprrimé avec succes! ".json_encode($jsonContent));
     }
     /**
-     * @Route("/json/modifadmin/{idAdmin}", name="modifadmin" , methods={"PUT"})
+     * @Route("/json/modifadmin/{idAdmin}", name="JSONmodifadmin" , methods={"PUT"})
      */
     public function modifieradmin(Request $request): JsonResponse
     {

@@ -38,7 +38,7 @@ class UserJsonController extends AbstractController
         return new JsonResponse($json);
     }
     /**
-     * @Route("/json/adduser", name="adduser", methods={"POST","GET"}, requirements={"idUser":"\d+"})
+     * @Route("/json/adduser", name="JSONadduser", methods={"POST","GET"}, requirements={"idUser":"\d+"})
      */
     public function adduser(Request $request)
     {
@@ -85,7 +85,7 @@ class UserJsonController extends AbstractController
 
     }
     /**
-     * @Route("/json/removeuser/{idUser}", name="suprimer_user", methods={"DELETE"})
+     * @Route("/json/removeuser/{idUser}", name="JSONsuprimer_user", methods={"DELETE"})
      */
     public function supprimeruser(NormalizerInterface $Normalizer, User $user): Response
     {
@@ -96,7 +96,7 @@ class UserJsonController extends AbstractController
         return new Response("User Suprrimé avec succes! ".json_encode($jsonContent));
     }
     /**
-     * @Route("/json/modifuser/{idUser}", name="modifuser" , methods={"PUT"})
+     * @Route("/json/modifuser/{idUser}", name="JSONmodifuser" , methods={"PUT"})
      */
     public function modifieruser(Request $request): JsonResponse
     {

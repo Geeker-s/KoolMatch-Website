@@ -38,7 +38,7 @@ class GerantJsonController extends AbstractController
         return new JsonResponse($json);
     }
     /**
-     * @Route("/json/addgerant", name="addgerant", methods={"POST","GET"}, requirements={"idGerant":"\d+"})
+     * @Route("/json/addgerant", name="JSONaddgerant", methods={"POST","GET"}, requirements={"idGerant":"\d+"})
      */
     public function addgerant(Request $request)
     {
@@ -67,7 +67,7 @@ class GerantJsonController extends AbstractController
 
     }
     /**
-     * @Route("/json/removegerant/{idGerant}", name="suprimer_gerant", methods={"DELETE"})
+     * @Route("/json/removegerant/{idGerant}", name="JSONsuprimer_gerant", methods={"DELETE"})
      */
     public function supprimergerant(NormalizerInterface $Normalizer, Gerant $gerant): Response
     {
@@ -78,7 +78,7 @@ class GerantJsonController extends AbstractController
         return new Response("Gerant Suprrimé avec succes! ".json_encode($jsonContent));
     }
     /**
-     * @Route("/json/modifgerant/{idGerant}", name="modifgerant" , methods={"PUT"})
+     * @Route("/json/modifgerant/{idGerant}", name="JSONmodifgerant" , methods={"PUT"})
      */
     public function modifiergerant(Request $request): JsonResponse
     {

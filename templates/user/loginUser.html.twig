@@ -9,6 +9,14 @@
             {{ message }}
         </div>
     {% endfor %}
+    {% if app.session.flashBag.has('info') %}
+    <div class="alert alert-success">
+        {% for message in app.session.flashBag.get('info')%}
+                {{ message }}
+
+        {% endfor %}
+    </div>
+    {% endif%}
     <div class="example-wrapper">
         <div style="display : flex ; align-items: center ; justify-content: center ">
             <div class="card">

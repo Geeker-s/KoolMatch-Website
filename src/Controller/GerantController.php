@@ -54,8 +54,10 @@ class GerantController extends AbstractController
     /**
      * @Route("/loginGerant", name="gerant_login")
      */
-    public function loginGerant(Request $request): Response
+    public function loginGerant(Request $request,GerantRepository $gerantRepository): Response
     {
+        $session = $request->getSession();
+        $session->clear();
         $gerant= new Gerant();
         $form = $this ->createForm(ConnexionGerantType::class,$gerant);
         $form -> handleRequest($request);
@@ -63,10 +65,23 @@ class GerantController extends AbstractController
             $username = $form["emailGerant"]->getData();
             $password = $form["passwordGerant"]->getData();
             $archive = $request->request->get("archive");
-            $test=$this->getDoctrine()->getRepository(Gerant::class)->findBy(array('emailGerant' =>$username,'passwordGerant' =>$password,'archive'=>0));
-            if ($test){
-                return $this->redirectToRoute('app_back');
+            $test=$this->getDoctrine()->getRepository(Gerant::class)->findOneBy(array('emailGerant' =>$username,'passwordGerant' =>$password,'archive'=>0));
+            if (!$test){
+                $this->get('session')->getFlashBag()->add('info',
+                    'Login Incorrecte Vérifier Votre Login');
 
+            }
+            else
+            {
+                if (!$session->has('nom'))
+                {
+                    $session->set('nom',$test->getNomGerant());
+                    $name = $session->get('nom');
+
+                    return $this->render('back/index.html.twig', [
+                        'nom'=>$name
+                    ]);
+                }
             }
         }
         return $this->render('gerant/loginGerant.html.twig',['g'=>$form->createView()]);

@@ -57,8 +57,10 @@ class UserController extends AbstractController
     /**
      * @Route("/loginUser", name="user_login")
      */
-    public function loginUser (Request $request): Response
+    public function loginUser (Request $request,UserRepository $userRepository): Response
     {
+        $session = $request->getSession();
+        $session->clear();
         $user= new User();
         $form = $this ->createForm(ConnexionUserType::class,$user);
         $form -> handleRequest($request);
@@ -66,10 +68,23 @@ class UserController extends AbstractController
             $username = $form["emailUser"]->getData();
             $password = $form["passwordUser"]->getData();
             $archive = $request->request->get("archive");
-            $test=$this->getDoctrine()->getRepository(User::class)->findBy(array('emailUser' =>$username,'passwordUser' =>$password,'archive'=>0));
-            if ($test){
+            $test=$this->getDoctrine()->getRepository(User::class)->findOneBy(array('emailUser' =>$username,'passwordUser' =>$password,'archive'=>0));
+            if (!$test){
 
-                return $this->redirectToRoute('app_front');
+                $this->get('session')->getFlashBag()->add('info',
+                    'Login Incorrecte Vérifier Votre Login');
+            }
+            else
+            {
+                if (!$session->has('name'))
+                {
+                    $session->set('name',$test->getNomUser());
+                    $name = $session->get('name');
+
+                    return $this->render('front/index.html.twig', [
+                        'name'=>$name
+                    ]);
+                }
             }
         }
         return $this->render('user/loginUser.html.twig',['u'=>$form->createView()]);
