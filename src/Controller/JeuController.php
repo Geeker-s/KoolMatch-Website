@@ -20,6 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class JeuController extends AbstractController
 {
@@ -178,4 +179,16 @@ class JeuController extends AbstractController
 
 
     }
+    /**************************************JSOn************************/
+    /**
+     * @return Response
+     *  @Route("/AffichejeuJS",name="AffichejeuJS")
+     */
+    public function AfficherJ(NormalizerInterface $normalizer){
+
+            $repository = $this->getDoctrine()->getRepository(Jeu::class);
+            $jeux = $repository->findBy(["archive" => 0]);
+            $json= $normalizer->normalize($jeux,'json',['groups'=>'post:read']);
+            return new Response(json_encode($json));
+        }
 }

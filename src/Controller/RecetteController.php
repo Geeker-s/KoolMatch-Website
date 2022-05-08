@@ -14,6 +14,7 @@ use MercurySeries\FlashyBundle\FlashyNotifier;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use GuzzleHttp\Psr7\UploadedFile;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 
 class RecetteController extends AbstractController
@@ -38,6 +39,7 @@ class RecetteController extends AbstractController
         $recette = $repo->findBy(["archive" =>0]);
         return $this->render('recette/Afficher.html.twig', array("recette" => $recette));
     }
+
     /**
      * @return Response
      * @Route("/FAfficherR", name="FafficherR")
@@ -150,7 +152,7 @@ class RecetteController extends AbstractController
         $dompdf->stream("Liste  des Recette.pdf", [
             "Attachment" => true
         ]);
-        return $this->redirectToRoute('imprimer_com');
+        return $this->redirectToRoute('afficherR');
     }
 
     /**
@@ -168,6 +170,73 @@ public function show(RecetteRepository $repository,$id)
     ]);
 }
 
+/************************************Json  */
+    /**
+     * @return Response
+     * @Route("/AfficherJ", name="afficherRJS")
+     */
+    public function AfficherJson(NormalizerInterface $normalizer)
+    {
+        $repo = $this->getDoctrine()->getRepository(Recette::class);
+        $recette = $repo->findBy(["archive" =>0]);
+        $json= $normalizer->normalize($recette,'json',['groups'=>'post:read']);
+        return new Response(json_encode($json));
+    }
+    /**
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/supprimerJ/{id}",name="suppJS")
+     */
+    public function SupprimerJ($id,NormalizerInterface $normalizer)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $recette = $em->getRepository(Recette::class)->find($id);
+        $em->remove($recette);
+        $em->flush();
+        $json = $normalizer->normalize($recette, 'json', ['groups' => 'post:read']);
+        return new Response("Supprimer!" . json_encode($json));
 
+
+    }
+
+    /**
+     *@Route("/addRecetteJ/new",name="ajouterJs")
+     */
+
+    public function addJ(Request $request,NormalizerInterface $normalizer)
+    {
+        $recette = new Recette();
+
+
+            $em = $this->getDoctrine()->getManager();
+            $recette->setCategorieRecette($request->get('CategorieRecette'));
+            $recette->setDescriptionRecette($request->get('DescriptionRecette'));
+        $recette->setNomRecette($request->get('NomRecette'));
+        $recette->setDureeRecette($request->get('DureeRecette'));
+        $recette->setPhotoRecette($request->get('PhotoRecette'));
+            $em->persist($recette);
+            $em->flush();
+        $json= $normalizer->normalize($recette,'json',['groups'=>'post:read']);
+        return new Response(json_encode($json));
+
+
+    }
+
+    /**
+     * @Route("updateJ/{id}",name="updateJs")
+     */
+    public function ModifierJ(NormalizerInterface $normalizer,$id,Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $recette = $em->getRepository(Recette::class)->find($id);
+        $recette->setCategorieRecette($request->get('CategorieRecette'));
+        $recette->setDescriptionRecette($request->get('DescriptionRecette'));
+        $recette->setNomRecette($request->get('NomRecette'));
+        $recette->setDureeRecette($request->get('DureeRecette'));
+        $recette->setPhotoRecette($request->get('PhotoRecette'));
+        $em->flush();
+        $json = $normalizer->normalize($recette, 'json', ['groups' => 'post:read']);
+        return new Response("Modifier!" . json_encode($json));
+    }
 }
 

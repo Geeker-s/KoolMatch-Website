@@ -4,6 +4,7 @@ namespace App\Entity;
 use App\Repository\QuizRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Quiz
@@ -19,6 +20,7 @@ class Quiz
      * @ORM\Column(name="id_quiz", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("post:read")
      */
     private $idQuiz;
 
@@ -28,7 +30,7 @@ class Quiz
      * @ORM\Column(name="Q1", type="text", length=65535, nullable=false)
      * @Assert\NotBlank(message="la question est obligatoire")
      * @Assert\Length(min=3,minMessage= "la question doit contenir au moins  {{ limit }} caractères.")
-     *
+     *@Groups("post:read")
      */
     private $q1;
 
@@ -38,6 +40,7 @@ class Quiz
      * @ORM\Column(name="rc1", type="text", length=65535, nullable=false)
      * @Assert\NotBlank(message="la question est obligatoire")
      * @Assert\Length(min=3,minMessage= "la question doit contenir au moins  {{ limit }} caractères.")
+     * @Groups("post:read")
      */
     private $rc1;
 
@@ -47,6 +50,7 @@ class Quiz
      * @ORM\Column(name="rf11", type="text", length=65535, nullable=false)
      * @Assert\NotBlank(message="la reponse est obligatoire")
      * @Assert\Length(min=3,minMessage= "la réponse doit contenir au moins  {{ limit }} caractères.")
+     * @Groups("post:read")
      */
     private $rf11;
 
@@ -56,6 +60,7 @@ class Quiz
      * @ORM\Column(name="rf12", type="text", length=65535, nullable=false)
      * @Assert\NotBlank(message="la reponse est obligatoire")
      * @Assert\Length(min=3,minMessage= "la réponse doit contenir au moins  {{ limit }} caractères.")
+     * @Groups("post:read")
      */
     private $rf12;
 
@@ -64,6 +69,7 @@ class Quiz
      *
      * @ORM\Column(name="rf13", type="text", length=65535, nullable=false)
      * @Assert\Length(min=3,minMessage= "la réponse doit contenir au moins  {{ limit }} caractères.")
+     * @Groups("post:read")
      */
     private $rf13;
 
@@ -73,6 +79,7 @@ class Quiz
      * @ORM\Column(name="Q2", type="text", length=65535, nullable=false)
      * @Assert\NotBlank(message="la question est obligatoire")
      * @Assert\Length(min=3,minMessage= "la réponse doit contenir au moins  {{ limit }} caractères.")
+     * @Groups("post:read")
      */
     private $q2;
 
@@ -82,7 +89,7 @@ class Quiz
      * @ORM\Column(name="rc2", type="text", length=65535, nullable=false)
      * @Assert\NotBlank(message="la reponse est obligatoire")
      * @Assert\Length(min=3,minMessage= "la question doit contenir au moins  {{ limit }} caractères.")
-     *
+     *@Groups("post:read")
      */
     private $rc2;
 
@@ -91,6 +98,7 @@ class Quiz
      *@Assert\NotBlank(message="la reponse est obligatoire")
      * @ORM\Column(name="rf21", type="text", length=65535, nullable=false)
      * @Assert\Length(min=3,minMessage= "la réponse doit contenir au moins  {{ limit }} caractères.")
+     * @Groups("post:read")
      */
     private $rf21;
 
@@ -99,6 +107,7 @@ class Quiz
      *@Assert\NotBlank(message="la reponse est obligatoire")
      * @ORM\Column(name="rf22", type="text", length=65535, nullable=false)
      * @Assert\Length(min=3,minMessage= "la réponse doit contenir au moins  {{ limit }} caractères.")
+     * @Groups("post:read")
      */
     private $rf22;
 
@@ -107,6 +116,7 @@ class Quiz
      *@Assert\NotBlank(message="la reponse est obligatoire")
      * @ORM\Column(name="rf23", type="text", length=65535, nullable=false)
      * @Assert\Length(min=3,minMessage= "la réponse doit contenir au moins  {{ limit }} caractères.")
+     * @Groups("post:read")
      */
     private $rf23;
 
@@ -115,6 +125,7 @@ class Quiz
      *@Assert\NotBlank(message="la reponse est obligatoire")
      * @ORM\Column(name="Q3", type="text", length=65535, nullable=false)
      * @Assert\Length(min=3,minMessage= "la question doit contenir au moins  {{ limit }} caractères.")
+     * @Groups("post:read")
      */
     private $q3;
 
@@ -124,6 +135,7 @@ class Quiz
      * @ORM\Column(name="rc3", type="text", length=65535, nullable=false)
      * @Assert\NotBlank(message="la question est obligatoire")
      * @Assert\Length(min=3,minMessage= "la réponse doit contenir au moins  {{ limit }} caractères.")
+     * @Groups("post:read")
      */
     private $rc3;
 
@@ -133,6 +145,7 @@ class Quiz
      * @ORM\Column(name="rf31", type="text", length=65535, nullable=false)
      * @Assert\NotBlank(message="la reponse est obligatoire")
      * @Assert\Length(min=3,minMessage= "la réponse doit contenir au moins  {{ limit }} caractères.")
+     * @Groups("post:read")
      */
     private $rf31;
 
@@ -142,6 +155,7 @@ class Quiz
      * @ORM\Column(name="rf32", type="text", length=65535, nullable=false)
      * @Assert\NotBlank(message="la reponse est obligatoire")
      * @Assert\Length(min=3,minMessage= "la réponse doit contenir au moins  {{ limit }} caractères.")
+     * @Groups("post:read")
      */
     private $rf32;
 
@@ -151,6 +165,7 @@ class Quiz
      * @ORM\Column(name="rf33", type="text", length=65535, nullable=false)
      * @Assert\NotBlank(message="la reponse est obligatoire")
      * @Assert\Length(min=3,minMessage= "la réponse doit contenir au moins  {{ limit }} caractères.")
+     * @Groups("post:read")
      */
     private $rf33;
 
@@ -158,6 +173,7 @@ class Quiz
      * @var int|null
      *
      * @ORM\Column(name="archive", type="integer", nullable=true)
+     * @Groups("post:read")
      */
     private $archive = '0';
 
@@ -168,6 +184,7 @@ class Quiz
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_recette", referencedColumnName="id_recette")
      * })
+     * @Groups("post:read")
      */
     protected $idRecette;
 

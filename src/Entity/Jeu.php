@@ -3,6 +3,7 @@
 namespace App\Entity;
 use App\Repository\JeuRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Jeu
@@ -17,7 +18,8 @@ class Jeu
      *
      * @ORM\Column(name="id_jeu", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="IDENTITY"
+     * @Groups("post:read")
      */
     private $idJeu;
 
@@ -25,6 +27,7 @@ class Jeu
      * @var int
      *
      * @ORM\Column(name="score_jeu", type="integer", nullable=false)
+     * @Groups("post:read")
      */
     private $scoreJeu;
 
@@ -32,6 +35,7 @@ class Jeu
      * @var int
      *
      * @ORM\Column(name="id_quiz", type="integer", nullable=false)
+     * @Groups("post:read")
      */
     private $idQuiz;
 
@@ -39,6 +43,7 @@ class Jeu
      * @var int
      *
      * @ORM\Column(name="id_user", type="integer", nullable=false)
+     * @Groups("post:read")
      */
     private $idUser;
 
@@ -46,6 +51,7 @@ class Jeu
      * @var int
      *
      * @ORM\Column(name="archive", type="integer", nullable=false)
+     * @Groups("post:read")
      */
     private $archive = '0';
 
