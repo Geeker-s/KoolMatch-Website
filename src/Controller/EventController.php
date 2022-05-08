@@ -24,7 +24,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class EventController extends AbstractController
 {
     /**
-     * @Route("/", name="afficher_event")
+     * @Route("/afficher_event", name="afficher_event")
      */
     public function index(EventRepo $eventRepo,PaginatorInterface $paginator,Request $request ): Response
     {
@@ -33,7 +33,7 @@ class EventController extends AbstractController
         $event = $paginator->paginate(
             $donnees, // Requête contenant les données à paginer (ici nos articles)
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-            4 // Nombre de résultats par page
+            3 // Nombre de résultats par page
 
         );
         return $this->render('event/EventFront.html.twig', [
@@ -90,9 +90,11 @@ class EventController extends AbstractController
     public function listEvent(EventRepo $eventRepo): Response
     {
 
+
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Courier');
+        $pdfOptions->setIsRemoteEnabled(true);
 
 
 
@@ -109,8 +111,10 @@ class EventController extends AbstractController
             'event' => $event
         ]);
 
+
         // Load HTML to Dompdf
         $dompdf->loadHtml($html);
+
 
         // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
         $dompdf->setPaper('A4', 'portrait');

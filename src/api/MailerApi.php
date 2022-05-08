@@ -22,6 +22,7 @@ class MailerApi
         $email = (new Email())
             ->from($from)
             ->to($to)
+
             ->subject($subject)
             ->text($body);
 

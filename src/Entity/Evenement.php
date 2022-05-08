@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Evenement
@@ -32,6 +33,7 @@ class Evenement
      *	    minMessage="Entrer un nom au minimum de 3 caracteres"
      *
      *      )
+     * @Groups("Evenement")
      */
     private $nomEvent;
 
@@ -39,6 +41,7 @@ class Evenement
      * @var \DateTime
      *
      * @ORM\Column(name="dd_event", type="date", nullable=false)
+     * @Groups("Evenement")
      */
     private $ddEvent;
 
@@ -49,6 +52,7 @@ class Evenement
      * @Assert\Expression(
      *     "this.getDdEvent() < this.getDfEvent()",
      *     message="Date fin inférieur à date début")
+     * @Groups("Evenement")
      */
     private $dfEvent;
 
@@ -57,6 +61,7 @@ class Evenement
      *
      * @ORM\Column(name="theme_event", type="string", length=50, nullable=false)
      * @Assert\NotBlank(message="Theme evenement doit etre non vide")
+     * @Groups("Evenement")
      */
     private $themeEvent;
 
@@ -65,7 +70,7 @@ class Evenement
      *
      * @ORM\Column(name="adresse_event", type="string", length=20, nullable=false)
      * @Assert\NotBlank(message="Adresse evenement doit etre non vide")
-     *
+     *@Groups("Evenement")
      */
     private $adresseEvent;
 
@@ -80,6 +85,7 @@ class Evenement
      *     maxMessage = "8 chiffres "
      *
      *      )
+     * @Groups("Evenement")
      */
     private $telephone;
 
@@ -87,6 +93,7 @@ class Evenement
      * @var int
      *
      * @ORM\Column(name="archive", type="integer", nullable=false)
+     * @Groups("Evenement")
      */
     private $archive = '0';
 
