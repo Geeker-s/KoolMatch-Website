@@ -57,21 +57,33 @@ class MessageController extends AbstractController
         $msg = $em->getRepository(Message::class)->findall();
 //        $msg = $this->getDoctrine()->getManager()->getRepository(Message::class)->find($idConversation); // select * from Message where archive = 0
         $conv = $this->getDoctrine()->getManager()->getRepository(Conversation::class)->find($idConversation);
-        $ms = new Message();
-        $form = $this->createForm(MessageType::class,$ms);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
-            $ms->setIdConversation($idConversation);
-            $ms->setDateMessage(new \DateTime());
-            $ms->setArchive(0);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($msg); // add Product
-            $em->flush(); // commit
-            return $this->redirectToRoute('affichageMessage');
+        dump($request);
+        if ($request->query->count()>0){
+            $ms = new Message();
+            $ms->setMsgMessage($request->query->get("msgmsg"))
+                ->setIdConversation($idConversation)
+                ->setArchive(0)
+                ->setDateMessage(new \DateTime());
+            $em ->persist($ms);
+            $em ->flush();
+
         }
+//        $form = $this->createForm(MessageType::class,$ms);
+//        $form->handleRequest($request);
+//        if($form->isSubmitted() && $form->isValid()) {
+//            $ms->setIdConversation($idConversation);
+//            $ms->setDateMessage(new \DateTime());
+//            $ms->setArchive(0);
+//
+//            $em = $this->getDoctrine()->getManager();
+//            $em->persist($msg); // add Product
+//            $em->flush(); // commit
+//            return $this->redirectToRoute('affichageMessage');
+//        }
 //        return $this->render("/Message/afficher_Message.html.twig",array("Message"=>$msg));
-        return $this->render("message/index.html.twig",array("messages"=>$msg , "con"=>$conv ,'f'=>$form->createView()));
+//        return $this->render("message/index.html.twig",array("messages"=>$msg , "con"=>$conv ,'f'=>$form->createView()));
+        return $this->render("message/index.html.twig",array("messages"=>$msg , "con"=>$conv ));
     }
 
     /**

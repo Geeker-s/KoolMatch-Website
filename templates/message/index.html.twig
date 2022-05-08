@@ -34,8 +34,8 @@
             </div>
             <div >
                 <form id="form" class="container row">
-                    {{ form_row(f.msgMessage , {'attr' : { 'placeholder':"saisir le message " }}) }}
-
+{#                    {{ form_row(f.msgMessage , {'attr' : { 'placeholder':"saisir le message " }}) }}#}
+                    <input name="msgmsg" class="input-group-text col-sm-9" placeholder="Message" type="text" >
                     <button id="submit" type="submit" class="btn btn-success col-sm-3">Send</button>
                 </form>
             </div>
