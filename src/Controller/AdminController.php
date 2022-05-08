@@ -49,7 +49,7 @@ class AdminController extends AbstractController
                     $session->set('nom',$test->getLoginAdmin());
                     $name = $session->get('nom');
 
-                    return $this->render('back/index.html.twig', [
+                    return $this->render('back/indexg.html.twig', [
                         'nom'=>$name
                     ]);
                 }

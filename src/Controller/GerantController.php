@@ -73,13 +73,13 @@ class GerantController extends AbstractController
             }
             else
             {
-                if (!$session->has('nom'))
+                if (!$session->has('gr'))
                 {
-                    $session->set('nom',$test->getNomGerant());
-                    $name = $session->get('nom');
+                    $session->set('gr',$test);
+                    $g = $session->get('gr');
 
-                    return $this->render('back/index.html.twig', [
-                        'nom'=>$name
+                    return $this->render('gerant/profileGerant.html.twig', [
+                        'gr'=>$g
                     ]);
                 }
             }
@@ -151,4 +151,5 @@ class GerantController extends AbstractController
         $this->addFlash('success','Gerant débloqué');
         return $this->redirectToRoute('display_gerant');
     }
+
 }

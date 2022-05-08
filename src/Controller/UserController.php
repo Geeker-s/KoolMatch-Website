@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Controller;
+
 use App\Entity\Recherche;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Form\ConnexionUserType;
 use App\Form\EmailPassForgottenType;
 use App\Form\PassType;
+use App\Form\UserType;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,20 +25,19 @@ class UserController extends AbstractController
     /**
      * @Route("/user", name="display_user", methods={"GET","POST"})
      */
-    public function index(PaginatorInterface $paginator,Request $request, UserRepository $userRepository): Response
+    public function index(PaginatorInterface $paginator, Request $request, UserRepository $userRepository): Response
     {
-        $allusers= $this->getDoctrine()->getManager()->getRepository(User::class)->findAll();
-        $user= new Recherche();
+        $allusers = $this->getDoctrine()->getManager()->getRepository(User::class)->findAll();
+        $user = new Recherche();
         $searchform = $this->createFormBuilder($user)
-            ->add('nomUser',TextType::class,array('attr'=>array('class'=>'form-control')))
+            ->add('nomUser', TextType::class, array('attr' => array('class' => 'form-control')))
             ->getForm();
 
         $searchform->handleRequest($request);
-        if($searchform->isSubmitted() && $searchform->isValid()){
+        if ($searchform->isSubmitted() && $searchform->isValid()) {
             $term = $user->getNomUser();
             $allusers = $userRepository->search($term);
-        }
-        else{
+        } else {
             $allusers = $userRepository->findAll();
             $allusers = $userRepository->orderByNom();
         }
@@ -51,44 +52,44 @@ class UserController extends AbstractController
         return $this->render('user/index.html.twig', [
             'controller_name' => 'UserController',
             'searchform' => $searchform->createView(),
-            'usr'=>$user
+            'usr' => $user
         ]);
     }
+
     /**
      * @Route("/loginUser", name="user_login")
      */
-    public function loginUser (Request $request,UserRepository $userRepository): Response
+    public function loginUser(Request $request, UserRepository $userRepository): Response
     {
         $session = $request->getSession();
         $session->clear();
-        $user= new User();
-        $form = $this ->createForm(ConnexionUserType::class,$user);
-        $form -> handleRequest($request);
-        if($form->isSubmitted() ){
+        $user = new User();
+        $form = $this->createForm(ConnexionUserType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
             $username = $form["emailUser"]->getData();
             $password = $form["passwordUser"]->getData();
             $archive = $request->request->get("archive");
-            $test=$this->getDoctrine()->getRepository(User::class)->findOneBy(array('emailUser' =>$username,'passwordUser' =>$password,'archive'=>0));
-            if (!$test){
+            $test = $this->getDoctrine()->getRepository(User::class)->findOneBy(array('emailUser' => $username, 'passwordUser' => $password, 'archive' => 0));
+            if (!$test) {
 
                 $this->get('session')->getFlashBag()->add('info',
                     'Login Incorrecte Vérifier Votre Login');
-            }
-            else
-            {
-                if (!$session->has('name'))
-                {
-                    $session->set('name',$test->getNomUser());
-                    $name = $session->get('name');
+            } else {
+                if (!$session->has('usr')) {
+                    $session->set('usr', $test);
+                    $u = $session->get('usr');
 
-                    return $this->render('front/index.html.twig', [
-                        'name'=>$name
+                    return $this->render('user/profile.html.twig', [
+                        'usr' => $u
+
                     ]);
                 }
             }
         }
-        return $this->render('user/loginUser.html.twig',['u'=>$form->createView()]);
+        return $this->render('user/loginUser.html.twig', ['u' => $form->createView()]);
     }
+
     /**
      * @Route("/removeuser/{idUser}", name="suprimer_user")
      */
@@ -99,52 +100,59 @@ class UserController extends AbstractController
         $em->flush();
         return $this->redirectToRoute('display_user');
     }
+
     /**
      * @Route("/blocuser/{idUser}", name="blocuser")
      */
-    public function BlocUser (Request $request,$idUser): Response{
-        $user= $this->getDoctrine()->getManager()->getRepository(User::class)->find($idUser);
+    public function BlocUser(Request $request, $idUser): Response
+    {
+        $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find($idUser);
         $user->setArchive(1);
         $em = $this->getDoctrine()->getManager();
         $em->flush();
-        $this->addFlash('success','Utilisateur Bloqué');
+        $this->addFlash('success', 'Utilisateur Bloqué');
         return $this->redirectToRoute('display_user');
     }
+
     /**
      * @Route("/inblocUser/{idUser}", name="inblocuser")
      */
-    public function InBlocUser (Request $request,$idUser): Response{
-        $user= $this->getDoctrine()->getManager()->getRepository(User::class)->find($idUser);
+    public function InBlocUser(Request $request, $idUser): Response
+    {
+        $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find($idUser);
         $user->setArchive(0);
         $em = $this->getDoctrine()->getManager();
         $em->flush();
-        $this->addFlash('success','Utilisateur débloqué');
+        $this->addFlash('success', 'Utilisateur débloqué');
         return $this->redirectToRoute('display_user');
     }
+
     /**
-     *@Route("/forgotten_pass", name="app_forgotten_password")
+     * @Route("/forgotten_pass", name="app_forgotten_password")
      */
-    public function forgottenPass(Request $request, UserRepository $userRepo, MailerInterface $mailer, TokenGeneratorInterface $tokenGenerator) {
+    public function forgottenPass(Request $request, UserRepository $userRepo, MailerInterface $mailer, TokenGeneratorInterface $tokenGenerator)
+    {
 
         if ($this->getUser()) {
             return $this->redirectToRoute('home');
         }
         $form = $this->createForm(EmailPassForgottenType::class);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
-            $donnees =$form->get('email')->getData();
-            $user=$this->getDoctrine()->getRepository(User::class)->findOneByEmail($donnees);
-            if(!$user){
-                $this->addFlash('danger','cettte adresse n\exsite pas');
-                return  $this->render('user/passforgotten.html.twig', ['form' => $form->createView(),'Message'=>"Entrez Votre Email!"]);}
-            $token= $tokenGenerator->generateToken();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $donnees = $form->get('email')->getData();
+            $user = $this->getDoctrine()->getRepository(User::class)->findOneByEmail($donnees);
+            if (!$user) {
+                $this->addFlash('danger', 'cettte adresse n\exsite pas');
+                return $this->render('user/passforgotten.html.twig', ['form' => $form->createView(), 'Message' => "Entrez Votre Email!"]);
+            }
+            $token = $tokenGenerator->generateToken();
             try {
                 $user->setResetToken($token);
-                $entityManager =$this->getDoctrine()->getManager();
+                $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->flush();
-            }catch (\Exception $e){
-                $this->addFlash('warning', 'une erreur est servenue : '. $e->getMessage());
-                return  $this->render('user/passforgotten.html.twig', ['form' => $form->createView(),'Message'=>"Entrez Votre Email!"]);
+            } catch (\Exception $e) {
+                $this->addFlash('warning', 'une erreur est servenue : ' . $e->getMessage());
+                return $this->render('user/passforgotten.html.twig', ['form' => $form->createView(), 'Message' => "Entrez Votre Email!"]);
             }
             $url = $this->generateUrl('app_reset_password', ['token' => $token]);
             $message = (new TemplatedEmail())
@@ -152,40 +160,44 @@ class UserController extends AbstractController
                 ->to($user->getEmailUser())
                 ->html(
                     "<p> bonjour ,</p><p></p> une demande de réinitialisation de mot de passe à été effectué pour l'application KoolMatch.
-                            veuillez cliquer sur le lien suivant: localhost:8000" .$url ."</p>");
+                            veuillez cliquer sur le lien suivant: localhost:8000" . $url . "</p>");
 
             $mailer->send($message);
-            $this->addFlash('message' , "un e_mail de renitialisation de mot de passe  vous a ete envoye");
-            return $this->redirectToRoute('user_login');}
-        return  $this->render('user/passforgotten.html.twig', ['form' => $form->createView(),'Message'=>"Entrez Votre Email!"]);
+            $this->addFlash('message', "un e_mail de renitialisation de mot de passe  vous a ete envoye");
+            return $this->redirectToRoute('user_login');
+        }
+        return $this->render('user/passforgotten.html.twig', ['form' => $form->createView(), 'Message' => "Entrez Votre Email!"]);
     }
+
     /**
      * @Route ("/reset_pass/{token}" , name="app_reset_password")
      */
-    public function resetpass(Request $request,$token,EntityManagerInterface $entityManager ){
+    public function resetpass(Request $request, $token, EntityManagerInterface $entityManager)
+    {
         if ($this->getUser()) {
             return $this->redirectToRoute('home');
         }
-        $user=$this->getDoctrine()->getManager()->getRepository(User::class)->findytoken($token);
-        if (!$user)
-        {
+        $user = $this->getDoctrine()->getManager()->getRepository(User::class)->findytoken($token);
+        if (!$user) {
             return $this->redirectToRoute("user_login");
         }
         $form = $this->createForm(PassType::class);
         $form->handleRequest($request);
-        if ($form->isSubmitted())
-        {
+        if ($form->isSubmitted()) {
             $user->setPasswordUser(
 
-                    $form->get('passwordUser')->getData()
+                $form->get('passwordUser')->getData()
 
             );
             $entityManager->flush();
             return $this->redirectToRoute("user_login");
         }
-        return $this->render ('user/passforgotten.html.twig', ['form' => $form->createView(),'Message'=>"Entrez Votre Nouveau mot de passe!"]);
+        return $this->render('user/passforgotten.html.twig', ['form' => $form->createView(), 'Message' => "Entrez Votre Nouveau mot de passe!"]);
 
     }
+
+
+
 
 
 

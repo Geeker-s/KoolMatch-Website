@@ -1,0 +1,39 @@
+{% extends 'back/index.html.twig' %}
+
+{% block title %}Gerant{% endblock %}
+
+{% block body %}
+    <h1>Profile</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Nom : </th>
+            <td>{{gr.nomGerant }}</td>
+        </tr>
+        <tr>
+            <th>Prenom : </th>
+            <td>{{ gr.prenomGerant }}</td>
+        </tr>
+        <tr>
+            <th>Email : </th>
+            <td> {{ gr.emailGerant }}</td>
+        </tr>
+        <tr>
+            <th>Téléphone : </th>
+            <td>{{ gr.telephoneGerant }}</td>
+        </tr>
+        <tr>
+            <th>Date début abonnement : </th>
+            <td>{{ gr.ddAbonnement | date("m/d/y") }}</td>
+        </tr>
+        <tr>
+            <th>Date fin abonnement : </th>
+            <td>{{ gr.dfAbonnement | date("m/d/y") }}</td>
+        </tr>
+
+        </tbody>
+    </table>
+
+
+{% endblock %}
