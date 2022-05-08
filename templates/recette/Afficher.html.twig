@@ -1,0 +1,112 @@
+{% extends 'back/index.html.twig' %}
+
+{% block title %}Hello RecetteController!{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('info') %}
+        <div class="alertaa">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{ message }}
+        </div>
+    {% endfor %}
+    <style>
+        .alertaa {
+            padding: 20px;
+            background-color: #1E90FF; /* Red */
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        /* The close button */
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        /* When moving the mouse over the close button */
+        .closebtn:hover {
+            color: black;
+        }
+
+
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 1000px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+
+        .kkl {
+            color: #fff;
+            background-color: #EFEFEF;
+            border-color: #EFEFEF;
+            line-height: 0.25;
+            font-size: 1.5rem;
+            vertical-align: middle;
+            text-align: center;
+            font-size: 20px;
+            padding: 3px;
+        }
+
+        .kka {
+            color: #fff;
+            background-color: #EFEFEF;
+            border-color: #EFEFEF;
+            vertical-align: middle;
+            text-align: center;
+
+
+        }
+    </style>
+    <div class="example-wrapper">
+        <main>
+
+            <div class="container mt-5 mb-5">
+                <div class="d-flex justify-content-between mb-3">
+                    <button class="kka"><a href="{{ path('ajouter') }}"><p style="color:#000000">ajouter une
+                                Recette </p></a></button>
+                </div>
+                <div class="d-flex justify-content-between mb-3">
+                    <button class="kka"><a href="{{ path('ir') }}"><p style="color:#000000"> imprimer une Recette</p>
+                        </a></button>
+                </div>
+                <div class="row g-2">
+                    {% for r in recette %}
+                        <div class="col-md-3">
+                            <div class="card p-2 py-3 text-center">
+                                <img style="width:200px ; height:120px" src="{{ asset(r.getPhotoRecette()) }}"/>
+
+                                <h5 class="mb-0">{{ r.getNomRecette() }}</h5>
+                                <small>{{ r.getDescriptionRecette() }}</small><h5
+                                        class="mb-0">{{ r.getCategorieRecette() }}</h5>
+                                <small>{{ r.getDureeRecette() }}</small>
+                                <div class="mt-4 apointment">
+                                    <button class="kkl"><a href="{{ path('suppR',{'id':r.getIdRecette()}) }}"><p
+                                                    style="color:#000000">Delete </p></a></button>
+                                    <button class="kkl"><a href="{{ path('updateR', {'id': r.getIdRecette()}) }}"><p
+                                                    style="color:#000000">edit</p></a></button>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    {% endfor %}
+
+
+                </div>
+        </main>
+    </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block title %}Hello mes restaurants!{% endblock %}
+{% block body %}
+    {% for e in Restaurant %}
+ 
+<main class="page-content">
+ <div class="card" style="background-image: url({{asset(e.image)}})">
+         
+    <div class="content">
+    <img style="width:200px ; height:120px"src="{{asset(e.image)}}" />
+      <h2 class="title">{{e.nomRestaurant}}</h2>
+      <p class="copy">Les meilleurs restaurants de votre ville
+Avec un grand choix de restaurants, vous trouverez toujours votre plat préféré et découvrirez de nouveaux restaurants !</p>
+      <button class="btn"><a href="/detail/{{e.idRestaurant}}"> View Trips</a></button>
+    </div>
+  </div>
+</main>
+{%  endfor %}
+
+<div  style="margin-top : 500px ; margin-left : -100px">
+                        {{ knp_pagination_render(Restaurant) }}
+
+                    </div>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/625ea2c97b967b11798b6a86/1g10qnp6q';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+{% endblock %}

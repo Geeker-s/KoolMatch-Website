@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}KoolMatch{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 1000px; width: 100%; font: 25px/0.9 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <div class="container">
+            <div class="row">
+                    <h1> KoolMatch </h1>
+
+                    {{ form_start(forms,{'attr': {novalidate: 'novalidate'}} ) }}
+
+        {{ form_errors(forms.nbplaceReservation) }}
+        {{ form_label(forms.nbplaceReservation,"Number de place") }}
+        {{ form_widget(forms.nbplaceReservation) }}
+
+        {{ form_errors(forms.dateReservation) }}
+        {{ form_label(forms.dateReservation,"Date Reservation") }}
+        {{ form_widget(forms.dateReservation)}}
+
+
+       
+                    {{ form_end(forms) }}
+                </div>
+            </div>
+            
+        </div>
+</div>
+{% endblock %}
+

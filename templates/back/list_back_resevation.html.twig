@@ -1,0 +1,69 @@
+{% extends 'back/index.html.twig' %}
+
+{% block title %}Hello les reservations!{% endblock %}
+{% block body %}
+
+      <header class="header-design">
+  
+    <div class="listar-map-button-text" style="display: inline-block; opacity: 1;">
+    
+    </div>
+ 
+
+  <div class="footer-wave"></div>
+</header>
+
+
+
+ <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+                <div class="card-body">
+               
+                <h5 class="card-title">Ajouter Restaurant</h5>
+                <a href="{{ path('DownloadreservationsData') }}" class="btn btn-dark waves-effect waves-light">Download PDF</a>
+
+        {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+        {{message}}
+        </div>
+        {% endfor %}
+             <table class="table datatable">
+               
+                          <thead>
+                  <tr>
+                    <th scope="col"> Nom user</th>
+                     <th scope="col">Image</th>
+                    <th scope="col">Nom resto</th>
+                    <th scope="col">Specialite</th>
+                    <th scope="col">Date</th>
+                    
+                
+                  </tr>
+                </thead>
+                          {% for e in Reservation %}
+                    
+                        <tr>
+                        <td>Foulen</td>
+                        <td> <img style="width:100px ; height:100px" class="card-text" src="{{asset(e.idRestaurant.image)}}"/></td>
+                        <td>{{e.idRestaurant.nomRestaurant}}</td>
+                         <td>{{ e.nbplaceReservation }}</td>
+                        <td>{{e.dateReservation.format('d/m/Y')}} </td>
+                       
+                   
+                       
+                       
+                        </tr>
+
+                 {% endfor %}
+                </table>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+{% endblock %}

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Evenement
@@ -25,6 +27,13 @@ class Evenement
      * @var string
      *
      * @ORM\Column(name="nom_event", type="string", length=20, nullable=false)
+     * @Assert\NotBlank(message="nom evenement doit etre non vide")
+     * @Assert\Length(
+     *      min = 3 ,
+     *	    minMessage="Entrer un nom au minimum de 3 caracteres"
+     *
+     *      )
+     * @Groups("Evenement")
      */
     private $nomEvent;
 
@@ -32,6 +41,7 @@ class Evenement
      * @var \DateTime
      *
      * @ORM\Column(name="dd_event", type="date", nullable=false)
+     * @Groups("Evenement")
      */
     private $ddEvent;
 
@@ -39,6 +49,10 @@ class Evenement
      * @var \DateTime
      *
      * @ORM\Column(name="df_event", type="date", nullable=false)
+     * @Assert\Expression(
+     *     "this.getDdEvent() < this.getDfEvent()",
+     *     message="Date fin inférieur à date début")
+     * @Groups("Evenement")
      */
     private $dfEvent;
 
@@ -46,6 +60,8 @@ class Evenement
      * @var string
      *
      * @ORM\Column(name="theme_event", type="string", length=50, nullable=false)
+     * @Assert\NotBlank(message="Theme evenement doit etre non vide")
+     * @Groups("Evenement")
      */
     private $themeEvent;
 
@@ -53,6 +69,8 @@ class Evenement
      * @var string
      *
      * @ORM\Column(name="adresse_event", type="string", length=20, nullable=false)
+     * @Assert\NotBlank(message="Adresse evenement doit etre non vide")
+     *@Groups("Evenement")
      */
     private $adresseEvent;
 
@@ -60,6 +78,14 @@ class Evenement
      * @var int
      *
      * @ORM\Column(name="telephone", type="integer", nullable=false)
+     * @Assert\Length(
+     *      min = 8 ,
+     *      max = 8 ,
+     *	    minMessage="8 chiffres" ,
+     *     maxMessage = "8 chiffres "
+     *
+     *      )
+     * @Groups("Evenement")
      */
     private $telephone;
 
@@ -67,6 +93,7 @@ class Evenement
      * @var int
      *
      * @ORM\Column(name="archive", type="integer", nullable=false)
+     * @Groups("Evenement")
      */
     private $archive = '0';
 
@@ -158,6 +185,7 @@ class Evenement
 
         return $this;
     }
+
 
 
 }

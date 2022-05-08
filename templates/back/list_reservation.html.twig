@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detail{% endblock %}
+
+{% block body %}
+
+<div class="ft-recipe"> 
+  <div class="ft-recipe__thumb"><span id="close-modal"><i class="ion ion-md-close"></i></span>
+    <h3>Bienvenue dans le meilleur restaurant</h3><img src="{{asset(detailE.image)}}" alt="Strawberry Waffle"/>
+  </div>
+  <div class="ft-recipe__content">
+    <header class="content__header">
+      <div class="row-wrapper">
+        <h2 class="recipe-title">{{detailE.nomRestaurant}}</h2>
+        <div class="user-rating"></div>
+      </div>
+      <ul class="recipe-details">
+        <li class="recipe-details-item time"><i class="ion ion-ios-clock-outline"></i><span class="value">Specialité</span><span class="title">{{detailE.specialiteRestaurant}} </span></li>
+        <li class="recipe-details-item ingredients"><i class="ion ion-ios-book-outline"></i><span class="value">Adresse</span><span class="title">{{detailE.adresseRestaurant}}</span></li>
+        <li class="recipe-details-item ingredients"><i class="ion ion-ios-book-outline"></i><span class="value">Telephone</span><span class="title">{{detailE.telephoneRestaurant}}</span></li>
+
+      </ul>
+    </header>
+    <p class="description">
+{{detailE.description}}
+    <footer class="content__footer"><a href="/detail_resto/{{detailE.idRestaurant}}">Reservation</a></footer>
+
+</div>
+{% endblock %}

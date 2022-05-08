@@ -1,0 +1,97 @@
+{% extends 'back/index.html.twig' %}
+
+{% block body %}
+<input type="text" id="search" class="form-control" placeholder="Search">
+<section class="jumbotron text-center">
+    <div class="container">
+        <br>
+
+    {% for message in app.flashes('info2') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+        <a class=" btn btn-dark" href="{{ path('event_list') }}" style="margin-top: 50px">Imprimer PDF</a>
+
+<div class= "row" style="display: flex;align-items: center;justify-content: center;margin-top: 120px">
+
+
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Evenements</h5>
+                <table class="table table-striped">
+                    <script src="{{ asset('js/jquery.min.js') }}"></script>
+                    <table id="tableac" class="table table-striped table-advance table-hover">
+                    <thead>
+                    <tr>
+                        <th>Nom </th>
+                        <th>Date debut</th>
+                        <th>Date fin</th>
+                        <th>Theme </th>
+                        <th>Adresse </th>
+                        <th>Telephone</th>
+                        <th>Modification</th>
+                        <th>Suppression</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for evenement in ev  %}
+                        <tr>
+                            <td>{{ evenement.nomEvent }}</td>
+                            <td>{{ evenement.ddEvent |date('d-m-Y') }}</td>
+                            <td>{{ evenement.dfEvent |date('d-m-Y') }}</td>
+                            <td>{{ evenement.themeEvent }}</td>
+                            <td>{{ evenement.adresseEvent }}</td>
+                            <td>{{ evenement.telephone }}</td>
+                            <td>
+                                <a class="btn btn-success" href="{{ path('modifevent',{'idEvent':evenement.idEvent}) }}">Modifier</a>
+                            </td>
+                            <td>
+                                <a class=" btn btn-danger" href="{{ path('supp_event',{'idEvent':evenement.idEvent}) }}">Supprimer</a>
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+                   </tbody>
+                        <script>
+                            $(document).ready(function(){
+                                $('#search').keyup(function(){
+                                    search_table($(this).val());
+                                });
+                                function search_table(value){
+                                    $('#tableac tbody tr').each(function(){
+                                        var found = 'false';
+                                        $(this).each(function(){
+                                            if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)
+                                            {
+                                                found = 'true';
+                                            }
+                                        });
+                                        if(found == 'true')
+                                        {
+                                            $(this).show();
+
+                                        }
+                                        else
+                                        {
+                                            $(this).hide();
+
+                                        }
+                                    });
+                                }
+                            });
+                        </script>
+                     </table>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+{% endblock %}

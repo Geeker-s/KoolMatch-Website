@@ -1,0 +1,96 @@
+{% extends 'back/index.html.twig' %}
+{% block title %}Hello mes restaurants!{% endblock %}
+{% block body %}
+
+ <header class="header-design">
+  
+    <div class="listar-map-button-text" style="display: inline-block; opacity: 1;">
+    
+    </div>
+ 
+
+  <div class="footer-wave"></div>
+</header>
+
+<section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+                <div class="card-body">
+               
+        <h5 class="card-title">Ajouter Restaurant</h5>
+        <div>
+                            <p style="100px" > <input  id="myInput"  type="text" placeholder="search">
+                                <img src="https://img.icons8.com/nolan/344/google-web-search.png" style="width:50px;height:50px;"/></p>
+
+                        </div>
+        {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+        {{message}}
+        </div>
+        {% endfor %}
+        
+             <table class="table datatable">
+               
+                          <thead>
+                  <tr>
+                    <th scope="col">Nom resto</th>
+                    <th scope="col">Specialite</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Telephone</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Nb de place</th>
+                    
+                    <th scope="col">Image</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                            <tbody>
+                            <tbody id="myTable">
+                          {% for e in Restaurant %}
+                    
+                        <tr>
+                        <td>{{ e.nomRestaurant|upper }}</td>
+                        <td>{{ e.specialiteRestaurant }}</td>
+                        <td>{{ e.adresseRestaurant}}</td>
+                        <td>{{ e.telephoneRestaurant  }}</td>
+                        <td>{{ e.description}}</td>
+                        <td>{{ e.nbPlaceresto }}</td>
+                       
+                       <td> <img style="width:100px ; height:100px" src="{{asset(e.image) }}"
+                                          class="img-responsive" alt="Image"></td>
+                                <td>
+                      
+                    <td><button> <a href="{{ path('delete',{'idRestaurant':e.idRestaurant})}}">Delete </a></button>
+                  <button><a href="{{ path('update', {'idRestaurant': e.idRestaurant}) }}">edit</a></button></td>
+                        </tr>
+
+                 {% endfor %}
+                 </tbody>
+                 <tbody id="search">
+
+                            </tbody>
+                </table>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    
+    </section>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+   
+{% endblock %}
