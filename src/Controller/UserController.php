@@ -8,8 +8,10 @@ use App\Repository\UserRepository;
 use App\Form\ConnexionUserType;
 use App\Form\EmailPassForgottenType;
 use App\Form\PassType;
+use App\Form\UserType;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +28,6 @@ class UserController extends AbstractController
      */
     public function index(PaginatorInterface $paginator, Request $request, UserRepository $userRepository): Response
     {
-
         $allusers = $this->getDoctrine()->getManager()->getRepository(User::class)->findAll();
         $user = new Recherche();
         $searchform = $this->createFormBuilder($user)
@@ -82,7 +83,6 @@ class UserController extends AbstractController
 
                     return $this->render('user/profile.html.twig', [
                         'usr' => $u
-
                     ]);
                 } else {
                     $u = $session->get('usr');
@@ -214,5 +214,49 @@ class UserController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/{idUser}/edit", name="user_edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request): Response
+    {
+        $session = $request->getSession();
+        $user = $session->get('usr');
+        $user->setPhotoUser("");
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $file = $user->getPhotoUser();
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
+            try {
+                $file->move(
+                    $this->getParameter('images_directory'),
+                    $filename
+                );
+            } catch (FileException $e) {
+                return $this->redirectToRoute('user_show');
+            }
+            $em = $this->getDoctrine()->getManager();
+            $user->setPhotoUser($filename);
+            $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return $this->redirectToRoute('user_show');
+        } else {
+            return $this->render('user/edit.html.twig', [
+
+                'form' => $form->createView(),
+                'usr' => $user,
+            ]);
+        }
+
+    }
+
+    /**
+     * @Route("/logout", name="app_logout")
+     */
+    public function logout(): void
+    {
+        $this->redirectToRoute("/loginUser");
+    }
 }

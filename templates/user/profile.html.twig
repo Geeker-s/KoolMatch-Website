@@ -3,40 +3,45 @@
 {% block title %}Profile{% endblock %}
 
 {% block body %}
-    <h1>Profile</h1>
+    <div class="example-wrapper">
+        <div style=" align-items: center ; justify-content: center ">
+            <h1 align="center">Profile</h1>
 
-    <table class="table">
-        <tbody>
-        <tr>
-            <th>Nom : </th>
-            <td>{{usr.nomUser }}</td>
-        </tr>
-        <tr>
-            <th>Prenom : </th>
-            <td>{{ usr.prenomUser }}</td>
-        </tr>
-        <tr>
-            <th>Email : </th>
-            <td> {{ usr.emailUser }}</td>
-        </tr>
-        <tr>
-            <th>Téléphone : </th>
-            <td>{{ usr.telephoneUser }}</td>
-        </tr>
-        <tr>
-            <th>Date de Naissance : </th>
-            <td>{{ usr.dateNaissanceUser | date("m/d/y") }}</td>
-        </tr>
-        <tr>
-            <th>Photo : </th>
-            <td><img width="90" height="90" src="{{asset('uploads/images/'~usr.photoUser)}} " ></td>
-        </tr>
-        <tr>
-            <th>Adresse : </th>
-            <td>{{ usr.adresseUser }}</td>
-        </tr>
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Nom : </th>
+                    <td>{{usr.nomUser }}</td>
+                </tr>
+                <tr>
+                    <th>Prenom : </th>
+                    <td>{{ usr.prenomUser }}</td>
+                </tr>
+                <tr>
+                    <th>Email : </th>
+                    <td> {{ usr.emailUser }}</td>
+                </tr>
+                <tr>
+                    <th>Téléphone : </th>
+                    <td>{{ usr.telephoneUser }}</td>
+                </tr>
+                <tr>
+                    <th>Date de Naissance : </th>
+                    <td>{{ usr.dateNaissanceUser | date("d/m/y") }}</td>
+                </tr>
+                <tr>
+                    <th>Photo : </th>
+                    <td><img width="90" height="90" src="{{asset('uploads/images/'~usr.photoUser)}} " ></td>
+                </tr>
+                <tr>
+                    <th>Adresse : </th>
+                    <td>{{ usr.adresseUser }}</td>
+                </tr>
 
-        </tbody>
-    </table>
+                </tbody>
+            </table>
+            <a href="{{ path('user_edit', {'idUser': usr.idUser}) }}"><input class="favorite styled" type="button" value="Modifier"></a>
+        </div>
+    </div>
 
 {% endblock %}
