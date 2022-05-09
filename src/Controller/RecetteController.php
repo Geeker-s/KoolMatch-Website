@@ -135,7 +135,7 @@ class RecetteController extends AbstractController
     /**
      * @param RecetteRepository $repository
      * @return Response
-     * @Route ("imp",name="ir")
+     * @Route ("/imp",name="ir")
      */
     public function imprimeRecette(RecetteRepository $repository): Response
     {
@@ -145,15 +145,15 @@ class RecetteController extends AbstractController
         $dompdf = new Dompdf($pdfOptions);
         $recette = $repository->findAll();
         $html = $this->renderView('recette/pdf.html.twig', [
-            'recette' => $recette,
+            'recette' => $recette
         ]);
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
-        $dompdf->stream("Liste  des Recette.pdf", [
+        $dompdf->stream("Liste des Recette.pdf", [
             "Attachment" => true
         ]);
-        return $this->redirectToRoute('FafficherR');
+        return $this->redirectToRoute('imprimer_com');
     }
 
     /**

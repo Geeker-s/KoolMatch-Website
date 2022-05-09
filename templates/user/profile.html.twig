@@ -3,43 +3,40 @@
 {% block title %}Profile{% endblock %}
 
 {% block body %}
-    <h1></h1>
+    <h1>Profile</h1>
 
     <table class="table">
-        <thead>
+        <tbody>
         <tr>
-            <td>Nom : </td>
-            <td>{{ user.nomUser }}</td>
+            <th>Nom : </th>
+            <td>{{usr.nomUser }}</td>
         </tr>
         <tr>
-            <td>Prenom : </td>
-            <td>{{ user.prenomUser }}</td>
+            <th>Prenom : </th>
+            <td>{{ usr.prenomUser }}</td>
         </tr>
         <tr>
-            <td>Email : </td>
-            <td> {{ user.emailUser }}</td>
+            <th>Email : </th>
+            <td> {{ usr.emailUser }}</td>
         </tr>
         <tr>
-            <td>Téléphone : </td>
-            <td>{{ user.telephoneUser }}</td>
+            <th>Téléphone : </th>
+            <td>{{ usr.telephoneUser }}</td>
         </tr>
         <tr>
-            <td>Date de Naissance : </td>
-            <td>{{ user.dateNaissanceUser }}</td>
+            <th>Date de Naissance : </th>
+            <td>{{ usr.dateNaissanceUser | date("m/d/y") }}</td>
         </tr>
         <tr>
-            <td>Photo : </td>
-            <td><img width="90" height="90" src="{{user.photoUser}} " ></td>
+            <th>Photo : </th>
+            <td><img width="90" height="90" src="{{asset('uploads/images/'~usr.photoUser)}} " ></td>
         </tr>
         <tr>
-            <td>Adresse : </td>
-            <td>{{ user.adresseUser }}</td>
+            <th>Adresse : </th>
+            <td>{{ usr.adresseUser }}</td>
         </tr>
 
-        </thead>
-        <tbody>
         </tbody>
     </table>
-
 
 {% endblock %}

@@ -12,18 +12,6 @@ html {
     height: 100%;
     overflow: hidden;
 }
-body {
-    height: 100%;
-    background: whitesmoke;
-    overflow: scroll;
-    width: 100%;
-    max-width: 10000px;
-    margin: 0 auto;
-    padding-right: 0.1em;
-    padding-left: 0em;
-    font: 100%/1.4 serif;
-    border: 1px solid rgba(0,0,0,0.25)
-}
 p {
     margin: 0 0 1.5em;
 }

@@ -26,6 +26,7 @@ class UserController extends AbstractController
      */
     public function index(PaginatorInterface $paginator, Request $request, UserRepository $userRepository): Response
     {
+
         $allusers = $this->getDoctrine()->getManager()->getRepository(User::class)->findAll();
         $user = new Recherche();
         $searchform = $this->createFormBuilder($user)
@@ -58,8 +59,10 @@ class UserController extends AbstractController
     /**
      * @Route("/loginUser", name="user_login")
      */
-    public function loginUser(Request $request): Response
+    public function loginUser(Request $request, UserRepository $userRepository): Response
     {
+        $session = $request->getSession();
+        $session->clear();
         $user = new User();
         $form = $this->createForm(ConnexionUserType::class, $user);
         $form->handleRequest($request);
@@ -67,10 +70,27 @@ class UserController extends AbstractController
             $username = $form["emailUser"]->getData();
             $password = $form["passwordUser"]->getData();
             $archive = $request->request->get("archive");
-            $test = $this->getDoctrine()->getRepository(User::class)->findBy(array('emailUser' => $username, 'passwordUser' => $password, 'archive' => 0));
-            if ($test) {
+            $test = $this->getDoctrine()->getRepository(User::class)->findOneBy(array('emailUser' => $username, 'passwordUser' => $password, 'archive' => 0));
+            if (!$test) {
 
-                return $this->redirectToRoute('app_front');
+                $this->get('session')->getFlashBag()->add('info',
+                    'Login Incorrecte Vérifier Votre Login');
+            } else {
+                if (!$session->has('usr')) {
+                    $session->set('usr', $test);
+                    $u = $session->get('usr');
+
+                    return $this->render('user/profile.html.twig', [
+                        'usr' => $u
+
+                    ]);
+                } else {
+                    $u = $session->get('usr');
+                    return $this->render('user/profile.html.twig', [
+                        'usr' => $u
+
+                    ]);
+                }
             }
         }
         return $this->render('user/loginUser.html.twig', ['u' => $form->createView()]);
@@ -180,6 +200,18 @@ class UserController extends AbstractController
         }
         return $this->render('user/passforgotten.html.twig', ['form' => $form->createView(), 'Message' => "Entrez Votre Nouveau mot de passe!"]);
 
+    }
+
+    /**
+     * @Route("/profile", name="user_show", methods={"GET"})
+     */
+    public function show(Request $request): Response
+    {
+        $session = $request->getSession();
+        $user = $session->get('usr');
+        return $this->render('user/profile.html.twig', [
+            'usr' => $user,
+        ]);
     }
 
 

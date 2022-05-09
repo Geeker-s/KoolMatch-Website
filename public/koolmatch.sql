@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : dim. 24 avr. 2022 à 06:48
+-- Généré le : lun. 09 mai 2022 à 00:16
 -- Version du serveur : 5.7.34
 -- Version de PHP : 7.4.21
 
@@ -31,7 +31,7 @@ CREATE TABLE `admin` (
   `id_admin` int(50) NOT NULL,
   `login_admin` varchar(20) NOT NULL,
   `password_admin` varchar(20) NOT NULL,
-  `archive` int(8) NOT NULL DEFAULT '0'
+  `archive` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id_admin`, `login_admin`, `password_admin`, `archive`) VALUES
-(1, 'matchkool@gmail.com', '1234', 0);
+(1, 'admin@esprit.tn', 'Admin1', 0);
 
 -- --------------------------------------------------------
 
@@ -52,7 +52,7 @@ CREATE TABLE `conversation` (
   `titre_conversation` varchar(20) NOT NULL,
   `id_user1` int(20) NOT NULL,
   `id_user2` int(20) NOT NULL,
-  `archive` int(11) NOT NULL DEFAULT '0'
+  `archive` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -61,6 +61,26 @@ CREATE TABLE `conversation` (
 
 INSERT INTO `conversation` (`id_conversation`, `titre_conversation`, `id_user1`, `id_user2`, `archive`) VALUES
 (1, 'Eya', 2, 3, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `doctrine_migration_versions`
+--
+
+CREATE TABLE `doctrine_migration_versions` (
+  `version` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `executed_at` datetime DEFAULT NULL,
+  `execution_time` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `doctrine_migration_versions`
+--
+
+INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
+('DoctrineMigrations\\Version20220507210027', '2022-05-07 21:00:42', 419),
+('DoctrineMigrations\\Version20220508111132', '2022-05-08 11:11:37', 57);
 
 -- --------------------------------------------------------
 
@@ -76,7 +96,7 @@ CREATE TABLE `evenement` (
   `theme_event` varchar(50) NOT NULL,
   `adresse_event` varchar(20) NOT NULL,
   `telephone` int(20) NOT NULL,
-  `archive` int(1) NOT NULL DEFAULT '0'
+  `archive` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -104,7 +124,7 @@ CREATE TABLE `gerant` (
   `telephone_gerant` int(20) NOT NULL,
   `dd_abonnement` date NOT NULL,
   `df_abonnement` date NOT NULL,
-  `archive` int(1) NOT NULL DEFAULT '0'
+  `archive` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -113,7 +133,8 @@ CREATE TABLE `gerant` (
 
 INSERT INTO `gerant` (`id_gerant`, `nom_gerant`, `prenom_gerant`, `email_gerant`, `password_gerant`, `telephone_gerant`, `dd_abonnement`, `df_abonnement`, `archive`) VALUES
 (2, 'khaled', 'ben ammar', 'khaledbenammar@esprit.tn', '1234', 25236212, '2022-03-01', '2022-03-31', 0),
-(20, 'Asma', 'Ben Brahim', 'asmabenbrahim@esprit.tn', '1234', 23212526, '2022-03-01', '2022-03-31', 0);
+(20, 'Asma', 'Ben Brahim', 'asmabenbrahim@esprit.tn', '1234', 23212526, '2022-03-01', '2022-03-31', 0),
+(21, 'Wassim', 'Ben Romdhane', 'wassimbenr@gmail.com', 'BYEBye1', 94366666, '2022-05-07', '2022-05-31', 0);
 
 -- --------------------------------------------------------
 
@@ -125,9 +146,9 @@ CREATE TABLE `interaction` (
   `id_interaction` int(20) NOT NULL,
   `type_interaction` varchar(20) NOT NULL,
   `date_interaction` date NOT NULL,
-  `id_user1` int(11) NOT NULL,
-  `id_user2` int(11) NOT NULL,
-  `archive` int(1) NOT NULL DEFAULT '0'
+  `id_user1` int(11) DEFAULT NULL,
+  `id_user2` int(11) DEFAULT NULL,
+  `archive` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -135,16 +156,11 @@ CREATE TABLE `interaction` (
 --
 
 INSERT INTO `interaction` (`id_interaction`, `type_interaction`, `date_interaction`, `id_user1`, `id_user2`, `archive`) VALUES
-(57, 'x', '2022-04-21', 1, 23, 0),
-(59, 'o', '2022-04-21', 23, 1, 0),
-(60, 'o', '2022-04-21', 23, 21, 0),
-(61, 'o', '2022-04-24', 23, 22, 0),
-(62, 'o', '2022-04-24', 23, 22, 0),
-(63, 'o', '2022-04-24', 23, 22, 0),
-(64, 'o', '2022-04-24', 23, 22, 0),
-(65, 'o', '2022-04-24', 23, 22, 0),
-(66, 'o', '2022-04-24', 23, 22, 0),
-(67, 'o', '2022-04-24', 23, 22, 0);
+(2, '\"o\"', '2022-05-06', 1, 1, 0),
+(3, 'x', '2022-05-06', 1, 1, 0),
+(4, 'x', '2022-05-06', 1, 1, 0),
+(5, 'x', '2022-05-07', 1, 1, 0),
+(6, 'x', '2022-05-07', 1, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -156,7 +172,7 @@ CREATE TABLE `invitation` (
   `id_invitation` int(20) NOT NULL,
   `nom_event` varchar(255) NOT NULL,
   `id_user` int(11) NOT NULL,
-  `archive` int(1) NOT NULL DEFAULT '0'
+  `archive` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -181,9 +197,9 @@ INSERT INTO `invitation` (`id_invitation`, `nom_event`, `id_user`, `archive`) VA
 CREATE TABLE `jeu` (
   `id_jeu` int(20) NOT NULL,
   `score_jeu` int(20) NOT NULL,
-  `id_quiz` int(20) NOT NULL,
+  `id_quiz` int(20) DEFAULT NULL,
   `id_user` int(11) NOT NULL,
-  `archive` int(1) NOT NULL DEFAULT '0'
+  `archive` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -191,16 +207,13 @@ CREATE TABLE `jeu` (
 --
 
 INSERT INTO `jeu` (`id_jeu`, `score_jeu`, `id_quiz`, `id_user`, `archive`) VALUES
-(1, 8, 6, 1, 0),
-(2, 8, 6, 1, 0),
-(3, 25, 6, 2, 0),
-(4, 80, 6, 3, 0),
+(3, 25, 6, 1, 0),
+(4, 80, 6, 2, 0),
 (5, 60, 6, 3, 0),
-(6, 100, 6, 2, 0),
-(7, 130, 6, 3, 0),
-(8, 200, 6, 2, 0),
-(9, 0, 3, 1, 0),
-(10, 20, 1, 1, 0);
+(6, 170, 6, 4, 0),
+(7, 130, 6, 5, 0),
+(8, 200, 6, 6, 0),
+(10, 40, 1, 7, 0);
 
 -- --------------------------------------------------------
 
@@ -210,10 +223,10 @@ INSERT INTO `jeu` (`id_jeu`, `score_jeu`, `id_quiz`, `id_user`, `archive`) VALUE
 
 CREATE TABLE `matching` (
   `id_match` int(20) NOT NULL,
-  `id_user1` int(20) NOT NULL,
-  `id_user2` int(20) NOT NULL,
+  `id_user1` int(11) DEFAULT NULL,
+  `id_user2` int(11) DEFAULT NULL,
   `date_matching` date NOT NULL,
-  `archive` int(1) NOT NULL DEFAULT '0'
+  `archive` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -221,8 +234,7 @@ CREATE TABLE `matching` (
 --
 
 INSERT INTO `matching` (`id_match`, `id_user1`, `id_user2`, `date_matching`, `archive`) VALUES
-(3, 2, 1, '2022-04-21', 0),
-(4, 3, 1, '2022-04-21', 0);
+(9, 2, 1, '2022-04-26', 0);
 
 -- --------------------------------------------------------
 
@@ -235,7 +247,7 @@ CREATE TABLE `message` (
   `msg_message` varchar(100) NOT NULL,
   `date_message` date NOT NULL,
   `id_conversation` int(20) NOT NULL,
-  `archive` int(1) NOT NULL DEFAULT '0'
+  `archive` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -246,7 +258,7 @@ CREATE TABLE `message` (
 
 CREATE TABLE `quiz` (
   `id_quiz` int(11) NOT NULL,
-  `id_jeu` int(11) NOT NULL,
+  `id_recette` int(11) NOT NULL,
   `Q1` text NOT NULL,
   `rc1` text NOT NULL,
   `rf11` text NOT NULL,
@@ -262,19 +274,17 @@ CREATE TABLE `quiz` (
   `rf31` text NOT NULL,
   `rf32` text NOT NULL,
   `rf33` text NOT NULL,
-  `archive` int(1) DEFAULT '0'
+  `archive` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `quiz`
 --
 
-INSERT INTO `quiz` (`id_quiz`, `id_jeu`, `Q1`, `rc1`, `rf11`, `rf12`, `rf13`, `Q2`, `rc2`, `rf21`, `rf22`, `rf23`, `Q3`, `rc3`, `rf31`, `rf32`, `rf33`, `archive`) VALUES
-(1, 6, 'aa', 'dd', 'rf11aa', 'rf12zze', 'rf13ee', 'dd', 'r', 'z', 'zz', 'ee', 'q3z', 's', 'rr', 'd', 'd', 1),
-(2, 0, 'pour préparer une Spaghetti', 'on a besoin de sel', 'on a besoin de sucre', 'on a besoin de beurre', 'on a besoin de chocolat', 'pour cuisiner une spaghetti', 'on a besoin du gaz', 'on a besoin de micro onde', 'on a besoin de four', 'on a besoin de frigidaire', 'pour un plat de 4 personne', '500 g de spaghetti', '100 g de spaghetti', '700 g de spaghetti', '300 g de spaghetti', 0),
-(3, 0, 'pour préparer un hamburger', 'on a besoin de farine', 'on a besoin de sucre', 'on a besoin de beurre', 'on a besoin de chocolat', 'pour cuisiner un hamburger', 'on a besoin de four', 'on a besoin de micro onde', 'on a besoin gaz', 'on a besoin de frigidaire', 'pour 4 hamburger', '500 g de farine', '100 g de farine', '700 g de  farine', '300 g de farine', 0),
-(4, 0, 'pour préparer des croissants', 'on a besoin de farine', 'on a besoin de sucre', 'on a besoin de Harissa', 'on a besoin de chocolat', 'pour cuisiner des croissants', 'on a besoin de four', 'on a besoin de micro onde', 'on a besoin gaz', 'on a besoin de frigidaire', 'pour un petit dej familiale', '500 g de farine', '100 g de farine', '700 g de  farine', '300 g de farine', 1),
-(5, 0, 'pour préparer des croissants', 'on a besoin de farine', 'on a besoin de sucre', 'on a besoin de Harissa', 'on a besoin de chocolat', 'pour cuisiner des croissants', 'on a besoin de four', 'on a besoin de micro onde', 'on a besoin gaz', 'on a besoin de frigidaire', 'pour un petit dej familiale', '500 g de farine', '100 g de farine', '700 g de  farine', '300 g de farine', 0);
+INSERT INTO `quiz` (`id_quiz`, `id_recette`, `Q1`, `rc1`, `rf11`, `rf12`, `rf13`, `Q2`, `rc2`, `rf21`, `rf22`, `rf23`, `Q3`, `rc3`, `rf31`, `rf32`, `rf33`, `archive`) VALUES
+(3, 6, 'pour préparer un hamburger', 'on a besoin de farineeee', 'on a besoin de sucre', 'on a besoin de beurre', 'on a besoin de chocolat', 'pour cuisiner un hamburger', 'on a besoin de four', 'on a besoin de micro onde', 'on a besoin gaz', 'on a besoin de frigidaire', 'pour 4 hamburger', '500 g de farine', '100 g de farine', '700 g de  farine', '300 g de farine', 0),
+(4, 4, 'pour préparer des croissants', 'on a besoin de farine', 'on a besoin de sucre', 'on a besoin de Harissa', 'on a besoin de chocolat', 'pour cuisiner des croissants', 'on a besoin de four', 'on a besoin de micro onde', 'on a besoin gaz', 'on a besoin de frigidaire', 'pour un petit dej familiale', '500 g de farine', '100 g de farine', '700 g de  farine', '300 g de farine', 0),
+(8, 8, 'pour préparer un lablebi on a besoin de :', 'homs', 'frite', 'hlib', 'farine', 'lablebi est un plat', 'tunisien', 'marocain', 'algerien', 'italen', 'pour cuisiner on a besoin de', 'gaz', 'four', 'barbecuil', 'frigidaire', 0);
 
 -- --------------------------------------------------------
 
@@ -289,7 +299,7 @@ CREATE TABLE `recette` (
   `description_recette` varchar(255) NOT NULL,
   `categorie_recette` varchar(20) NOT NULL,
   `duree_recette` int(20) NOT NULL,
-  `archive` int(1) NOT NULL DEFAULT '0'
+  `archive` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -297,11 +307,22 @@ CREATE TABLE `recette` (
 --
 
 INSERT INTO `recette` (`id_recette`, `nom_recette`, `photo_recette`, `description_recette`, `categorie_recette`, `duree_recette`, `archive`) VALUES
-(4, 'Croissant', 'src/tn/edu/esprit/images/croissants-maison.jpg', 'Farine 500g  sucre 50g  sel12g jaune d oeuif lai\n', 'petit Dej', 60, 1),
-(5, 'Croissant', 'src/tn/edu/esprit/images/croissants-maison.jpg', 'Farine 500g  sucre 50g  sel12g \n', 'petit Dej', 60, 0),
-(6, 'hamburger', 'src/tn/edu/esprit/images/hamburger.jpg', '500 g de farine 100 ml de lait 1 oeuf 1 c. à café de sel 3 c. à café de sucre', 'Dejeuner', 25, 0),
-(7, 'spaghetti', 'src/tn/edu/esprit/images/spaghetti.jpeg', '500 g de spaghetti	2 c. à soupe huile\n1 gousse ail\n1 pincée de thym\nSel poivre\n', 'Diner', 15, 0),
-(8, 'lablebi', 'src/tn/edu/esprit/images/lablebi.jpg', 'thon oeuf homs hrisa ziit', 'Dejeuner', 30, 0);
+(4, 'pain au choc', 'back/assets/img/users/pain.jpeg', 'Farine 500g  sucre 50g  sel12g jaune d oeuif lai', 'petit Dej', 60, 0),
+(6, 'hamburger', 'back/assets/img/users/hamburger.jpeg', '500 g de farine 100 ml de lait 1 oeuf 1 c. à café de sel 3 c. à café de sucre', 'Dejeuner', 25, 0),
+(7, 'spaghetti', 'back/assets/img/users/spaghetti.jpeg', '500 g de spaghetti	2 c. à soupe huile1 gousse ail1 pincée de thymSel poivre', 'Diner', 15, 0),
+(8, 'lablebi', 'back/assets/img/users/lablebi.jpeg', 'thon oeuf homs hrisa ziit', 'Dejeuner', 30, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `recherche`
+--
+
+CREATE TABLE `recherche` (
+  `id` int(11) NOT NULL,
+  `nom_gerant` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nom_user` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -313,9 +334,9 @@ CREATE TABLE `reservation` (
   `id_reservation` int(20) NOT NULL,
   `date_reservation` date NOT NULL,
   `nbPlace_reservation` int(20) NOT NULL,
-  `id_restaurant` int(20) NOT NULL,
+  `id_restaurant` int(11) DEFAULT NULL,
   `id_user` int(20) NOT NULL,
-  `archive` int(1) NOT NULL DEFAULT '0',
+  `archive` int(11) NOT NULL,
   `nom_resto` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
   `adresse` varchar(255) NOT NULL
@@ -326,11 +347,9 @@ CREATE TABLE `reservation` (
 --
 
 INSERT INTO `reservation` (`id_reservation`, `date_reservation`, `nbPlace_reservation`, `id_restaurant`, `id_user`, `archive`, `nom_resto`, `image`, `adresse`) VALUES
-(2, '2022-03-10', 50, 22, 1, 0, 'KFC', 'src/tn/edu/esprit/images/téléchargement (1).png', 'aouina'),
-(3, '2022-03-10', 2, 23, 2, 0, 'Ha food', 'src/tn/edu/esprit/images/téléchargement.jfif', 'ariena'),
-(4, '2022-03-11', 1, 23, 2, 0, 'Ha food', 'src/tn/edu/esprit/images/téléchargement.jfif', 'ariena'),
-(5, '2022-03-12', 3, 23, 2, 0, 'Ha food', 'src/tn/edu/esprit/images/téléchargement.jfif', 'ariena'),
-(6, '2022-03-14', 8, 23, 2, 0, 'Ha food', 'src/tn/edu/esprit/images/téléchargement.jfif', 'ariena');
+(7, '2023-01-01', 3, 24, 1, 0, 'Hafood', 'aaaaaaa', 'aaaaaaa'),
+(8, '2023-04-04', 2, 24, 1, 0, 'Hafood', 'aaaaaaa', 'aaaaaaa'),
+(9, '2023-10-01', 5, 24, 1, 0, 'Hafood', 'aaaaaaa', 'aaaaaaa');
 
 -- --------------------------------------------------------
 
@@ -340,13 +359,13 @@ INSERT INTO `reservation` (`id_reservation`, `date_reservation`, `nbPlace_reserv
 
 CREATE TABLE `restaurant` (
   `id_restaurant` int(20) NOT NULL,
-  `nom_restaurant` varchar(20) NOT NULL,
+  `nom_restaurant` varchar(255) NOT NULL,
   `adresse_restaurant` varchar(50) NOT NULL,
   `telephone_restaurant` int(20) NOT NULL,
   `siteweb_restaurant` varchar(50) NOT NULL,
   `specialite_restaurant` varchar(20) NOT NULL,
   `id_gerant` int(20) NOT NULL,
-  `image` varchar(50) NOT NULL,
+  `image` varchar(255) NOT NULL,
   `archive` int(1) DEFAULT NULL,
   `nb_placeResto` int(11) NOT NULL,
   `image_structure_resturant` varchar(255) NOT NULL,
@@ -359,9 +378,7 @@ CREATE TABLE `restaurant` (
 --
 
 INSERT INTO `restaurant` (`id_restaurant`, `nom_restaurant`, `adresse_restaurant`, `telephone_restaurant`, `siteweb_restaurant`, `specialite_restaurant`, `id_gerant`, `image`, `archive`, `nb_placeResto`, `image_structure_resturant`, `description`, `lien`) VALUES
-(21, 'Barbarous', 'Hamemet', 28751223, 'www.barbarous.tn', 'Repas', 2, 'src/tn/edu/esprit/images/téléchargement (2).png', 0, 87, 'src/tn/edu/esprit/images/null', 'welcome ', 'https://www.youtube.com/watch?v=6m0zz0eGp-I&t=42s'),
-(22, 'KFC', 'aouina', 55552007, 'www.kfc.com', 'Repas américan', 2, 'src/tn/edu/esprit/images/téléchargement (1).png', 0, 100, 'src/tn/edu/esprit/images/null', 'salut', 'https://www.youtube.com/watch?v=MM7HzVXOmOE'),
-(23, 'Ha food', 'ariena', 25262325, 'www.hafood.com', 'Fast Food', 20, 'src/tn/edu/esprit/images/téléchargement.jfif', 0, 25, 'src/tn/edu/esprit/images/null', 'Bienvenue', 'https://www.youtube.com/watch?v=EmQ_q3IcpP4');
+(24, 'Hafood', 'Tunis', 23456789, 'hafood.fr', 'street food', 1, 'back/assets/img/users/Logo.jpeg', 0, 30, 'hhhhhhhh', 'hafood for good', 'http://www.hafood.com');
 
 -- --------------------------------------------------------
 
@@ -381,26 +398,27 @@ CREATE TABLE `user` (
   `photo_user` varchar(100) NOT NULL,
   `description_user` varchar(100) NOT NULL,
   `maxDistance_user` int(20) NOT NULL,
-  `preferredMinAge_user` int(20) NOT NULL,
-  `preferredMaxAge_user` int(20) NOT NULL,
+  `preferredMinAge_user` int(11) NOT NULL,
+  `preferredMaxAge_user` int(11) NOT NULL,
   `adresse_user` varchar(255) NOT NULL DEFAULT 'x',
   `latitude` double NOT NULL,
   `longitude` double NOT NULL,
   `Interet_user` int(20) NOT NULL,
-  `archive` int(1) NOT NULL DEFAULT '0'
+  `archive` int(11) NOT NULL,
+  `reset_token` varchar(300) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id_user`, `email_user`, `password_user`, `nom_user`, `prenom_user`, `dateNaissance_user`, `sexe_user`, `telephone_user`, `photo_user`, `description_user`, `maxDistance_user`, `preferredMinAge_user`, `preferredMaxAge_user`, `adresse_user`, `latitude`, `longitude`, `Interet_user`, `archive`) VALUES
-(1, 'yakoubi.marwen@esprit.tn', '1234', 'Marwen', 'Yakoubi', '1998-05-14', 'homme', 29163283, 'marwen.jpg', 'I love lablebi. Et quibusdam accusamus sed voluptas consectetur est temporibus dignissimos?', 50, 18, 35, 'ESPRIT', 36.90138, 10.19012, 24122, 0),
-(2, 'eya.benromdhane@esprit.tn', '1234', 'Eya', 'Benromdhane', '2010-05-12', 'femme', 94366666, 'femme5.jpeg', 'I love sushi. Et quibusdam accusamus sed voluptas consectetur est temporibus dignissimos?', 20, 20, 28, 'ESPRIT', 36.87427, 10.27263, 22211, 0),
-(3, 'sondes@esprit.tn', '1234', 'Sondes', 'kharroubi', '1998-05-14', 'femme', 29163283, 'femme6.jpeg', 'I love hargma. Et quibusdam accusamus sed voluptas consectetur est temporibus dignissimos?', 10, 20, 28, 'ISI', 36.85858, 10.18436, 21422, 0),
-(21, 'wassimbenr@gmail.com', '1234', 'Wassim', 'Ben R', '1998-09-01', 'Homme', 94366666, 'wassim.jpg', 'I love Coffee. Et quibusdam accusamus sed voluptas consectetur est temporibus dignissimos?', 80, 30, 58, 'MSB', 36.800481, 10.187607, 41212, 0),
-(22, 'said@esprit.tn', '1234', 'Said', 'Mohamed', '1999-06-16', 'Homme', 29932123, 'homme1.jpeg', 'I love chawarma. Et quibusdam accusamus sed voluptas consectetur est temporibus dignissimos?', 55, 18, 24, 'ISET Gafsa', 34.42589577900697, 8.777963316936145, 11121, 0),
-(23, 'lina@esprit.tn', '1234', 'Lina', 'Toumi', '1999-03-08', 'Femme', 94377345, 'femme4.jpeg', 'I love Crepe. Et quibusdam accusamus sed voluptas consectetur est temporibus dignissimos?', 20, 21, 25, 'INSAT', 36.91971402746499, 10.282887734817388, 12444, 0);
+INSERT INTO `user` (`id_user`, `email_user`, `password_user`, `nom_user`, `prenom_user`, `dateNaissance_user`, `sexe_user`, `telephone_user`, `photo_user`, `description_user`, `maxDistance_user`, `preferredMinAge_user`, `preferredMaxAge_user`, `adresse_user`, `latitude`, `longitude`, `Interet_user`, `archive`, `reset_token`) VALUES
+(1, 'yakoubi.marwen@esprit.tn', '1234', 'Marwen', 'Yakoubi', '1998-05-14', 'homme', 94366666, 'marwen.jpg', 'I love lablebi. Et quibusdam accusamus sed voluptas consectetur est temporibus dignissimos?', 10, 18, 50, 'ESPRIT', 36.8991643, 10.1879781, 24122, 0, '8nlj7ok_NZv1_7B4BXWJo75iRWxx0sXloaA6vmvSDNw'),
+(2, 'eya.benromdhane@esprit.tn', '1234', 'Eya', 'Benromdhane', '2001-05-12', 'femme', 94366666, 'femme5.jpeg', 'I love sushi. Et quibusdam accusamus sed voluptas consectetur est temporibus dignissimos?', 10, 18, 50, 'ESPRIT', 36.87427, 10.27263, 22211, 0, NULL),
+(3, 'sondes@esprit.tn', '1234', 'Sondes', 'kharroubi', '1996-05-14', 'femme', 94366666, 'femme6.jpeg', 'I love hargma. Et quibusdam accusamus sed voluptas consectetur est temporibus dignissimos?', 10, 18, 50, 'ISI', 36.85858, 10.18436, 21422, 0, NULL),
+(21, 'wassimbenr@gmail.com', '1234', 'Wassim', 'Ben R', '1985-09-01', 'Homme', 94366666, 'wassim.jpg', 'I love Coffee. Et quibusdam accusamus sed voluptas consectetur est temporibus dignissimos?', 10, 18, 50, 'MSB', 36.800481, 10.187607, 41212, 0, NULL),
+(22, 'said@esprit.tn', '1234', 'Said', 'Mohamed', '2022-06-16', 'Homme', 94366666, 'homme1.jpeg', 'I love chawarma. Et quibusdam accusamus sed voluptas consectetur est temporibus dignissimos?', 10, 18, 50, 'ISET Gafsa', 34.42589577900697, 8.777963316936145, 11121, 0, NULL),
+(23, 'lina@esprit.tn', '1234', 'Lina', 'Toumi', '2003-03-08', 'Femme', 94366666, 'femme4.jpeg', 'I love Crepe. Et quibusdam accusamus sed voluptas consectetur est temporibus dignissimos?', 10, 18, 50, 'INSAT', 36.91971402746499, 10.282887734817388, 12444, 0, NULL);
 
 --
 -- Index pour les tables déchargées
@@ -417,6 +435,12 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `conversation`
   ADD PRIMARY KEY (`id_conversation`);
+
+--
+-- Index pour la table `doctrine_migration_versions`
+--
+ALTER TABLE `doctrine_migration_versions`
+  ADD PRIMARY KEY (`version`);
 
 --
 -- Index pour la table `evenement`
@@ -468,7 +492,8 @@ ALTER TABLE `message`
 -- Index pour la table `quiz`
 --
 ALTER TABLE `quiz`
-  ADD PRIMARY KEY (`id_quiz`);
+  ADD PRIMARY KEY (`id_quiz`),
+  ADD KEY `fk_r` (`id_recette`);
 
 --
 -- Index pour la table `recette`
@@ -477,10 +502,17 @@ ALTER TABLE `recette`
   ADD PRIMARY KEY (`id_recette`);
 
 --
+-- Index pour la table `recherche`
+--
+ALTER TABLE `recherche`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `reservation`
 --
 ALTER TABLE `reservation`
-  ADD PRIMARY KEY (`id_reservation`);
+  ADD PRIMARY KEY (`id_reservation`),
+  ADD KEY `FK_U` (`id_restaurant`);
 
 --
 -- Index pour la table `restaurant`
@@ -520,13 +552,13 @@ ALTER TABLE `evenement`
 -- AUTO_INCREMENT pour la table `gerant`
 --
 ALTER TABLE `gerant`
-  MODIFY `id_gerant` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_gerant` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT pour la table `interaction`
 --
 ALTER TABLE `interaction`
-  MODIFY `id_interaction` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id_interaction` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `invitation`
@@ -544,7 +576,7 @@ ALTER TABLE `jeu`
 -- AUTO_INCREMENT pour la table `matching`
 --
 ALTER TABLE `matching`
-  MODIFY `id_match` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_match` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `message`
@@ -556,31 +588,37 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT pour la table `quiz`
 --
 ALTER TABLE `quiz`
-  MODIFY `id_quiz` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_quiz` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `recette`
 --
 ALTER TABLE `recette`
-  MODIFY `id_recette` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_recette` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT pour la table `recherche`
+--
+ALTER TABLE `recherche`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `reservation`
 --
 ALTER TABLE `reservation`
-  MODIFY `id_reservation` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_reservation` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `restaurant`
 --
 ALTER TABLE `restaurant`
-  MODIFY `id_restaurant` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_restaurant` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_user` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Contraintes pour les tables déchargées
@@ -599,6 +637,18 @@ ALTER TABLE `interaction`
 ALTER TABLE `matching`
   ADD CONSTRAINT `fk_user1_matching` FOREIGN KEY (`id_user1`) REFERENCES `user` (`id_user`),
   ADD CONSTRAINT `fk_user2_matching` FOREIGN KEY (`id_user2`) REFERENCES `user` (`id_user`);
+
+--
+-- Contraintes pour la table `quiz`
+--
+ALTER TABLE `quiz`
+  ADD CONSTRAINT `fk_r` FOREIGN KEY (`id_recette`) REFERENCES `recette` (`id_recette`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `reservation`
+--
+ALTER TABLE `reservation`
+  ADD CONSTRAINT `FK_U` FOREIGN KEY (`id_restaurant`) REFERENCES `restaurant` (`id_restaurant`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
