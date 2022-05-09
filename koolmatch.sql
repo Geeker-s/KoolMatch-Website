@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
--- Hôte : localhost:8889
--- Généré le : dim. 08 mai 2022 à 12:49
--- Version du serveur : 5.7.34
--- Version de PHP : 7.4.21
+-- Hôte : 127.0.0.1
+-- Généré le : lun. 09 mai 2022 à 23:46
+-- Version du serveur : 10.4.24-MariaDB
+-- Version de PHP : 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -60,27 +60,9 @@ CREATE TABLE `conversation` (
 --
 
 INSERT INTO `conversation` (`id_conversation`, `titre_conversation`, `id_user1`, `id_user2`, `archive`) VALUES
-(1, 'Eya', 2, 3, 0);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `doctrine_migration_versions`
---
-
-CREATE TABLE `doctrine_migration_versions` (
-  `version` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
-  `executed_at` datetime DEFAULT NULL,
-  `execution_time` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Déchargement des données de la table `doctrine_migration_versions`
---
-
-INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-('DoctrineMigrations\\Version20220507210027', '2022-05-07 21:00:42', 419),
-('DoctrineMigrations\\Version20220508111132', '2022-05-08 11:11:37', 57);
+(1, 'Eya', 2, 1, 0),
+(2, 'Eya & Marwen', 2, 1, 0),
+(3, 'Marwen & Eya', 1, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -150,17 +132,6 @@ CREATE TABLE `interaction` (
   `id_user2` int(11) DEFAULT NULL,
   `archive` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `interaction`
---
-
-INSERT INTO `interaction` (`id_interaction`, `type_interaction`, `date_interaction`, `id_user1`, `id_user2`, `archive`) VALUES
-(2, '\"o\"', '2022-05-06', 1, 1, 0),
-(3, 'x', '2022-05-06', 1, 1, 0),
-(4, 'x', '2022-05-06', 1, 1, 0),
-(5, 'x', '2022-05-07', 1, 1, 0),
-(6, 'x', '2022-05-07', 1, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -234,7 +205,7 @@ CREATE TABLE `matching` (
 --
 
 INSERT INTO `matching` (`id_match`, `id_user1`, `id_user2`, `date_matching`, `archive`) VALUES
-(9, 2, 1, '2022-04-26', 0);
+(11, 1, 2, '2022-05-09', 0);
 
 -- --------------------------------------------------------
 
@@ -249,6 +220,14 @@ CREATE TABLE `message` (
   `id_conversation` int(20) NOT NULL,
   `archive` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `message`
+--
+
+INSERT INTO `message` (`id_message`, `msg_message`, `date_message`, `id_conversation`, `archive`) VALUES
+(1, 'hello', '2022-05-09', 1, 0),
+(2, 'hello', '2022-05-09', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -307,11 +286,10 @@ CREATE TABLE `recette` (
 --
 
 INSERT INTO `recette` (`id_recette`, `nom_recette`, `photo_recette`, `description_recette`, `categorie_recette`, `duree_recette`, `archive`) VALUES
-(4, 'pain au choc', 'back/assets/img/users/croissants-maison.jpg', 'Farine 500g  sucre 50g  sel12g jaune d oeuif lai', 'petit Dej', 60, 0),
-(6, 'hamburger', 'back/assets/img/users/hamburger.jpg', '500 g de farine 100 ml de lait 1 oeuf 1 c. à café de sel 3 c. à café de sucre', 'Dejeuner', 25, 0),
-(7, 'spaghetti', 'back/assets/img/users/spaghetti.jpg', '500 g de spaghetti	2 c. à soupe huile1 gousse ail1 pincée de thymSel poivre', 'Diner', 15, 0),
-(8, 'lablebi', 'back/assets/img/users/lablebi.jpg', 'thon oeuf homs hrisa ziit', 'Dejeuner', 30, 0),
-(18, 'aa', 'ee', 'cc', 'ff', 12, 0);
+(4, 'pain au choc', 'back/assets/img/users/83668_w1024h576c1cx2880cy1920.jpg', 'Farine 500g  sucre 50g  sel12g jaune d oeuif lai', 'petit Dej', 60, 0),
+(6, 'hamburger', 'back/assets/img/users/1136_gettyimages-922684138.jpg', '500 g de farine 100 ml de lait 1 oeuf 1 c. à café de sel 3 c. à café de sucre', 'Dejeuner', 25, 0),
+(7, 'spaghetti', 'back/assets/img/users/download (1).jpg', '500 g de spaghetti	2 c. à soupe huile1 gousse ail1 pincée de thymSel poivre', 'Diner', 15, 0),
+(8, 'lablebi', 'back/assets/img/users/download.jpg', 'thon oeuf homs hrisa ziit', 'Dejeuner', 30, 0);
 
 -- --------------------------------------------------------
 
@@ -348,7 +326,7 @@ CREATE TABLE `reservation` (
 --
 
 INSERT INTO `reservation` (`id_reservation`, `date_reservation`, `nbPlace_reservation`, `id_restaurant`, `id_user`, `archive`, `nom_resto`, `image`, `adresse`) VALUES
-(7, '2023-01-01', 3, 24, 1, 0, 'Hafood', 'aaaaaaa', 'aaaaaaa');
+(35, '2022-04-27', 30, 40, 1, 0, 'Pasta Cosi', 'aaaaaa', 'aaaaaa');
 
 -- --------------------------------------------------------
 
@@ -377,7 +355,9 @@ CREATE TABLE `restaurant` (
 --
 
 INSERT INTO `restaurant` (`id_restaurant`, `nom_restaurant`, `adresse_restaurant`, `telephone_restaurant`, `siteweb_restaurant`, `specialite_restaurant`, `id_gerant`, `image`, `archive`, `nb_placeResto`, `image_structure_resturant`, `description`, `lien`) VALUES
-(24, 'Hafood', 'Tunis', 23456789, 'hafood.fr', 'street food', 1, 'back/assets/img/users/Logo.jpeg', 0, 30, 'hhhhhhhh', 'hafood for good', 'http://www.hafood.com');
+(34, 'kfc', 'aouina', 25232526, 'WWW.kfc.com', 'Repas américaine', 1, 'back/assets/img/users/KFC.jpg', 0, 80, 'hhhhhhhh', 'KFC, PFK au Québec, est une chaîne de restauration', 'http://www.kfc.com'),
+(35, 'Ha food', 'ariana', 25232526, 'WWW.Hafood.com', 'Repas Spécial', 1, 'back/assets/img/users/index.jpg', 0, 200, 'hhhhhhhh', 'KFC, PFK au Québec, est une chaîne de restauration', 'http://www.hafood.com'),
+(40, 'Pasta Cosi', 'Berges du Lac', 22045069, 'www.Pasta.tn', 'repas Spéciale', 1, 'back/assets/img/users/pasta-fruits-de-mer.jpg', 0, 30, 'hhhhhhhh', 'Nous serons heureux de vous revoir parmi nous à partir du premier jour de l\'AID dans ce cadre except', 'http://www.mansoura.com');
 
 -- --------------------------------------------------------
 
@@ -435,12 +415,6 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `conversation`
   ADD PRIMARY KEY (`id_conversation`);
-
---
--- Index pour la table `doctrine_migration_versions`
---
-ALTER TABLE `doctrine_migration_versions`
-  ADD PRIMARY KEY (`version`);
 
 --
 -- Index pour la table `evenement`
@@ -540,7 +514,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT pour la table `conversation`
 --
 ALTER TABLE `conversation`
-  MODIFY `id_conversation` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_conversation` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `evenement`
@@ -558,7 +532,7 @@ ALTER TABLE `gerant`
 -- AUTO_INCREMENT pour la table `interaction`
 --
 ALTER TABLE `interaction`
-  MODIFY `id_interaction` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_interaction` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `invitation`
@@ -576,13 +550,13 @@ ALTER TABLE `jeu`
 -- AUTO_INCREMENT pour la table `matching`
 --
 ALTER TABLE `matching`
-  MODIFY `id_match` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_match` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT pour la table `message`
 --
 ALTER TABLE `message`
-  MODIFY `id_message` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_message` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `quiz`
@@ -606,13 +580,13 @@ ALTER TABLE `recherche`
 -- AUTO_INCREMENT pour la table `reservation`
 --
 ALTER TABLE `reservation`
-  MODIFY `id_reservation` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_reservation` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT pour la table `restaurant`
 --
 ALTER TABLE `restaurant`
-  MODIFY `id_restaurant` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_restaurant` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT pour la table `user`
@@ -628,8 +602,8 @@ ALTER TABLE `user`
 -- Contraintes pour la table `interaction`
 --
 ALTER TABLE `interaction`
-  ADD CONSTRAINT `fk_user1_interaction` FOREIGN KEY (`id_user1`) REFERENCES `user` (`id_user`),
-  ADD CONSTRAINT `fk_user2_interaction` FOREIGN KEY (`id_user2`) REFERENCES `user` (`id_user`);
+  ADD CONSTRAINT `fk_user1_interaction` FOREIGN KEY (`id_user1`) REFERENCES `user` (`id_user`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_user2_interaction` FOREIGN KEY (`id_user2`) REFERENCES `user` (`id_user`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `matching`
