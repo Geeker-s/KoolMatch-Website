@@ -4,6 +4,10 @@
 {% block title %}Hello ConversationController!{% endblock %}
 
 {% block body %}
+    <div>
+        <form id="form" class="container row">
+        <input name="search" id="search" class="input-group-text col-sm-9" placeholder="Search" type="text" >
+        </form>
     <div class="example-wrapper">
 
 {#        {% if channels %}#}
@@ -29,4 +33,5 @@
 {#    </div>#}
 {#    {% endif %}#}
 </div>
+    </div>
 {% endblock %}

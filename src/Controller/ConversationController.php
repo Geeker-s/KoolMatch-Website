@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Conversation;
 use App\Form\ConversationType;
+use App\Repository\ConversationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,8 +56,28 @@ class ConversationController extends AbstractController
      * @Route("/affichageconv", name="affichageconv")
      */
 
-    public function  affichageconversation() {
-        $msg = $this->getDoctrine()->getManager()->getRepository(Conversation::class)->findall(); // select * from Message where archive = 0
+    public function  affichageconversation(Request $request , ConversationRepository $co) {
+
+        dump($request);
+        $name= $request->query->get("search");
+        if ($request->query->count()>0 and $name!=""){
+
+//            $msg = $this->getDoctrine()->getManager()->getRepository(conersation::class)->findAll(['titreConversation'=>$name]);
+            $msg =$co->search($name);
+            $em=$this->getDoctrine()->getManager();
+
+            $em->flush();
+
+
+        }
+        elseif ($request->query->count()>0 and $name ==""){
+
+            $msg = $this->getDoctrine()->getManager()->getRepository(Conversation::class)->findall(["archive" =>0]); // select * from Message where archive = 0
+
+        }
+
+
+
 
 //        return $this->render("/conversation/afficherconv.html.twig",array("conv"=>$msg));
         return $this->render("conversation/test.html.twig",array("conv"=>$msg));

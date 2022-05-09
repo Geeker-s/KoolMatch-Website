@@ -19,6 +19,14 @@ class ConversationRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Conversation::class);
     }
+    public function search($term)
+    {
+        return $this->createQueryBuilder('Conversation')
+            ->andWhere('Conversation.titreConversation = :nom')
+            ->setParameter('nom', $term)
+            ->getQuery()
+            ->execute();
+    }
 
 //    public function findByarchiver($idConversation) : Query
 //    {
