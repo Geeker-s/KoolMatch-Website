@@ -3,7 +3,9 @@
 {% block title %}Profile{% endblock %}
 
 {% block body %}
-    <h1>Profile</h1>
+    <div class="example-wrapper">
+    <div style=" align-items: center ; justify-content: center ">
+    <h1 align="center">Profile</h1>
 
     <table class="table">
         <tbody>
@@ -25,7 +27,7 @@
         </tr>
         <tr>
             <th>Date de Naissance : </th>
-            <td>{{ usr.dateNaissanceUser | date("m/d/y") }}</td>
+            <td>{{ usr.dateNaissanceUser | date("d/m/y") }}</td>
         </tr>
         <tr>
             <th>Photo : </th>
@@ -38,5 +40,8 @@
 
         </tbody>
     </table>
+        <a href="{{ path('user_edit', {'idUser': usr.idUser}) }}"><input class="favorite styled" type="button" value="Modifier"></a>
+    </div>
+    </div>
 
 {% endblock %}
