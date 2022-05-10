@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Conversation;
 use App\Entity\Interaction;
 use App\Entity\Matching;
 use App\Entity\User;
@@ -112,8 +113,11 @@ class InteractionController extends AbstractController
     {
         //This will be replaced by session
         $session = $request->getSession();
-        $connectedUser = $session->get('usr');
-        //$connectedUser = $this->getDoctrine()->getRepository(User::class)->find(1);
+        $tb = $session->get('usr');
+
+
+        //$connectedUser = $session->get('usr');
+        $connectedUser = $this->getDoctrine()->getRepository(User::class)->find($tb->getIdUser());
         $distance = $request->query->get('distance');
         $age = $request->query->get('age');
         $ageMax = $request->query->get('ageMax');
@@ -168,6 +172,14 @@ class InteractionController extends AbstractController
                 $hasbeenReacted = $this->getDoctrine()->getRepository(User::class)->find($id_user);
                 $match->setIdUser2($hasbeenReacted);
                 $match->setDateMatching(new \DateTime("now", new \DateTimeZone('+0100')));
+
+                $conv = new Conversation();
+                $conv->setArchive(0);
+                $conv->setIdUser1($connectedUser->getIdUser());
+                $conv->setIdUser2($hasbeenReacted->getIdUser());
+                $conv->setTitreConversation($connectedUser->getNomUser() . " & " . $hasbeenReacted->getNomUser());
+                $em->persist($conv);
+                $em->flush();
                 $this->forward('App\Controller\MatchingController::ajouterMatching', [
                     'm' => $match,
                 ]);
@@ -178,7 +190,7 @@ class InteractionController extends AbstractController
                 $client->messages->create(
                     '+216' . $connectedUser->getTelephoneUser(),
                     [
-                        'from' => '+18565531869', // From a valid Twilio number
+                        'from' => '+19896468421', // From a valid Twilio number
                         'body' => 'Félicitation ' . $connectedUser->getNomUser() . '! Vous avez un nouveau Match'
                     ]
                 );

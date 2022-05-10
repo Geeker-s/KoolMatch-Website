@@ -42,7 +42,7 @@ class UserController extends AbstractController
             $allusers = $userRepository->orderByNom();
         }
         $user = $paginator->paginate(
-        // Doctrine Query, not results
+            // Doctrine Query, not results
             $allusers,
             // Define the page parameter
             $request->query->getInt('page', 1),
@@ -245,10 +245,43 @@ class UserController extends AbstractController
     /**
      * @Route("/logout", name="app_logout")
      */
-    public function logout(Request $request): void
+    public function logout(Request $request)
     {
         $session = $request->getSession();
         $session->clear();
-        $this->redirectToRoute("/loginUser");
+        return $this->redirectToRoute("user_login");
+    }
+
+    /**
+     * @Route("/interet",name="Interet")
+     */
+    public function interet(Request $request)
+    {
+
+
+        $user = $this->getDoctrine()->getRepository(User::class)->find(1);
+
+
+
+        $c1 = $request->query->get('c1');
+        $c2 = $request->query->get('c2');
+        $c3 = $request->query->get('c3');
+        $c4 = $request->query->get('c4');
+        $c5 = $request->query->get('c5');
+
+
+
+        if ($c1 == NULL && $c2 == NULL && $c3 == NULL) {
+
+        } else {
+            $intr = intval($c1.$c2.$c3.$c4.$c5);
+            $user->setInteretUser($intr);
+            $em=$this->getDoctrine()->getManager();
+            $em->flush();
+
+        }
+
+
+        return $this->render('user/intert.html.twig');
     }
 }
