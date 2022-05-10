@@ -3,6 +3,21 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@opencage/geosearch-bundle/dist/css/autocomplete-theme-classic.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/@opencage/geosearch-bundle"></script>
+<script type="text/javascript">
+  opencage.algoliaAutocomplete({
+    container: '#place',
+    plugins: [
+      opencage.OpenCageGeoSearchPlugin({
+        key: 'YOUR-GEOSEARCH-KEY',
+      }),
+    ],
+  });
+</script>
     <div class="container py-5 h-100">
         <div class="row justify-content-center align-items-center h-100">
             <div class="col">
@@ -63,9 +78,10 @@
                     <div class="col-md-5 mb-4">
                         {{ form_row(registrationForm.description_user) }}
                     </div>
-                    <div class="col-md-5 mb-4">
+                    <div id="place" class="col-md-5 mb-4">
                         {{ form_row(registrationForm.adresse_user) }}
                     </div>
+    
                 </div>
 
                 <div class="row">

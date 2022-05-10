@@ -11,7 +11,6 @@ use App\Form\PassType;
 use App\Form\UserType;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,7 +42,7 @@ class UserController extends AbstractController
             $allusers = $userRepository->orderByNom();
         }
         $user = $paginator->paginate(
-        // Doctrine Query, not results
+            // Doctrine Query, not results
             $allusers,
             // Define the page parameter
             $request->query->getInt('page', 1),
@@ -74,8 +73,10 @@ class UserController extends AbstractController
             $test = $this->getDoctrine()->getRepository(User::class)->findOneBy(array('emailUser' => $username, 'passwordUser' => $password, 'archive' => 0));
             if (!$test) {
 
-                $this->get('session')->getFlashBag()->add('info',
-                    'Login Incorrecte Vérifier Votre Login');
+                $this->get('session')->getFlashBag()->add(
+                    'info',
+                    'Login Incorrecte Vérifier Votre Login'
+                );
             } else {
                 if (!$session->has('usr')) {
                     $session->set('usr', $test);
@@ -83,6 +84,7 @@ class UserController extends AbstractController
 
                     return $this->render('user/profile.html.twig', [
                         'usr' => $u
+
                     ]);
                 } else {
                     $u = $session->get('usr');
@@ -166,7 +168,8 @@ class UserController extends AbstractController
                 ->to($user->getEmailUser())
                 ->html(
                     "<p> bonjour ,</p><p></p> une demande de réinitialisation de mot de passe à été effectué pour l'application KoolMatch.
-                            veuillez cliquer sur le lien suivant: localhost:8000" . $url . "</p>");
+                            veuillez cliquer sur le lien suivant: localhost:8000" . $url . "</p>"
+                );
 
             $mailer->send($message);
             $this->addFlash('message', "un e_mail de renitialisation de mot de passe  vous a ete envoye");
@@ -199,7 +202,6 @@ class UserController extends AbstractController
             return $this->redirectToRoute("user_login");
         }
         return $this->render('user/passforgotten.html.twig', ['form' => $form->createView(), 'Message' => "Entrez Votre Nouveau mot de passe!"]);
-
     }
 
     /**
@@ -234,11 +236,10 @@ class UserController extends AbstractController
                     $filename
                 );
             } catch (FileException $e) {
-                return $this->redirectToRoute('user_show');
+                // ... handle exception if something happens during file upload
             }
             $em = $this->getDoctrine()->getManager();
             $user->setPhotoUser($filename);
-            $this->getDoctrine()->getManager();
             $em->flush();
 
             return $this->redirectToRoute('user_show');
@@ -249,9 +250,7 @@ class UserController extends AbstractController
                 'usr' => $user,
             ]);
         }
-
     }
-
     /**
      * @Route("/logout", name="app_logout")
      */

@@ -26,7 +26,7 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $user->getPhotoUser();
-            $filename = md5(uniqid()) . '.' .$file->guessExtension();
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
             try {
                 $file->move(
                     $this->getParameter('images_directory'),
@@ -35,6 +35,12 @@ class RegistrationController extends AbstractController
             } catch (FileException $e) {
                 // ... handle exception if something happens during file upload
             }
+            $geocoder = new \OpenCage\Geocoder\Geocoder('1d6b2244086f43a5af7f645a47a06fa7');
+            $result = $geocoder->geocode($user->getAdresseUser());
+            $first = $result['results'][0];
+            $user->setLatitude($first['geometry']['lng']);
+
+
             $entityManager = $this->getDoctrine()->getManager();
             $user->setPhotoUser($filename);
             $to = $form["emailUser"]->getData();
@@ -54,5 +60,4 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
-
 }
