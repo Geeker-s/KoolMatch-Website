@@ -22,9 +22,7 @@ class UserType extends AbstractType
                 'required' => false,
                 'empty_data' => '',
             ])
-            ->add('photoUser',FileType::class)
             ->add('adresseUser')
-            ->add("save",SubmitType::class)
         ;
     }
 

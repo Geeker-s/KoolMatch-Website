@@ -42,7 +42,7 @@ class UserController extends AbstractController
             $allusers = $userRepository->orderByNom();
         }
         $user = $paginator->paginate(
-            // Doctrine Query, not results
+        // Doctrine Query, not results
             $allusers,
             // Define the page parameter
             $request->query->getInt('page', 1),
@@ -222,28 +222,18 @@ class UserController extends AbstractController
     public function edit(Request $request): Response
     {
         $session = $request->getSession();
+        $user = new User();
         $user = $session->get('usr');
-        $user->setPhotoUser("");
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $file = $user->getPhotoUser();
-            $filename = md5(uniqid()) . '.' . $file->guessExtension();
-            try {
-                $file->move(
-                    $this->getParameter('images_directory'),
-                    $filename
-                );
-            } catch (FileException $e) {
-                // ... handle exception if something happens during file upload
-            }
-            $em = $this->getDoctrine()->getManager();
-            $user->setPhotoUser($filename);
-            $em->flush();
+        if ($form->isSubmitted()) {
 
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
             return $this->redirectToRoute('user_show');
         } else {
+
             return $this->render('user/edit.html.twig', [
 
                 'form' => $form->createView(),
@@ -251,11 +241,14 @@ class UserController extends AbstractController
             ]);
         }
     }
+
     /**
      * @Route("/logout", name="app_logout")
      */
-    public function logout(): void
+    public function logout(Request $request): void
     {
+        $session = $request->getSession();
+        $session->clear();
         $this->redirectToRoute("/loginUser");
     }
 }
