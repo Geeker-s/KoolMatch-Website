@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container py-5 h-100">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col">
+                <h1 align="center">Veuillez remplire ce formulaire</h1>
+
+                    <p> Q1 - Combien de fois mangez-vous par jour ? </p>
+                    <div>
+                        <input type="radio" id="q1Choice1"
+                               name="contact" value="email">
+                        <label>moin de fois</label>
+
+                        <input type="radio" id="q1Choice">
+                        <label>3 fois</label>
+
+                        <input type="radio" id="q2Choice3">
+                        <label>plus de 3 fois</label>
+                    </div> <br>
+                    <p> Q2 - Que préférez-vous ?</p>
+                    <div>
+                        <input type="radio" id="q2Choice1">
+                        <label>sucré</label>
+
+                        <input type="radio" id="q2Choice">
+                        <label>salé</label>
+
+                        <input type="radio" id="q2Choice3">
+                        <label>les deux</label>
+                    </div> <br>
+                    <p> Q3 - Que préférez-vous ?</p>
+                    <div>
+                        <input type="radio" id="q3Choice1">
+                        <label>Manger à la maison</label>
+
+                        <input type="radio" id="q3Choice">
+                        <label>Manger dans un réstaurant</label>
+
+                        <input type="radio" id="q3Choice3">
+                        <label>Commander vos repas</label>
+                    </div> <br>
+                    <p> Q4 - Que préférez-vous ?</p>
+                    <div>
+                        <input type="radio" id="q4Choice1">
+                        <label>Nourriture saine</label>
+
+                        <input type="radio" id="q4Choice">
+                        <label>Fast Food</label>
+
+                        <input type="radio" id="q4Choice3">
+                        <label>Manger tous</label>
+                    </div> <br>
+                    <p> Q5 - Que préférez-vous ?</p>
+                    <div>
+                        <input type="radio" id="q5Choice1">
+                        <label>Légume</label>
+
+                        <input type="radio" id="q5Choice">
+                        <label>viande et pouaille</label>
+
+                        <input type="radio" id="q5Choice3">
+                        <label>Poisson</label>
+                    </div> <br>
+
+                    <div>
+                        <button type="submit">Valider</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

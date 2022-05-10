@@ -38,8 +38,8 @@ class RegistrationController extends AbstractController
             $geocoder = new \OpenCage\Geocoder\Geocoder('1d6b2244086f43a5af7f645a47a06fa7');
             $result = $geocoder->geocode($user->getAdresseUser());
             $first = $result['results'][0];
-            $user->setLatitude($first['geometry']['lng']);
-
+            $user->setLatitude($first['geometry']['lat']);
+            $user->setLongitude($first['geometry']['lng']);
 
             $entityManager = $this->getDoctrine()->getManager();
             $user->setPhotoUser($filename);

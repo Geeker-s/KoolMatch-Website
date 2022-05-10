@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -37,8 +38,8 @@ class RegistrationType extends AbstractType
             ->add('maxDistance_user')
             ->add('preferredMinAge_user')
             ->add('preferredMaxAge_user')
-            ->add('latitude')
-            ->add('longitude')
+            ->add('latitude',HiddenType::class)
+            ->add('longitude',HiddenType::class)
             ->add('Interet_user')
             ->add('register', SubmitType::class)
         ;
