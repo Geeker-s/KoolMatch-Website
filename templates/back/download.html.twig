@@ -1,0 +1,45 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Tableau des Reservations</title>
+</head>
+<body >
+<h1 style="text-align: center; color: red">Reservation Services</h1>
+<h2 style="text-align: center">Tableau des Reservation</h2>
+
+ <table border="1">
+               
+                          <thead>
+                  <tr>
+                    <th scope="col"> Nom user</th>
+                     <th scope="col">Image</th>
+                    <th scope="col">Nom resto</th>
+                    <th scope="col">Specialite</th>
+                    <th scope="col">Date</th>
+                    
+                
+                  </tr>
+                </thead>
+                          {% for e in Reservation %}
+                    
+                        <tr>
+                        <td>Foulen</td>
+                        <td> <img style="width:100px ; height:100px" class="card-text" src="{{asset(e.idRestaurant.image)}}"/></td>
+                        <td>{{e.idRestaurant.nomRestaurant}}</td>
+                         <td>{{ e.nbplaceReservation }}</td>
+                        <td>{{e.dateReservation.format('d/m/Y')}} </td>
+                       
+                   
+                       
+                       
+                        </tr>
+
+                 {% endfor %}
+                </table>
+
+
+</body>
+</html>

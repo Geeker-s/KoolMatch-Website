@@ -3,47 +3,118 @@
 {% block title %}Hello MatchingController!{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    </style>
+    <div class="tinder--filter">
+        <h6> {{ adrr }} </h6>
+        <div id="map1" style="width:400px; height:300px;"></div>
+        <div class="rangeslider">
+            <p>Distance préférée: <span id="valueDistance"></span></p>
+            <input type="range" id="distance" name="distance"
+                   min="1" max="150" value="{{ connectedUser.maxdistanceUser }}" class="myslider" step="1">
+        </div>
+        <div class="rangeslider">
+            <p>Age Min préférée: <span id="valueAge"></span></p>
+            <input type="range" id="age" name="age"
+                   min="18" max="58" value="{{ connectedUser.preferredminageUser }}" class="myslider" step="1">
+        </div>
+
+        <div class="rangeslider">
+            <p>Age Max préférée: <span id="valueAgeMax"></span></p>
+            <input type="range" id="ageMax" name="ageMax"
+                   min="18" max="60" value="{{ connectedUser.preferredmaxageUser }}" class="myslider" step="1">
+        </div>
+        <button><a id="filter" href="{{ path('filter',{'id':connectedUser.idUser}) }}" onclick=""> Filter </a>
+        </button>
+    </div>
     <div class="tinder">
         <div class="tinder--status">
             <i class="fa fa-remove"></i>
             <i class="fa fa-heart"></i>
         </div>
-
-
         <div class="tinder--cards">
-            {%for i in interactions  %}
-                <div class="tinder--card"  data-whatever="{{ i.idUser }}">
-                    <img src = "{{asset('back/assets/img/users/'~ i.photoUser)}}">
-                    {#<img src="https://placeimg.com/600/300/animals">#}
-                    <h3>{{ i.nomUser }}</h3>
-                    <h6>{{ i.adresseUser }}</h6>
-                    <h6>{{ i.adresseUser }}</h6>
-                    <p>{{ i.descriptionUser }}</p>
-                </div>
-            {%endfor %}
+            {% for i in interactions %}
+                <div class="tinder--card" data-whatever="{{ i.idUser }}">
+                    <img src="{{ asset('back/assets/img/users/'~ i.photoUser) }}">
+                    {# <img src="https://placeimg.com/600/300/animals"> #}
+                    <h3 align="left">{{ i.nomUser ~", " ~ i.getAge() }}</h3>
 
+                    <h5 align="left" style="padding-left: 16px"><img
+                                src="{{ asset('back/assets/img/Interaction/study.png') }}"
+                                style="width: 5%;padding-right: 3px" class="img-icons" width="2%">{{ i.adresseUser }}
+                    </h5>
+                    <h5 align="left" style="padding-left: 16px"><img
+                                src="{{ asset('back/assets/img/Interaction/location.png') }}"
+                                style="width: 5%;padding-right: 3px" class="img-icons"
+                                width="2%">à {{ i.distance(lat,lon,i.latitude,i.longitude) }} kilomètre</h5>
+
+                    <p align="left">{{ i.descriptionUser }}</p>
+
+                </div>
+            {% endfor %}
         </div>
         <div class="tinder--buttons">
             <button id="nope"><i class="fa fa-remove"></i></button>
             <button id="love"><i class="fa fa-heart"></i></button>
         </div>
     </div>
-
     <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script>
-
     <script src='https://hammerjs.github.io/dist/hammer.min.js'></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script id="rendered-js" >
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+            integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+            crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/@opencage/geosearch-bundle"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@opencage/leaflet-opencage-geosearch"></script>
+    <script id="rendered-js">
         'use strict';
+        //map
+        document.addEventListener('DOMContentLoaded', () => {
+
+
+            // create and initialize leaflet map object
+            var map = L.map('map1').setView([{{ lat }}, {{ lon }}], 11);
+            var circle = L.circle([{{ lat }}, {{ lon }}], {
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.5,
+                radius: {{ connectedUser.maxdistanceUser }}*1000
+            }).addTo(map);
+            circle.bindPopup("Distance préférée");
+
+
+            // load map tiles
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png').addTo(map);
+
+
+            //slider
+            var rangesliderDistance = document.getElementById("distance");
+            var rangesliderAge = document.getElementById("age");
+            var rangesliderAgeMax = document.getElementById("ageMax");
+            var outputDistance = document.getElementById("valueDistance");
+            var outputAge = document.getElementById("valueAge");
+            var outputAgeMax = document.getElementById("valueAgeMax");
+
+            outputDistance.innerHTML = rangesliderDistance.value;
+            outputAge.innerHTML = rangesliderAge.value;
+            outputAgeMax.innerHTML = rangesliderAgeMax.value;
+
+
+            rangesliderDistance.oninput = function () {
+                outputDistance.innerHTML = this.value;
+                circle.setRadius(this.value * 1000);
+            }
+            rangesliderAge.oninput = function () {
+                outputAge.innerHTML = this.value;
+            }
+            rangesliderAgeMax.oninput = function () {
+                outputAgeMax.innerHTML = this.value;
+            }
+        });
+
+
         var tinderContainer = document.querySelector('.tinder');
         var allCards = document.querySelectorAll('.tinder--card');
         var nope = document.getElementById('nope');
         var love = document.getElementById('love');
-
 
         function initCards(card, index) {
             var newCards = document.querySelectorAll('.tinder--card:not(.removed)');
@@ -94,6 +165,7 @@
                 }
             });
         });
+
         function createButtonListener(love) {
             return function (event) {
                 var cards = document.querySelectorAll('.tinder--card:not(.removed)');
@@ -101,12 +173,12 @@
                 if (!cards.length) return false;
                 var card = cards[0];
                 card.classList.add('removed');
-                var idu =card.getAttribute('data-whatever');
+                var idu = card.getAttribute('data-whatever');
                 if (love) {
                     console.log(idu);
-                    var url ="{{ path('addInteraction')}}";
+                    var url = "{{ path('addInteraction') }}";
                     var type = "o";
-                    var data={type: type, iduser: idu};
+                    var data = {type: type, iduser: idu};
                     $.ajax({
                         type: "POST",
                         url: url,
@@ -125,9 +197,9 @@
                         }
                     });
                 } else {
-                    var url ="{{ path('addInteraction')}}";
+                    var url = "{{ path('addInteraction') }}";
                     var type = "x";
-                    var data={type: type, iduser: idu};
+                    var data = {type: type, iduser: idu};
                     $.ajax({
                         type: "POST",
                         url: url,

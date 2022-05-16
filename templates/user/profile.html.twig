@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+    <div class="container py-5 h-100">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col">
+                <h1 align="center">Profile</h1>
+
+                <a href="{{path('app_logout')}}">Deconnexion</a>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th>Nom : </th>
+                        <td>{{usr.nomUser }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prenom : </th>
+                        <td>{{ usr.prenomUser }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email : </th>
+                        <td> {{ usr.emailUser }}</td>
+                    </tr>
+                    <tr>
+                        <th>Téléphone : </th>
+                        <td>{{ usr.telephoneUser }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de Naissance : </th>
+                        <td>{{ usr.dateNaissanceUser | date("d/m/y") }}</td>
+                    </tr>
+                    <tr>
+                        <th>Adresse : </th>
+                        <td>{{ usr.adresseUser }}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <a href="{{ path('user_edit', {'idUser': usr.idUser}) }}"><input class="favorite styled" type="button" value="Modifier"></a>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+{% endblock %}

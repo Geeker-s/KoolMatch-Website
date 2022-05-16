@@ -1,0 +1,94 @@
+{% extends 'back/index.html.twig' %}
+
+
+
+
+{% block body %}
+
+    {% for message in app.flashes('info') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <div class="col-lg-6" style="margin-top: 100px;align-items: center;justify-content: center;margin-left: auto;margin-right: auto">
+
+        <div class="card" >
+            <div class="card-body" >
+                <h5 class="card-title">Ajouter  evenement</h5>
+
+                <!-- General Form Elements -->
+                {{ form_start(f,{attr:{novalidate : 'novalidate'}}) }}
+                    <div class="row mb-3">
+                        <label for="inputText" class="col-sm-2 col-form-label">Nom </label>
+                        <div class="col-sm-10">
+                            {{ form_widget(f.nomEvent,{'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(f.nomEvent,{'attr':{'class':'text-danger'}}) }}
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-3">
+                        <label for="inputDate" class="col-sm-2 col-form-label">Date debut</label>
+                        <div class="col-sm-10">
+                            {{ form_widget(f.ddEvent,{'attr':{'class': 'input-group date', 'data-provide' : 'datepicker'} }) }}
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="inputDate" class="col-sm-2 col-form-label">Date fin</label>
+                        <div class="col-sm-10">
+                            {{ form_widget(f.dfEvent,{'attr':{'class': 'input-group date', 'data-provide' : 'datepicker'} }) }}
+                            {{ form_errors(f.dfEvent,{'attr':{'class':'text-danger'}}) }}
+
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="inputText" class="col-sm-2 col-form-label">Theme </label>
+                        <div class="col-sm-10">
+                            {{ form_widget(f.themeEvent,{'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(f.themeEvent,{'attr':{'class':'text-danger'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="inputText" class="col-sm-2 col-form-label">Adresse</label>
+                        <div class="col-sm-10">
+                            {{ form_widget(f.adresseEvent,{'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(f.adresseEvent,{'attr':{'class':'text-danger'}}) }}
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <div class="row mb-3">
+                        <label for="inputNumber" class="col-sm-2 col-form-label">Telephone</label>
+                        <div class="col-sm-10">
+                            {{ form_widget(f.telephone,{'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(f.telephone,{'attr':{'class':'text-danger'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="row mb-3" style="align-items: center">
+
+                        <div class="col-sm-10" style="display: flex;align-items: center;justify-content: center">
+
+                            {{ form_widget(f.submit ,{'attr':{'class':'btn btn-primary'}}) }}
+                        </div>
+                    </div>
+
+                <!-- End General Form Elements -->
+                {{ form_end(f) }}
+
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,168 @@
+{% extends 'back/index.html.twig' %}
+
+{% block title %}Hello RecetteController!{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('info') %}
+        <div class="alertaa">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{ message }}
+        </div>
+    {% endfor %}
+    <style>
+        button {
+            display: inline-block;
+            background-color: #ffa69e;
+            border-radius: 10px;
+            border: 4px double #cccccc;
+            color: #eeeeee;
+            text-align: center;
+            font-size: 28px;
+            padding: 5px;
+            width: 100%;
+            -webkit-transition: all 0.5s;
+            -moz-transition: all 0.5s;
+            -o-transition: all 0.5s;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .alertaa {
+            padding: 20px;
+            background-color: #40826d; /* Red */
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        /* The close button */
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        /* When moving the mouse over the close button */
+        .closebtn:hover {
+            color: black;
+        }
+
+        .kka {
+            color: #fff;
+            background-color: #EFEFEF;
+            border-color: #EFEFEF;
+            font-size: 20px;
+            padding: 3px;
+        }
+
+        .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .styled-table thead tr {
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 15px;
+        }
+
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #009879;
+        }
+
+        .styled-table tbody tr.active-row {
+            font-weight: bold;
+            color: #009879;
+        }
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#myInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+
+    <h1>List des Quiz</h1>
+    <br>
+    <input id="myInput" type="text" placeholder="Search..">
+    <br><br>
+
+    <table class="styled-table">
+        <tr>
+            <th> Question 1</th>
+            <th> Réponse correct</th>
+            <td>choix 1</td>
+            <th> choix 2</th>
+            <td>choix 3</td>
+            <th> Question 2</th>
+            <th> Réponse correct</th>
+            <td>choix 1</td>
+            <th> choix 2</th>
+            <td>choix 3</td>
+            <th> Question 3</th>
+            <th> Réponse correct</th>
+            <td>choix 1</td>
+            <th> choix 2</th>
+            <td>choix 3</td>
+            <td>nom recette</td>
+        </tr>
+        <tbody id="myTable">
+        <tr {% for q in Quiz %} >
+
+            <td> {{ q.getQ1() }} </td>
+            <td>{{ q.getRc1() }} </td>
+            <td> {{ q.getRf11() }} </td>
+            <td>{{ q.getRf12() }} </td>
+            <td> {{ q.getRf13() }} </td>
+            <td> {{ q.getQ2() }} </td>
+            <td>{{ q.getRc2() }} </td>
+            <td> {{ q.getRf21() }} </td>
+            <td>{{ q.getRf22() }} </td>
+            <td> {{ q.getRf23() }} </td>
+            <td> {{ q.getQ3() }} </td>
+            <td>{{ q.getRc3() }} </td>
+            <td> {{ q.getRf31() }} </td>
+            <td>{{ q.getRf32() }} </td>
+            <td> {{ q.getRf33() }} </td>
+            <td> {{ q.idRecette.getNomRecette() }} </td>
+            <td>
+                <button class="kka"><a href="{{ path('sq',{'id':q.getIdQuiz()}) }}"><p style="color:#000000">Delete </p>
+                    </a>
+                </button>
+            </td>
+            <td>
+                <button class="kka"><a href="{{ path('u',{'id':q.getIdQuiz()}) }}"><p style="color:#000000">Update </p>
+                    </a>
+                </button>
+            </td>
+        </tr {% endfor %}>
+        </tbody>
+    </table>
+{% endblock %}

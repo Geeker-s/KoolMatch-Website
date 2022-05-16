@@ -1,0 +1,53 @@
+{% extends 'back/index.html.twig' %}
+
+{% block title %}Gestion des gérants{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success" align="center">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="example-wrapper">
+        <h4 align="center"> Gestion des Gerants </h4>
+
+        {{ form_start(searchform) }}
+        {{ form_widget(searchform) }}
+        <button class="btn col-5" >{{ button_label|default('Rechercher') }}</button>
+        {{ form_end(searchform) }}
+        <a href="{{ path('addgerant') }}"><input class="favorite styled" type="button" value="Ajouter Gérant"></a>
+
+        <div style=" align-items: center ; justify-content: center ">
+
+            <table class="table">
+                <thead>
+                <th> Nom  </th>
+                <th> Prenom  </th>
+                <th> Email </th>
+                <th> Téléphone </th>
+                <th> Date début abonnement </th>
+                <th> Date fin abonnement </th>
+                </thead>
+                <tbody>
+                {% for gerant in gr  %}
+                    <tr>
+                        <td> {{ gerant.nomGerant }}</td>
+                        <td> {{ gerant.prenomGerant }} </td>
+                        <td> {{ gerant.emailGerant }}</td>
+                        <td> {{ gerant.telephoneGerant }}</td>
+                        <td> {{ gerant.ddAbonnement|date('d-m-Y') }} </td>
+                        <td> {{ gerant.dfAbonnement|date('d-m-Y') }} </td>
+                        <td> <a href="{{ path('modifgerant',{'idGerant':gerant.idGerant}) }}"><input class="favorite styled" type="button" value="Modifier"></a> </td>
+                        <td> <a href="{{ path('blocgerant',{'idGerant':gerant.idGerant}) }}"><input class="favorite styled" type="button" value="Bloquer"></a> </td>
+                        <td> <a href="{{ path('inblocgerant',{'idGerant':gerant.idGerant}) }}"><input class="favorite styled" type="button" value="Débloquer"></a> </td>
+                        <td> <a href="{{ path('suprimer_gerant',{'idGerant':gerant.idGerant}) }}"><input class="favorite styled" type="button" value="Supprimer"></a> </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="navigation">
+            {{ knp_pagination_render(gr) }}
+        </div>
+    </div>
+{% endblock %}

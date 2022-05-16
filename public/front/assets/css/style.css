@@ -3,7 +3,6 @@ body {
   overflow: hidden;
   color: #535353;
 }
-
 a {
   color: #84dcc6;
   text-decoration: none;
@@ -1213,15 +1212,105 @@ section {
   display: inline-block;
   width: 90vw;
   max-width: 400px;
-  height: 70vh;
+  height: 65vh;
   background: #ffffff;
-  padding-bottom: 40px;
   border-radius: 8px;
   overflow: hidden;
   position: absolute;
   will-change: transform;
   transition: all 0.3s ease-in-out;
   cursor: grab;
+}
+
+
+.tinder--filter {
+  display: flex;
+  width: 90vw;
+  max-width: 400px;
+  height: 65vh;
+  background: rgba(255, 255, 255, 0.85);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 25vh;
+  margin-top: 3vh;
+  border-radius: 8px;
+  overflow: hidden;
+  will-change: transform;
+  transition: all 0.3s ease-in-out;
+  cursor: grab;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+
+.tinder--filter h6{
+  padding-bottom: 5px;
+  padding-top: 5px;
+
+}
+
+.tinder--filter button {
+  padding: 1.3em 3em;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+.tinder--filter button:hover {
+  background-color: #ffa69e;
+  box-shadow: 0px 15px 20px rgba(229, 46, 156, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+.tinder--filter button:active {
+  transform: translateY(-1px);
+}
+
+
+.rangeslider{
+  width: 100%;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: flex-end;
+  align-items: stretch;
+}
+
+
+.myslider {
+  -webkit-appearance: none;
+  background: #ffa69e;
+  width: 50%;
+  height: 20px;
+  opacity: 2;
+}
+
+
+.myslider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  cursor: pointer;
+  background: #34495E  ;
+  width: 5%;
+  height: 20px;
+}
+
+
+.myslider:hover {
+  opacity: 1;
 }
 
 .moving.tinder--card {
@@ -1234,6 +1323,14 @@ section {
   width: 400px;
   height: 50%;
   max-width: 100%;
+  max-height: 400px;
+  pointer-events: none;
+}
+
+.tinder--card img-icons{
+  width: 400px;
+  height: 50%;
+  max-width: 4%;
   max-height: 400px;
   pointer-events: none;
 }
@@ -1255,7 +1352,7 @@ section {
 .tinder--buttons {
   flex: 0 0 100px;
   text-align: center;
-  padding-top: 20px;
+  padding-top: 15px;
 }
 
 .tinder--buttons button {

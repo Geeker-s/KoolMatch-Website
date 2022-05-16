@@ -4,6 +4,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    twilio_number: '%env(TWILIO_NUMBER)%'
+    images_directory: '%kernel.project_dir%/public/uploads/images'
 
 services:
     # default configuration for services in *this* file
@@ -28,3 +30,9 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    twilio.client:
+        class: Twilio\Rest\Client
+        arguments: ['%env(TWILIO_ACCOUNT_SID)%', '%env(TWILIO_AUTH_TOKEN)%']
+
+    Twilio\Rest\Client: '@twilio.client'

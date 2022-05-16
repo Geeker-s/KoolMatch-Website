@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MessageController!{% endblock %}
+
+{% block body %}
+    <html>
+<header>
+    <center>
+    <h1>create a message!!</h1>
+    <h2>
+        <strong>   {{ form_start(f) }}
+
+            {{ form_row(f.titreConversation , {'attr' : { 'placeholder':"saisir le titre " }}) }}
+            {{ form_row(f.idUser1 , {'attr' : { 'placeholder':"saisir le 1ere utilisateur " }}) }}
+            {{ form_row(f.idUser2 , {'attr' : { 'placeholder':"saisir le 2eme utilisateur " }}) }}
+
+            <button type="submit" class="btn btn-success">envoyer</button>
+            {{ form_end(f) }}
+        </strong>
+    </h2>
+    </center>
+</header>
+    </html>
+{% endblock %}

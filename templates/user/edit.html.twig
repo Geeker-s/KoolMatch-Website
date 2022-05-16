@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier Profile{% endblock %}
+
+
+{% block body %}
+    <div class="container py-5 h-100">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col">
+                <h1 align="center">Modifier Profile</h1>
+
+                {{ include('user/_form.html.twig', {'button_label': 'Modifier'}) }}
+                <a href="{{ path('user_show', {'idUser': usr.idUser}) }}"><input class="favorite styled" type="button" value="Profile"></a>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

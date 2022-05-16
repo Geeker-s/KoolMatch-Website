@@ -1,0 +1,111 @@
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KoolMatch !</title>
+    <link href="https://fonts.googleapis.com/css?family=Dosis:600|Roboto:400,700" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href="{{asset('home/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('home/css/paper-kit.min.css')}}" rel="stylesheet">
+    <link href="{{asset('home/css/main.css')}}" rel="stylesheet">
+</head>
+<body id="top">
+<header>
+    <div class="aa-header">
+        <nav class="navbar navbar-expand-md navbar-transparent">
+            <div class="container"><img class="img-fluid pr-3 aa-logo-img" src="{{ asset('front/assets/img/kool.png') }}" width="10%" alt="logo"><a class="navbar-brand px-0 py-0" href="#">KoolMatch</a>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="{{path('home')}}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{path('gerant_login')}}">Pour Gerant</a></li>
+                        <li class="nav-item"><a class="btn btn-outline-neutral btn-round" href="{{path('registration')}}">Inscription</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container aa-header-content text-left text-white">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <h1 class="text-white mb-4">KoolMatch <br/>Cross platform dating app</h1>
+                    <p>An awesome Cross Platform Application to get your perfect Match. Available on Desktop, Mobile and Web.</p>
+                    <ul class="py-1 list-unstyled">
+                        <li class="py-2"><i class="fa fa-check-circle pr-4" aria-hidden="true"></i> Amazing Design to Present Yourself and your interest</li>
+                        <li class="py-2"><i class="fa fa-check-circle pr-4" aria-hidden="true"></i> Fully Responsive and Powered by KoolMatch Team</li>
+                        <li class="py-2"><i class="fa fa-check-circle pr-4" aria-hidden="true"></i> Very Easy to Customize and Setup Your Profile</li>
+                    </ul><a class="mt-4 btn btn-outline-neutral btn-round" href="{{path('user_login')}}">Swipe Now!</a>
+                </div>
+                <div class="col-md-6 col-sm-12 text-right"><img class="img-fluid" src="{{ asset('front/assets/img/Group 1028.png') }}" alt="Image"></div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="page-content">
+    <style>
+        .example-wrapper { margin: 1em auto; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5}
+    </style>
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success" align="center">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="example-wrapper">
+        <div style="display : flex ; align-items: center ; justify-content: center ">
+            <div class="card">
+                <div class="card-body">
+                    {{ form_start(u,{attr:{novalidate:'novalidate'}}) }}
+
+
+                    <div class="row mb-3">
+                        <label for="inputEmail" class="col-sm-6 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            {{ form_widget(u.emailUser,{'attr':{'class':'form-control'}}) }}
+                        </div>
+                        {{ form_errors(u.emailUser,{'attr':{'class':'text-danger'}}) }}
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputPassword" class="col-sm-6 col-form-label">Mot de passe</label>
+                        <div class="col-sm-10">
+                            {{ form_widget(u.passwordUser,{'attr':{'class':'form-control'}}) }}
+                        </div>
+                        {{ form_errors(u.passwordUser,{'attr':{'class':'text-danger'}}) }}
+                    </div>
+                    {{ form_widget(u.captchaCode) }}
+                    <div class="row mb-3" align="right">
+
+                        <div class="col-sm-10">
+                            {{ form_widget(u.connexion,{'attr':{'class':'btn btn-primary'}}) }}
+                        </div>
+                    </div>
+
+
+                    {{ form_end (u) }}
+                    <a href="{{ path('app_forgotten_password') }}"><input  class="btn" value="Mot de passe oublié ?"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<footer class="footer-black aa-footer">
+    <div class="container py-5">
+        <div class="row text-center">
+            <div class="col-md-12"><a class="btn btn-link btn-neutral" href="#"><i class="fa fa-facebook fa-2x" aria-hidden="true"></i></a><a class="btn btn-link btn-neutral" href="#"><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a><a class="btn btn-link btn-neutral" href="#"><i class="fa fa-google-plus fa-2x" aria-hidden="true"></i></a><a class="btn btn-link btn-neutral" href="#"><i class="fa fa-instagram fa-2x" aria-hidden="true"></i></a></div>
+            <div class="col-md-12">
+                <p class="mt-3">Copyright &copy; KoolMatch. All rights reserved.<br>Design - <a class="credit" href="https://github.com/Geeker-s" target="_blank">KoolMatch Team</a></p>
+                <p class="mt-3">Espace Administrateur :<a class="credit" href="{{path('admin_login')}}" target="_blank">KoolMatch Admin space</a></p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="{{asset('home/scripts/jquery.min.js')}}"></script>
+<script src="{{asset('home/scripts/jquery-ui-1.12.1.custom.min.js?ver=1.1.0')}}"></script>
+<script src="{{asset('home/scripts/popper.min.js?ver=1.1.0')}}"></script>
+<script src="{{asset('home/scripts/bootstrap.min.js?ver=1.1.0')}}"></script>
+<script src="{{asset('home/scripts/paper-kit.js?ver=1.1.0')}}"></script>
+<script src="{{asset('home/scripts/main.js?ver=1.1.0')}}"></script>
+</body>
+</html>

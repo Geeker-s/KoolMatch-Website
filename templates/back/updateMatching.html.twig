@@ -1,0 +1,36 @@
+{% extends 'back/index.html.twig' %}
+
+{% block title %}Backend KOOLMATCH{% endblock %}
+
+{% block body %}
+
+    <div class="pagetitle">
+        <h1>Modifier Matching</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_back') }}">Home</a></li>
+                <li class="breadcrumb-item">Gestion Matching</li>
+                <li class="breadcrumb-item active">Matching</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+
+
+    {{ form_start(formMatching,{'attr':{'class':'form-horizontal'}}) }}
+    <h1> Modifier la Date du Matching </h1>
+
+
+    {{ form_errors(formMatching.dateMatching) }}
+    {{ form_label(formMatching.dateMatching,"Date Matching") }}
+    {{ form_widget(formMatching.dateMatching) }}
+
+
+
+
+
+
+    {{ form_end(formMatching) }}
+
+
+{% endblock %}

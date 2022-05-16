@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 
+use App\Repository\RecetteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Recette
  *
  * @ORM\Table(name="recette")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=RecetteRepository::class)
  */
 class Recette
 {
@@ -18,6 +21,7 @@ class Recette
      * @ORM\Column(name="id_recette", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("post:read")
      */
     private $idRecette;
 
@@ -25,6 +29,9 @@ class Recette
      * @var string
      *
      * @ORM\Column(name="nom_recette", type="string", length=20, nullable=false)
+     * @Assert\NotBlank(message="le nom est obligatoire")
+     * @Assert\Length(min=3,minMessage= "le nom doit contenir au moins  {{ limit }} caractères.")
+     * @Groups("post:read")
      */
     private $nomRecette;
 
@@ -32,6 +39,8 @@ class Recette
      * @var string
      *
      * @ORM\Column(name="photo_recette", type="string", length=255, nullable=false)
+     * @Assert\Image()
+     * @Groups("post:read")
      */
     private $photoRecette;
 
@@ -39,6 +48,8 @@ class Recette
      * @var string
      *
      * @ORM\Column(name="description_recette", type="string", length=255, nullable=false)
+     * @Assert\Length(min=4 , minMessage= "la description doit contenir au moins {{ limit }} caractères.")
+     * @Groups("post:read")
      */
     private $descriptionRecette;
 
@@ -46,6 +57,9 @@ class Recette
      * @var string
      *
      * @ORM\Column(name="categorie_recette", type="string", length=20, nullable=false)
+     * @Assert\NotBlank(message="categorie est obligatoire")
+     * @Assert\Length(min=3,minMessage= "la categorie doit contenir au moins {{ limit }} caractères.")
+     * @Groups("post:read")
      */
     private $categorieRecette;
 
@@ -53,6 +67,7 @@ class Recette
      * @var int
      *
      * @ORM\Column(name="duree_recette", type="integer", nullable=false)
+     * @Groups("post:read")
      */
     private $dureeRecette;
 
@@ -60,6 +75,8 @@ class Recette
      * @var int
      *
      * @ORM\Column(name="archive", type="integer", nullable=false)
+     * @Assert\NotBlank(message="la duree est obligatoire")
+     * @Groups("post:read")
      */
     private $archive = '0';
 

@@ -1,0 +1,246 @@
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KoolMatch !</title>
+    <link href="https://fonts.googleapis.com/css?family=Dosis:600|Roboto:400,700" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href="{{ asset('home/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('home/css/paper-kit.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('home/css/main.css') }}" rel="stylesheet">
+</head>
+<body id="top">
+<header>
+    <div class="aa-header">
+        <nav class="navbar navbar-expand-md navbar-transparent">
+            <div class="container"><img class="img-fluid pr-3 aa-logo-img"
+                                        src="{{ asset('front/assets/img/kool.png') }}" width="10%" alt="logo"><a
+                        class="navbar-brand px-0 py-0" href="#">KoolMatch</a>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="{{ path('home') }}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ path('gerant_login') }}">Pour Gerant</a></li>
+                        <li class="nav-item"><a class="btn btn-outline-neutral btn-round"
+                                                href="{{ path('registration') }}">Inscription</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container aa-header-content text-left text-white">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <h1 class="text-white mb-4">KoolMatch <br/>Cross platform dating app</h1>
+                    <p>An awesome Cross Platform Application to get your perfect Match. Available on Desktop, Mobile and
+                        Web.</p>
+                    <ul class="py-1 list-unstyled">
+                        <li class="py-2"><i class="fa fa-check-circle pr-4" aria-hidden="true"></i> Amazing Design to
+                            Present Yourself and your interest
+                        </li>
+                        <li class="py-2"><i class="fa fa-check-circle pr-4" aria-hidden="true"></i> Fully Responsive and
+                            Powered by KoolMatch Team
+                        </li>
+                        <li class="py-2"><i class="fa fa-check-circle pr-4" aria-hidden="true"></i> Very Easy to
+                            Customize and Setup Your Profile
+                        </li>
+                    </ul>
+                    <a class="mt-4 btn btn-outline-neutral btn-round" href="{{ path('user_login') }}">Swipe Now!</a>
+                </div>
+                <div class="col-md-6 col-sm-12 text-right"><img class="img-fluid"
+                                                                src="{{ asset('front/assets/img/Group 1028.png') }}"
+                                                                alt="Image"></div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="page-content">
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@opencage/geosearch-bundle/dist/css/autocomplete-theme-classic.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@opencage/geosearch-bundle"></script>
+
+    <div class="container py-5 h-100">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col">
+                <h1>Inscription</h1>
+
+                <h1 align="center">Veuillez remplire ce formulaire</h1>
+                <h3> Q1 - Combien de fois mangez-vous par jour ? </h3>
+                <div>
+                    <input type="radio" id="c11"
+                           name="c1" value="4">
+                    <label>moin de fois</label>
+
+                    <input type="radio" id="c12"
+                           name="c1" value="2">
+                    <label>3 fois</label>
+
+                    <input type="radio" id="c13"
+                           name="c1" value="0">
+                    <label>plus de 3 fois</label>
+                </div>
+                <h3> Q2 - Que préférez-vous ?</h3>
+                <div>
+                    <input type="radio" id="c21"
+                           name="c2" value="4">
+                    <label>sucré</label>
+
+                    <input type="radio" id="c22"
+                           name="c2" value="2">
+                    <label>salé</label>
+
+                    <input type="radio" id="c23"
+                           name="c2" value="0">
+                    <label>les deux</label>
+                </div>
+                <h3> Q3 - Que préférez-vous ?</h3>
+                <div>
+                    <input type="radio" id="c31"
+                           name="c3" value="4">
+                    <label>Manger à la maison</label>
+
+                    <input type="radio" id="c32"
+                           name="c3" value="2">
+                    <label>Manger dans un réstaurant</label>
+
+                    <input type="radio" id="c33"
+                           name="c3" value="0">
+                    <label>Commander vos repas</label>
+                </div>
+                <h3> Q4 - Que préférez-vous ?</h3>
+                <div>
+                    <input type="radio" id="c41"
+                           name="c4" value="4">
+                    <label>Nourriture saine</label>
+
+                    <input type="radio" id="c42"
+                           name="c4" value="2">
+                    <label>Fast Food</label>
+
+                    <input type="radio" id="c43"
+                           name="c4" value="0">
+                    <label>Manger tous</label>
+                </div>
+                <h3> Q5 - Que préférez-vous ?</h3>
+                <div>
+                    <input type="radio" id="c51"
+                           name="c5" value="4">
+                    <label>Légume</label>
+
+                    <input type="radio" id="c52"
+                           name="c5" value="2">
+                    <label>viande et pouaille</label>
+
+                    <input type="radio" id="c53"
+                           name="c5" value="0">
+                    <label>Poisson</label>
+                </div>
+
+                <a class="mt-4 btn btn-outline-neutral btn-round" id="ttt">Valider</a>
+                <br><br>
+
+
+                {# If there are any errors on the form, display them #}
+                {% set formErrors = registrationForm.vars.errors.form.getErrors(true) %}
+                {% if formErrors|length %}
+                    <div class="alert alert-danger">
+                        <ul>
+                            {% for error in formErrors %}
+                                <li>{{ error.message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                {# Render the Form #}
+                {{ form_start(registrationForm) }}
+
+                <div class="row">
+                    <div class="col-md-5 mb-4">
+                        {{ form_row(registrationForm.nomUser) }}
+                    </div>
+                    <div class="col-md-5 mb-4">
+                        {{ form_row(registrationForm.prenomUser) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5 mb-4">
+                        {{ form_row(registrationForm.emailUser) }}
+                    </div>
+                    <div class="col-md-5 mb-4">
+                        {{ form_row(registrationForm.passwordUser) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5 mb-4">
+                        {{ form_row(registrationForm.dateNaissance_user) }}
+                    </div>
+                    <div class="col-md-5 mb-4">
+                        {{ form_row(registrationForm.sexeUser) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5 mb-4">
+                        {{ form_row(registrationForm.telephone_user) }}
+                    </div>
+                    <div class="col-md-5 mb-4">
+                        {{ form_row(registrationForm.photo_user) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5 mb-4">
+                        {{ form_row(registrationForm.description_user) }}
+                    </div>
+                    <div id="place" class="col-md-5 mb-4">
+                        {{ form_row(registrationForm.adresse_user) }}
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-5">
+                        {{ form_row(registrationForm.maxDistance_user) }}
+                    </div>
+                    <div class="col-5">
+                        {{ form_row(registrationForm.preferredMinAge_user) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5">
+                        {{ form_row(registrationForm.preferredMaxAge_user) }}
+                    </div>
+                    <div class="col-5">
+                        {{ form_row(registrationForm.latitude) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5">
+                        {{ form_row(registrationForm.longitude) }}
+                    </div>
+                    <div class="col-5">
+                        {{ form_row(registrationForm.Interet_user) }}
+                    </div>
+                </div>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{{ asset('home/scripts/jquery.min.js') }}"></script>
+<script src="{{ asset('home/scripts/jquery-ui-1.12.1.custom.min.js?ver=1.1.0') }}"></script>
+<script src="{{ asset('home/scripts/popper.min.js?ver=1.1.0') }}"></script>
+<script src="{{ asset('home/scripts/bootstrap.min.js?ver=1.1.0') }}"></script>
+<script src="{{ asset('home/scripts/paper-kit.js?ver=1.1.0') }}"></script>
+<script src="{{ asset('home/scripts/main.js?ver=1.1.0') }}"></script>
+<script src="{{ asset('home/scripts/wess.js')}}"></script>
+</body>
+</html>

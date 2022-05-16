@@ -1,0 +1,299 @@
+{% extends 'back/index.html.twig' %}
+
+{% block title %}Hello RecetteController!{% endblock %}
+
+{% block body %}
+    <style>
+
+        table{
+            border-collapse: collapse;
+        }
+
+        th, td{
+            border: 1px solid black;
+            padding: 5px;
+        }
+        html {
+            background: lightgrey;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        p {
+            margin: 0 0 1.5em;
+        }
+
+        body::-webkit-scrollbar {
+            width: 1em;
+        }
+
+        body::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background-color: darkgrey;
+            outline: 1px solid slategrey;
+        }
+        #postcard{
+            z-index: 102;
+            /* margin: 50px auto; */
+            position: absolute;
+            transform: scale(1.2) rotate(30deg);
+            width: 229px;
+            /* left: 310px; */
+            bottom: 0;
+            position: fixed;
+        }
+
+        .move {
+            animation-duration: 4s;
+            animation-timing-function: ease-in-out;
+            animation-delay: 1s;
+            animation-direction: alternate;
+            animation-fill-mode: forwards;
+            animation-iteration-count: 1;
+            animation-play-state: running;
+            animation-name: anim;
+        }
+        input[type="file"] {
+            /* position: absolute; */
+            z-index: -1;
+            top: 10px;
+            left: 8px;
+            font-size: 17px;
+            color: #b8b8b8;
+        }
+        @-webkit-keyframes anim {
+            0% {
+                left: 0;
+            }
+            50% {
+                left: 100%;
+            }
+            100% {
+                left: 0;
+            }
+        }
+
+        @keyframes animTabletHor
+        {
+            from {left: 450px; transform: scale(1.2) rotate(30deg); z-index:102;  }
+            50%  {left: 950px; top: -200px; transform: scale(0.8) rotate(45deg); z-index:102; }
+            75% {left: 700px; top: -200px; transform: scale(0.8) rotate(45deg); z-index:1;}
+            to {left: 450px; transform: scale(1)  rotate(20deg); z-index:1;}
+        }
+
+        @keyframes animTablet
+        {
+            from {left: 250px; transform: scale(1.2) rotate(28deg); z-index:102;  }
+            50%  {left: 800px; top: -200px; transform: scale(0.8) rotate(45deg); z-index:102; }
+            75% {left: 600px; top: -200px; transform: scale(0.8) rotate(45deg); z-index:1;}
+            to {left: 300px; transform: scale(1)  rotate(20deg); z-index:1;}
+        }
+
+        @keyframes animPhone
+        {
+            from {transform: scale(1.2) rotate(28deg);}
+            25% {transform: scale(1) rotate(0deg);}
+            50% { transform: scale(0.8) rotate(0deg); top: -550px; ; z-index:102;}
+            75% { transform: scale(0.9) rotate(0deg); top: -200px; z-index:1;}
+            to { transform: scale(1) rotate(0deg); top: -100px; z-index:1;}
+        }
+
+        @media (min-width: 981px) and (max-width : 1280px) {
+            #postcard{
+                left: 450px;
+            }
+
+            .move {
+                animation-name: animTabletHor;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width : 980px) {
+            #postcard{
+                transform: scale(1.2) rotate(28deg);
+                left: 250px;
+            }
+
+            .move {
+                animation-name: animTablet;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #postcard{
+                left: auto;
+                top: 0px;
+            }
+            .move {
+                animation-name: animPhone;
+            }
+        }
+        ul {
+            list-style-type: none;
+            margin-left: 37%;
+            padding: 0
+        }
+
+        .rating {
+            margin-left: 37%
+        }
+
+        .page {
+            background-color: #dfe6e0;
+            padding: 2%;
+            margin: auto
+        }
+
+        .fa {
+            color: #f2dd1d
+        }
+
+        .card-img-top {
+            width: 90%;
+            height: 225px
+        }
+
+        .view {
+            background-color: #dfe6e0;
+            padding: 10px;
+            margin: 20px
+        }
+
+        .card {
+            width: 95%;
+            padding: 0px;
+            margin-left: 2%
+        }
+
+        .card-footer {
+            background-color: #ff772e;
+            font-weight: 700
+        }
+
+        .price {
+            color: #ff4517;
+            font-weight: 600
+        }
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            color: grey
+        }
+        #content {
+            max-width: 450px;
+            position: relative;
+            margin: 50px auto;
+            min-height: 200px;
+            z-index: 100;
+            padding: 30px;
+            border: 1px solid #383838;
+            /* My stipped background */
+            background: #D1D1D1; /* Old browsers */
+            background: -moz-repeating-linear-gradient(-45deg, #EFC1CB , #EFC1CB 30px, #F2F2F2 30px, #F2F2F2 40px, #C2E8F5 40px, #C2E8F5 70px,#F2F2F2 70px, #F2F2F2 80px); /* FF3.6+ */
+            background: -webkit-repeating-linear-gradient(-45deg, #EFC1CB , #EFC1CB 30px, #F2F2F2 30px, #F2F2F2 40px, #C2E8F5 40px, #C2E8F5 70px,#F2F2F2 70px, #F2F2F2 80px); /* FF3.6+ */
+            background: -o-repeating-linear-gradient(-45deg, #EFC1CB , #EFC1CB 30px, #F2F2F2 30px, #F2F2F2 40px, #C2E8F5 40px, #C2E8F5 70px,#F2F2F2 70px, #F2F2F2 80px); /* FF3.6+ */
+            background: repeating-linear-gradient(-45deg, #EFC1CB , #EFC1CB 30px, #F2F2F2 30px, #F2F2F2 40px, #C2E8F5 40px, #C2E8F5 70px,#F2F2F2 70px, #F2F2F2 80px); /* FF3.6+ */
+            /*border-radius*/
+            -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+            border-radius: 8px;
+            /*box-shadow*/
+            -webkit-box-shadow: 0px 1px 6px #3F3F3F;
+            -moz-box-shadow: 0px 1px 6px #3F3F3F;
+            box-shadow: 0px 1px 6px #3F3F3F;
+        }
+
+        /* * my "fake" background that will hover the stripes *
+         ================================================== */
+        #content form {
+            z-index: 101;
+        }
+
+        #content:after {
+            background: #F9F9F9;
+            margin: 10px;
+            position: absolute;
+            content : " ";
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 0;
+            z-index: -1;
+            border: 1px #E5E5E5 solid;
+            /*border-radius*/
+            -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+            border-radius: 8px;
+        }
+        label {
+            color: #7F7E7E;
+            -webkit-transition: color 1s ease;
+            -moz-transition: color 1s ease;
+            transition: color 1s ease;
+            font-size: large !important;
+        }
+
+        label:hover { color: #191919 }
+
+        label:before {
+            color: #C1BFBD;
+            -webkit-transition: color 1s ease;
+            -moz-transition: color 1s ease;
+            transition: color 1s ease;
+        }
+
+        label:hover:before {
+            color: #969696;
+            -webkit-transition: color 1s ease;
+            -moz-transition: color 1s ease;
+            transition: color 1s ease;
+        }
+
+        p { margin-bottom: 20px }
+        input, optgroup, textarea {
+            margin: 0;
+            font-family: inherit;
+            font-size: inherit;
+            width: -webkit-fill-available !important;
+            line-height: inherit;
+        }
+        button {
+            display: inline-block;
+            background-color: #ffa69e;
+            border-radius: 10px;
+            border: 4px double #cccccc;
+            color: #eeeeee;
+            text-align: center;
+            font-size: 28px;
+            padding: 5px;
+            width: 100%;
+            -webkit-transition: all 0.5s;
+            -moz-transition: all 0.5s;
+            -o-transition: all 0.5s;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+    </style>
+
+    <div class="example-wrapper">
+    <div class="container">
+    <div class="row">
+    <div></div>
+    <img id="postcard" src="{{ asset ('front/assets/img/logo.png') }}" alt="postcard" class="img-responsive move">
+    <div id="content" >
+
+<h1>Ajout Quiz</h1>
+        {{ form_start(formq,{'attr': {'novalidate': 'novalidate'}} ) }}
+        {{ form_end(formq)}}
+    </div>
+    </div>
+    </div>
+    </div>
+{% endblock  %}

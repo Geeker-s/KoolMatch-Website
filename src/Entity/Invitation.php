@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Invitation
@@ -18,20 +20,24 @@ class Invitation
      * @ORM\Column(name="id_invitation", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("Invitation")
      */
     private $idInvitation;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Nom evenement doit etre non vide")
      * @ORM\Column(name="nom_event", type="string", length=255, nullable=false)
+     * @Groups("Invitation")
+     *
      */
     private $nomEvent;
 
     /**
      * @var int
-     *
+     *@Assert\NotBlank(message="Id User doit etre non vide")
      * @ORM\Column(name="id_user", type="integer", nullable=false)
+     * @Groups("Invitation")
      */
     private $idUser;
 
@@ -39,6 +45,7 @@ class Invitation
      * @var int
      *
      * @ORM\Column(name="archive", type="integer", nullable=false)
+     * @Groups("Invitation")
      */
     private $archive = '0';
 
@@ -82,6 +89,7 @@ class Invitation
 
         return $this;
     }
+
 
 
 }

@@ -1,23 +1,29 @@
 <?php
 
 namespace App\Entity;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
+use Oh\GoogleMapFormTypeBundle\Traits\LocationTrait;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symdony\Component\Validator\Constraints\NotBlank;
+use App\Repository\UserRepository;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=UserRepository::class)
  */
 class User
 {
+    protected $captchaCode;
     /**
      * @var int
      *
      * @ORM\Column(name="id_user", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("algorithme")
      */
     private $idUser;
 
@@ -25,6 +31,8 @@ class User
      * @var string
      *
      * @ORM\Column(name="email_user", type="string", length=100, nullable=false)
+     * @Assert\NotBlank(message="Email doit etre non vide")
+     * @Assert\Email(message="Adresse Email invalide")
      */
     private $emailUser;
 
@@ -32,6 +40,11 @@ class User
      * @var string
      *
      * @ORM\Column(name="password_user", type="string", length=20, nullable=false)
+     * @Assert\NotBlank (message=" Mot de passe doit etre non vide")
+     * @Assert\Regex(
+     *      pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/",
+     *      message="Utiliser au moin une lettre Majiscule, une lettre miniscule et un nombre"
+     * )
      */
     private $passwordUser;
 
@@ -39,6 +52,7 @@ class User
      * @var string
      *
      * @ORM\Column(name="nom_user", type="string", length=20, nullable=false)
+     * @Groups("algorithme")
      */
     private $nomUser;
 
@@ -74,6 +88,7 @@ class User
      * @var string
      *
      * @ORM\Column(name="photo_user", type="string", length=100, nullable=false)
+     * @Groups("algorithme")
      */
     private $photoUser;
 
@@ -81,6 +96,7 @@ class User
      * @var string
      *
      * @ORM\Column(name="description_user", type="string", length=100, nullable=false)
+     * @Groups("algorithme")
      */
     private $descriptionUser;
 
@@ -109,20 +125,21 @@ class User
      * @var string
      *
      * @ORM\Column(name="adresse_user", type="string", length=255, nullable=false, options={"default"="x"})
+     * @Groups("algorithme")
      */
     private $adresseUser = 'x';
 
     /**
      * @var float
      *
-     * @ORM\Column(name="latitude", type="float", precision=10, scale=0, nullable=false)
+     * @ORM\Column(name="latitude", type="float", precision=10, scale=0, nullable=true)
      */
     private $latitude;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="longitude", type="float", precision=10, scale=0, nullable=false)
+     * @ORM\Column(name="longitude", type="float", precision=10, scale=0, nullable=true)
      */
     private $longitude;
 
@@ -139,6 +156,13 @@ class User
      * @ORM\Column(name="archive", type="integer", nullable=false)
      */
     private $archive = '0';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=300,nullable=true)
+     */
+    private $Reset_Token;
 
     public function getIdUser(): ?int
     {
@@ -198,12 +222,43 @@ class User
         return $this->datenaissanceUser;
     }
 
+    //added by wassim
+    public function getAge()
+    {
+        $dateInterval = $this->datenaissanceUser->diff(new \DateTime());
+        return $dateInterval->y;
+    }
+
+    public static function distance($lat1, $lng1, $lat2, $lng2) {
+        $earth_radius = 6378137;   // Terre = sphère de 6378km de rayon
+        $rlo1 = deg2rad($lng1);
+        $rla1 = deg2rad($lat1);
+        $rlo2 = deg2rad($lng2);
+        $rla2 = deg2rad($lat2);
+        $dlo = ($rlo2 - $rlo1) / 2;
+        $dla = ($rla2 - $rla1) / 2;
+        $a = (sin($dla) * sin($dla)) + cos($rla1) * cos($rla2) * (sin($dlo) * sin($dlo));
+        $d = 2 * atan2(sqrt($a), sqrt(1 - $a));
+        $meter = ($earth_radius * $d);
+        return round($meter / 1000);
+    }
+
+    public function updateU($distance,$age,$ageMax){
+        $this->setMaxdistanceUser( intval($distance));
+        $this->setPreferredmaxageUser(intval($ageMax));
+        $this->setPreferredminageUser(intval($age));
+    }
+
+    //Ending wassim function
+
+
     public function setDatenaissanceUser(\DateTimeInterface $datenaissanceUser): self
     {
         $this->datenaissanceUser = $datenaissanceUser;
 
         return $this;
     }
+
 
     public function getSexeUser(): ?string
     {
@@ -229,12 +284,12 @@ class User
         return $this;
     }
 
-    public function getPhotoUser(): ?string
+    public function getPhotoUser()
     {
         return $this->photoUser;
     }
 
-    public function setPhotoUser(string $photoUser): self
+    public function setPhotoUser( $photoUser)
     {
         $this->photoUser = $photoUser;
 
@@ -348,6 +403,28 @@ class User
 
         return $this;
     }
+    public function getCaptchaCode()
+    {
+        return $this->captchaCode;
+    }
+
+    public function setCaptchaCode($captchaCode)
+    {
+        $this->captchaCode = $captchaCode;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->Reset_Token;
+    }
+
+    public function setResetToken(string $Reset_Token): self
+    {
+        $this->Reset_Token = $Reset_Token;
+
+        return $this;
+    }
+
 
 
 }

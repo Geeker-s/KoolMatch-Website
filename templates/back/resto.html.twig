@@ -1,0 +1,146 @@
+{% extends 'gerant/profileGerant.html.twig' %}
+
+{% block title %}KoolMatch{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 1000px; width: 100%; font: 25px/0.9 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Ajouter Restaurant</h5>
+
+              <!-- General Form Elements -->
+               {{ form_start(forms,{'attr': {novalidate: 'novalidate'}} ) }}
+                <div class="row mb-3">
+                  <label for="inputText" class="col-sm-2 col-form-label"> {{ form_label(forms.nomRestaurant,"Nom Restaurant") }}</label>
+                  <div class="col-sm-10">
+                    <input {{ form_widget(forms.nomRestaurant,{'attr':{'class':'form-control'}})}} 
+                     {{ form_errors(forms.nomRestaurant) }}
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputText" class="col-sm-2 col-form-label"> {{ form_label(forms.adresseRestaurant,"Adresse Restaurant") }}</label>
+                  <div class="col-sm-10">
+                    <input {{ form_widget(forms.adresseRestaurant,{'attr':{'class':'form-control'}})}} 
+                     {{ form_errors(forms.adresseRestaurant) }}
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputText" class="col-sm-2 col-form-label">{{ form_label(forms.sitewebRestaurant,"Site web") }}</label>
+                  <div class="col-sm-10">
+                    <input {{ form_widget(forms.sitewebRestaurant,{'attr':{'class':'form-control'}})}} 
+                     {{ form_errors(forms.sitewebRestaurant) }}
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputText" class="col-sm-2 col-form-label"> {{ form_label(forms.specialiteRestaurant,"specialite Restaurant") }}</label>
+                  <div class="col-sm-10">
+                    <input {{ form_widget(forms.specialiteRestaurant,{'attr':{'class':'form-control'}})}} 
+                     {{ form_errors(forms.specialiteRestaurant) }}
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputNumber" class="col-sm-2 col-form-label">{{ form_label(forms.image,"image") }}</label>
+                  <div class="col-sm-10">
+                    <input {{ form_widget(forms.image,{'attr':{'class':'form-control'}})}} 
+                     {{ form_errors(forms.image) }}
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputNumber" class="col-sm-2 col-form-label"> {{ form_label(forms.nbPlaceresto,"number de place ") }}</label>
+                  <div class="col-sm-10">
+                    <input {{ form_widget(forms.nbPlaceresto,{'attr':{'class':'form-control'}})}} 
+                     {{ form_errors(forms.nbPlaceresto) }}
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="" class="col-sm-2 col-form-label"> {{ form_label(forms.description,"description") }}</label>
+                  <div class="col-sm-10">
+                    <input {{ form_widget(forms.description,{'attr':{'class':'form-control'}})}} 
+                     {{ form_errors(forms.description) }}
+                  </div>
+                </div>
+            
+                
+                 <div class="row mb-3">
+                  <label for="" class="col-sm-2 col-form-label">{{ form_label(forms.telephoneRestaurant,"Telephone Restaurant") }}</label>
+                  <div class="col-sm-10">
+                    <input {{ form_widget(forms.telephoneRestaurant,{'attr':{'class':'form-control'}})}} 
+                     {{ form_errors(forms.telephoneRestaurant) }}
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label for="" class="col-sm-2 col-form-label">{{ form_label(forms.lien,"lien") }}</label>
+                  <div class="col-sm-10">
+                    <input {{ form_widget(forms.lien,{'attr':{'class':'form-control'}})}} 
+  
+                     {{ form_errors(forms.lien) }}
+                  </div>
+                </div>
+
+
+                  {{ form_end(forms) }}
+
+                </div>
+                
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=&libraries=places"></script>
+
+ <script src="https://code.jquery.com/jquery-3.6.0.js"
+			  crossorigin="anonymous"></script>
+        
+      
+ 
+
+  
+ 
+ <script>
+    var autocomplete = new google.maps.places.Autocomplete(document.getElementById('restaurants_adresseRestaurant'));
+            autocomplete.setFields(['place_id', 'name', 'address_components', 'geometry']);
+            autocomplete.addListener('place_changed', function () {
+                const place = autocomplete.getPlace();
+                const components = place.address_components;
+
+                if (typeof components !== 'undefined') {
+                    for (component of components) {
+
+                        const type = component.types[0];
+                        const longName = component.long_name;
+                        const shortName = component.short_name;
+                        switch (type) {
+                            case 'street_number':
+                                streenumber = longName
+                                break;
+                            case 'route':
+                                mainAddress = streenumber + " " + shortName;
+                                break;
+                            case 'sublocality_level_2':
+                                mainAddress = mainAddress + " " + shortName;
+                                break;
+                            case 'sublocality_level_1':
+                                mainAddress = mainAddress + " " + shortName;
+                                break;
+                            case 'locality':
+                                $("#mainAddress").val(mainAddress);
+                                $("#locality").val(shortName);
+                                break;
+                            case 'postal_code':
+                                $('#postalcode').val(longName);
+                                break;
+                            case 'administrative_area_level_2':
+                               $("#city").val(longName);
+                                break;
+                            case 'administrative_area_level_1':                            
+                                $("#state").val(longName);
+                                break;
+
+                        }
+                    }
+                }
+            });
+   </script>
+{% endblock %}
